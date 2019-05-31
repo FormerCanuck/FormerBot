@@ -16,7 +16,7 @@ public class TopClips extends Command {
     @Override
     public void onCommand(String sender, String channel, String[] args) {
         channel = channel.substring(1);
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel);
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
@@ -27,14 +27,11 @@ public class TopClips extends Command {
 
             JsonArray jsonArray = temp.getAsJsonObject().get("data").getAsJsonArray();
 
-            StringBuilder msg = new StringBuilder();
+            Main.getInstance().getBot().messageChannel("Here are the top 5 clips:");
 
-            msg.append("Check out the top 5 clips: ");
-
-            for (int i = 0; i < 4; i++) {
-                msg.append(String.format("Clip name: %s and the link: %s", jsonArray.get(i).getAsJsonObject().get("title").getAsString(), jsonArray.get(i).getAsJsonObject().get("url").getAsString()));
+            for (int i = 0; i < 5; i++) {
+                Main.getInstance().getBot().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(i).getAsJsonObject().get("title").getAsString(), jsonArray.get(i).getAsJsonObject().get("url").getAsString()));
             }
-            Main.getInstance().getBot().messageChannel(msg.toString());
         }
     }
 }
