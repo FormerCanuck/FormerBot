@@ -35,12 +35,12 @@ public class ReadTwitchIRC implements Runnable {
                     String msg = stringBuilder.toString().substring(1);
 
                     if (msg.startsWith("!")) {
-
+                        String command = stringBuilder.substring(2, stringBuilder.indexOf(" "));
+                        stringBuilder.delete(0, stringBuilder.indexOf(" "));
+                        Main.getInstance().getBot().getCommandManager().onCommand(user, channel, command, stringBuilder.toString().split(" "));
                     }
 
-                    System.out.println(line);
-
-                    Main.getInstance().getConsole().println(String.format("[%s][%s]: %s", channel, user, msg), Color.RED);
+                    Main.getInstance().getConsole().println(String.format("[%s][%s]: %s", channel, user, msg), Color.GREEN);
                 }
             }
         } catch (IOException e) {

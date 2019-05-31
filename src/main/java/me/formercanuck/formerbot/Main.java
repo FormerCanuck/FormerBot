@@ -17,11 +17,15 @@ public class Main {
         bot = new Bot();
         bot.connect();
 
-        bot.sendRawMessage("JOIN #ulincsys");
+        bot.joinChannel("#formercanuck");
     }
 
     public Console getConsole() {
         return console;
+    }
+
+    public Bot getBot() {
+        return bot;
     }
 
     public static Main getInstance() {
