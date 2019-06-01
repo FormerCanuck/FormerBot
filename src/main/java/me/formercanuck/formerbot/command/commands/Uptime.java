@@ -8,6 +8,7 @@ import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -19,7 +20,7 @@ public class Uptime extends Command {
         return "uptime";
     }
 
-    public void onCommand(String sender, String channel, String[] args) {
+    public void onCommand(String sender, String channel, ArrayList<String> args) {
         channel = channel.substring(1);
 
         JsonElement temp = jsonData.getJson("https://api.twitch.tv/kraken/streams/" + channel);

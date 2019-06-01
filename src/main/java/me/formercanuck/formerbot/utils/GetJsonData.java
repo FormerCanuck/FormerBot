@@ -43,6 +43,28 @@ public class GetJsonData {
         }
     }
 
+    private String retJson(String link) {
+        StringBuilder contentBuilder = new StringBuilder();
+        try {
+            URL url = new URL(link);
+            URLConnection con = url.openConnection();
+            try (BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream(), "UTF-8"))) {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    contentBuilder.append(line).append("\r\n");
+                }
+            } finally {
+                con.getInputStream().close();
+                con.getOutputStream().close();
+            } // Closes in.
+        } catch (IOException e) {
+//            log.warn("Could not connect", e);
+        }
+        System.out.println(contentBuilder.toString());
+        return contentBuilder.toString();
+    }
+
     public static GetJsonData getInstance() {
         return instance;
     }

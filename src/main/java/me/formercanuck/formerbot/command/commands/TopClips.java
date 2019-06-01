@@ -7,6 +7,8 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
+import java.util.ArrayList;
+
 public class TopClips extends Command {
     @Override
     public String getName() {
@@ -14,9 +16,10 @@ public class TopClips extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
+    public void onCommand(String sender, String channel, ArrayList<String> args) {
         channel = channel.substring(1);
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel);
+//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
@@ -27,10 +30,17 @@ public class TopClips extends Command {
 
             JsonArray jsonArray = temp.getAsJsonObject().get("data").getAsJsonArray();
 
-            Main.getInstance().getBot().messageChannel("Here are the top 5 clips:");
+            System.out.println(sender);
+            System.out.println(Main.getInstance().getBot().getMods().contains(sender));
 
-            for (int i = 0; i < 5; i++) {
-                Main.getInstance().getBot().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(i).getAsJsonObject().get("title").getAsString(), jsonArray.get(i).getAsJsonObject().get("url").getAsString()));
+            if (args.size() == 0 && Main.getInstance().getBot().isMod(sender)) {
+                Main.getInstance().getBot().messageChannel("Here are the top 5 clips:");
+
+                for (int i = 0; i < 5; i++) { // Integer.parseInt(args[1]) - 1
+                    Main.getInstance().getBot().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(i).getAsJsonObject().get("title").getAsString(), jsonArray.get(i).getAsJsonObject().get("url").getAsString()));
+                }
+            } else if (args.size() > 0) {
+                Main.getInstance().getBot().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(Integer.parseInt(args.get(0))).getAsJsonObject().get("title").getAsString(), jsonArray.get(Integer.parseInt(args.get(0))).getAsJsonObject().get("url").getAsString()));
             }
         }
     }

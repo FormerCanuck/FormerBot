@@ -17,7 +17,7 @@ public class Main {
         bot = new Bot();
         bot.connect();
 
-        bot.joinChannel("#formercanuck");
+        bot.joinChannel("#recanem");
     }
 
     public Console getConsole() {
