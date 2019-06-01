@@ -9,6 +9,8 @@ import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Bot {
 
@@ -55,8 +57,8 @@ public class Bot {
         return commandManager;
     }
 
-    public boolean messageChannel(String message) {
-        return sendRawMessage("PRIVMSG " + channel + " :" + message);
+    public void messageChannel(String message) {
+        sendRawMessage(String.format("PRIVMSG %s :%s", channel, message));
     }
 
     public void addMod(String user) {
@@ -84,64 +86,57 @@ public class Bot {
     }
 
     public boolean isFollowing(String user) {
-        return followers.containsKey(user);
+        Iterator<Map.Entry<String, String>>
+                iterator = followers.entrySet().iterator();
+
+        // flag to store result
+        boolean isKeyPresent = false;
+
+        // Iterate over the HashMap
+        while (iterator.hasNext()) {
+
+            // Get the entry at this iteration
+            Map.Entry<String, String> entry = iterator.next();
+
+            // Check if this key is the required key
+            if (user == entry.getKey()) {
+                isKeyPresent = true;
+            }
+        }
+        return isKeyPresent;
     }
 
     private void loadFollows() {
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
+//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
 
             String id = obj.get("_id").getAsString();
 
-            JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id);
+            JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100");
 
-            JsonElement follows = temp.getAsJsonObject().get("data");
+            while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
+                JsonElement follows = temp.getAsJsonObject().get("data");
 
-            for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
-                String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString();
-                String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString();
-                System.out.println(user + " " + followDate);
-                addFollower(user, followDate);
+                for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
+                    String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString();
+                    String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString();
+                    System.out.println(String.format("%s has been following since %s", user, followDate));
+                    addFollower(user, followDate);
+                }
+
+                temp =
+                        GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100&after=" + temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").getAsString().replace("\"", " ").trim());
+                try {
+                    Thread.sleep(1 * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(followers.size());
             }
-
-            if (temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").toString().isEmpty()) {
-                System.out.println("EMPTY");
-            } else
-                loadMoreFollows(temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").toString());
-        }
-    }
-
-    private void loadMoreFollows(String cursor) {
-        cursor = cursor.substring(1, cursor.length() - 1);
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
-
-        if (jsonElement.isJsonObject()) {
-            JsonObject obj = jsonElement.getAsJsonObject();
-
-            String id = obj.get("_id").getAsString();
-
-            JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&after=" + cursor);
-
-            if (!(temp instanceof JsonObject)) return;
-
-            System.out.println(temp.getAsJsonObject().toString());
-
-            JsonElement follows = temp.getAsJsonObject().get("data");
-
-            for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
-                String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString();
-                String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString();
-                System.out.println(user + " " + followDate);
-                addFollower(user, followDate);
-            }
-
-            if (temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").toString().isEmpty()) {
-                System.out.println("EMPTY");
-            } else
-                loadMoreFollows(temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").toString());
-            System.out.println(follows.toString());
+            System.out.println("Loaded all followers!");
         }
     }
 
