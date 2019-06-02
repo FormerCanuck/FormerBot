@@ -9,8 +9,6 @@ import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Bot {
 
@@ -23,6 +21,7 @@ public class Bot {
     private ArrayList<String> mods = new ArrayList<>();
 
     private HashMap<String, String> followers = new HashMap<>();
+    private HashMap<String, String> subscribers = new HashMap<>();
 
     private String channel;
 
@@ -78,7 +77,7 @@ public class Bot {
     }
 
     public String getFollowDate(String user) {
-        return followers.get(user);
+        return followers.get(user.toLowerCase());
     }
 
     public HashMap<String, String> getFollowers() {
@@ -86,29 +85,14 @@ public class Bot {
     }
 
     public boolean isFollowing(String user) {
-        Iterator<Map.Entry<String, String>>
-                iterator = followers.entrySet().iterator();
-
-        // flag to store result
-        boolean isKeyPresent = false;
-
-        // Iterate over the HashMap
-        while (iterator.hasNext()) {
-
-            // Get the entry at this iteration
-            Map.Entry<String, String> entry = iterator.next();
-
-            // Check if this key is the required key
-            if (user == entry.getKey()) {
-                isKeyPresent = true;
-            }
+        for (String key : followers.keySet()) {
+            if (key.equalsIgnoreCase(user)) return true;
         }
-        return isKeyPresent;
+        return false;
     }
 
     private void loadFollows() {
-//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
@@ -121,10 +105,9 @@ public class Bot {
                 JsonElement follows = temp.getAsJsonObject().get("data");
 
                 for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
-                    String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString();
-                    String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString();
-                    System.out.println(String.format("%s has been following since %s", user, followDate));
-                    addFollower(user, followDate);
+                    String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString().replace("\"", " ").trim();
+                    String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString().replace("\"", " ").trim();
+                    addFollower(user, followDate.substring(0, 10));
                 }
 
                 temp =
@@ -136,7 +119,6 @@ public class Bot {
                 }
                 System.out.println(followers.size());
             }
-            System.out.println("Loaded all followers!");
         }
     }
 

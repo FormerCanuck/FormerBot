@@ -13,12 +13,18 @@ public class Followage extends Command {
 
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
-        if (Main.getInstance().getBot().isFollowing(sender.toLowerCase())) {
-            Main.getInstance().getBot().messageChannel(String.format("%s, you have been following since: %s", sender, Main.getInstance().getBot().getFollowDate(sender)));
-        } else {
-            Main.getInstance().getBot().messageChannel(String.format("%s, you are not following.", sender));
+        if (args.size() == 0) {
+            getFollowage(sender, channel);
+        } else if (args.size() == 1 && Main.getInstance().getBot().isMod(sender)) {
+            getFollowage(args.get(0), channel);
+        }
+    }
 
-            System.out.println(Main.getInstance().getBot().getFollowers().keySet());
+    public void getFollowage(String user, String channel) {
+        if (Main.getInstance().getBot().isFollowing(user.toLowerCase())) {
+            Main.getInstance().getBot().messageChannel(String.format("%s has been following @%s since %s", user, channel.substring(1), Main.getInstance().getBot().getFollowDate(user)));
+        } else {
+            Main.getInstance().getBot().messageChannel(String.format("%s, you are not following.", user));
         }
     }
 }
