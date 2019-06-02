@@ -1,6 +1,5 @@
 package me.formercanuck.formerbot.command;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.commands.Followage;
 import me.formercanuck.formerbot.command.commands.Help;
 import me.formercanuck.formerbot.command.commands.TopClips;
@@ -12,6 +11,8 @@ import java.util.List;
 public class CommandManager {
 
     public List<Command> commandList;
+
+//    public ConfigFile commandFile;
 
     public CommandManager() {
         commandList = new ArrayList<>();
@@ -28,8 +29,5 @@ public class CommandManager {
                 cmd.onCommand(sender, channel, args);
             }
         }
-
-        Main.getInstance().getConsole().println(command);
-        Main.getInstance().getConsole().println(args.toString());
     }
 }
