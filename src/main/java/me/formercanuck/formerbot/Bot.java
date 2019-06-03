@@ -93,7 +93,7 @@ public class Bot {
 
     private void loadFollows() {
 //        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/dakotaz");
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
@@ -101,6 +101,8 @@ public class Bot {
             String id = obj.get("_id").getAsString();
 
             JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100");
+
+            Main.getInstance().getConsole().println("[Bot]: loading followers...");
 
             while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
                 JsonElement follows = temp.getAsJsonObject().get("data");
@@ -118,8 +120,8 @@ public class Bot {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(followers.size());
             }
+            Main.getInstance().getConsole().println("[Bot]: finished loading followers...");
         }
     }
 
