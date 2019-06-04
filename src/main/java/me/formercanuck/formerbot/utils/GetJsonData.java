@@ -34,7 +34,12 @@ public class GetJsonData {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            String str = br.readLine();
+            String str = "";
+            String temp = "";
+
+            while ((temp = br.readLine()) != null) {
+                str += temp;
+            }
 
             return str;
         } catch (IOException e) {
@@ -48,12 +53,14 @@ public class GetJsonData {
         try {
             URL url = new URL(link);
             URLConnection con = url.openConnection();
+            con.setRequestProperty("Client-ID", clientID);
             try (BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream(), "UTF-8"))) {
                 String line;
                 while ((line = in.readLine()) != null) {
-                    contentBuilder.append(line).append("\r\n");
+                    contentBuilder.append(line);
                 }
+                return contentBuilder.toString();
             } finally {
                 con.getInputStream().close();
                 con.getOutputStream().close();
@@ -61,8 +68,7 @@ public class GetJsonData {
         } catch (IOException e) {
 //            log.warn("Could not connect", e);
         }
-        System.out.println(contentBuilder.toString());
-        return contentBuilder.toString();
+        return "";
     }
 
     public static GetJsonData getInstance() {

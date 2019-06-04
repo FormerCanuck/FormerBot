@@ -45,6 +45,7 @@ public class Bot {
     public void joinChannel(String channel) {
         this.channel = channel;
         sendRawMessage("JOIN " + channel);
+
         loadFollows();
     }
 
@@ -92,8 +93,7 @@ public class Bot {
     }
 
     private void loadFollows() {
-//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
