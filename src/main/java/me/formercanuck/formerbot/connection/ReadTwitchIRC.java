@@ -34,8 +34,6 @@ public class ReadTwitchIRC implements Runnable {
                     String[] ln = line.split(":");
                     String[] mods = ln[3].split(",");
 
-                    System.out.println(mods.toString());
-
                     Main.getInstance().getBot().addMod("formercanuck");
                     Main.getInstance().getBot().addMod(Main.getInstance().getBot().getChannel().substring(1));
 
@@ -44,8 +42,6 @@ public class ReadTwitchIRC implements Runnable {
                     }
                 }
 
-                // ce
-                //:annedorko!annedorko@annedorko.tmi.twitch.tv PRIVMSG #ulincsys :blobDance
                 if (line.contains("PRIVMSG")) {
                     String[] ln = line.split(" ");
                     String user = line.substring(line.indexOf("name=") + 5, line.indexOf(";emotes"));

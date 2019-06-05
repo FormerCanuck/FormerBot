@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
 import me.formercanuck.formerbot.connection.TwitchConnection;
+import me.formercanuck.formerbot.files.ConfigFile;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class Bot {
     private HashMap<String, String> subscribers = new HashMap<>();
 
     private String channel;
+
+    private ConfigFile botFile;
 
     private final String CLIENT_ID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
 
@@ -46,7 +49,13 @@ public class Bot {
         this.channel = channel;
         sendRawMessage("JOIN " + channel);
 
+        botFile = new ConfigFile(channel.substring(1));
+
         loadFollows();
+    }
+
+    public ConfigFile getBotFile() {
+        return botFile;
     }
 
     public TwitchConnection getTwitchConnection() {

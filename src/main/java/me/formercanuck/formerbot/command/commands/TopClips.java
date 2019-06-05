@@ -30,9 +30,6 @@ public class TopClips extends Command {
 
             JsonArray jsonArray = temp.getAsJsonObject().get("data").getAsJsonArray();
 
-            System.out.println(sender);
-            System.out.println(Main.getInstance().getBot().getMods().contains(sender));
-
             if (args.size() == 0 && Main.getInstance().getBot().isMod(sender)) {
                 Main.getInstance().getBot().messageChannel("Here are the top 5 clips:");
 

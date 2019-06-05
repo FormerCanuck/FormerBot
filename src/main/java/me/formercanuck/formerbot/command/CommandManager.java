@@ -1,9 +1,6 @@
 package me.formercanuck.formerbot.command;
 
-import me.formercanuck.formerbot.command.commands.Followage;
-import me.formercanuck.formerbot.command.commands.Help;
-import me.formercanuck.formerbot.command.commands.TopClips;
-import me.formercanuck.formerbot.command.commands.Uptime;
+import me.formercanuck.formerbot.command.commands.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,7 @@ public class CommandManager {
         commandList = new ArrayList<>();
         commandList.add(new TopClips());
         commandList.add(new Uptime());
+        commandList.add(new ServerAge());
 
         commandList.add(new Followage());
         commandList.add(new Help());

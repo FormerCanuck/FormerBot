@@ -79,7 +79,6 @@ public class Followage extends Command {
             }
 
 
-
             StringBuilder builder = new StringBuilder();
 
             builder.append("Here is a list of the top 5 followers: ");

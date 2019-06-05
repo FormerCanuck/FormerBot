@@ -99,6 +99,11 @@ public class ConfigFile {
         return config.containsKey(key);
     }
 
+    public void remove(String key) {
+        config.remove(key);
+        save();
+    }
+
     public void set(String key, Object value) {
         config.put(key, value);
         save();
