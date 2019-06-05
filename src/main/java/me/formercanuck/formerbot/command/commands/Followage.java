@@ -7,12 +7,8 @@ import me.formercanuck.formerbot.Bot;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.utils.GetJsonData;
+import me.formercanuck.formerbot.utils.MiscUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static java.util.stream.Collectors.toMap;
@@ -49,32 +45,32 @@ public class Followage extends Command {
             JsonArray views = chatters.get("viewers").getAsJsonArray();
 
             for (JsonElement element : vip) {
-                viewers.add(strip(element.toString()));
+                viewers.add(MiscUtils.strip(element.toString()));
             }
 
             for (JsonElement element : moderators) {
-                viewers.add(strip(element.toString()));
+                viewers.add(MiscUtils.strip(element.toString()));
             }
 
             for (JsonElement element : staff) {
-                viewers.add(strip(element.toString()));
+                viewers.add(MiscUtils.strip(element.toString()));
             }
 
             for (JsonElement element : admins) {
-                viewers.add(strip(element.toString()));
+                viewers.add(MiscUtils.strip(element.toString()));
             }
 
             for (JsonElement element : global_mods) {
-                viewers.add(strip(element.toString()));
+                viewers.add(MiscUtils.strip(element.toString()));
             }
 
             for (JsonElement element : views) {
-                viewers.add(strip(element.toString()));
+                viewers.add(MiscUtils.strip(element.toString()));
             }
 
             for (String viewer : viewers) {
                 if (bot.isFollowing(viewer)) {
-                    followers.put(viewer, numberOfDaysFollowed(viewer));
+                    followers.put(viewer, MiscUtils.numberOfDaysBetweenDateAndNow(bot.getFollowDate(viewer)));
                 }
             }
 
@@ -112,37 +108,15 @@ public class Followage extends Command {
         return sortedFollowers;
     }
 
-    private String strip(String string) {
-        return string.replace("\"", " ").trim();
-    }
-
     public JsonElement getViewerList() {
         return GetJsonData.getInstance().getJson(String.format("https://tmi.twitch.tv/group/user/%s/chatters", bot.getChannel().substring(1)));
     }
 
     public void getFollowage(String user, String channel) {
         if (bot.isFollowing(user.toLowerCase())) {
-            bot.messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getFollowDate(user), numberOfDaysFollowed(user)));
+            bot.messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getFollowDate(user))));
         } else {
             bot.messageChannel(String.format("%s, you are not following.", user));
         }
-    }
-
-    private Long numberOfDaysFollowed(String viewer) {
-        if (!bot.isFollowing(viewer)) return 0L;
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date1 = null;
-        Date date2 = null;
-
-        try {
-            date1 = sdf.parse(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now()));
-            date2 = sdf.parse(bot.getFollowDate(viewer));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return ChronoUnit.DAYS.between(date2.toInstant(), date1.toInstant());
     }
 }
