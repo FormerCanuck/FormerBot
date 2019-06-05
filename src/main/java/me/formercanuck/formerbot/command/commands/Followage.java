@@ -39,7 +39,7 @@ public class Followage extends Command {
             JsonObject chatters = getViewerList().getAsJsonObject().get("chatters").getAsJsonObject();
 
             List<String> viewers = new ArrayList<>();
-            Map<String, Long> followers = new HashMap<String, Long>();
+            HashMap<String, Long> followers = new HashMap<String, Long>();
 
             JsonArray vip = chatters.get("vips").getAsJsonArray();
             JsonArray moderators = chatters.get("moderators").getAsJsonArray();
@@ -78,14 +78,7 @@ public class Followage extends Command {
                 }
             }
 
-            HashMap<String, Long> sortedFollowers = new HashMap<>();
-            sortedFollowers = followers
-                    .entrySet()
-                    .stream()
-                    .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                    .collect(
-                            toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                                    LinkedHashMap::new));
+
 
             StringBuilder builder = new StringBuilder();
 
@@ -93,8 +86,8 @@ public class Followage extends Command {
 
             int i = 1;
 
-            for (String viewer : putFirstEntries(5, sortedFollowers).keySet()) {
-                builder.append(String.format("%s: %s (%s) ", i++, viewer, sortedFollowers.get(viewer)));
+            for (String viewer : putFirstEntries(5, followers).keySet()) {
+                builder.append(String.format("%s: %s (%s) ", i++, viewer, followers.get(viewer)));
             }
             bot.messageChannel(builder.toString());
         }
@@ -109,7 +102,15 @@ public class Followage extends Command {
             target.put(entry.getKey(), entry.getValue());
             count++;
         }
-        return target;
+
+        HashMap<String, Long> sortedFollowers = target
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(
+                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                                LinkedHashMap::new));
+        return sortedFollowers;
     }
 
     private String strip(String string) {
