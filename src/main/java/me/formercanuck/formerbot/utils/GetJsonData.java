@@ -1,5 +1,6 @@
 package me.formercanuck.formerbot.utils;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
@@ -54,20 +55,25 @@ public class GetJsonData {
     }
 
     public String getLastVideoTitle(String username) {
+        if (getIDFromYoutube(username) == null) return null;
         return MiscUtils.strip(getInstance().getJsonFromYT("activities?part=snippet&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("title").toString());
     }
 
     public Long daysSinceLastUpload(String username) {
-        return MiscUtils.numberOfDaysBetweenDateAndNow(MiscUtils.strip(getInstance().getJsonFromYT("activities?part=snippet&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("publishedAt").toString()));
+        if (getIDFromYoutube(username) == null) return null;
+        return MiscUtils.numberOfDaysBetweenDateAndNow(MiscUtils.strip(getJsonFromYT("activities?part=snippet&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("publishedAt").toString()));
     }
 
     public String getLastVideoLink(String username) {
-        return "https://www.youtube.com/watch?v=" + MiscUtils.strip(getInstance().getJsonFromYT("activities?part=contentDetails&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("contentDetails").getAsJsonObject().get("upload").getAsJsonObject().get("videoId").toString());
+        if (getIDFromYoutube(username) == null) return null;
+        return "https://www.youtube.com/watch?v=" + MiscUtils.strip(getJsonFromYT("activities?part=contentDetails&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("contentDetails").getAsJsonObject().get("upload").getAsJsonObject().get("videoId").toString());
     }
 
     public String getIDFromYoutube(String username) {
         JsonElement element = getInstance().getJsonFromYT("channels?part=contentDetails&forUsername=" + username + "&key=" + youtubeID);
-        String id = element.getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("id").toString();
+        JsonArray array = element.getAsJsonObject().get("items").getAsJsonArray();
+        if (array.size() == 0) return null;
+        String id = array.get(0).getAsJsonObject().get("id").toString();
         return MiscUtils.strip(id);
     }
 
