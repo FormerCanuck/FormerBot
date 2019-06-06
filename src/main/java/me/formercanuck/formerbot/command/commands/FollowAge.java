@@ -13,7 +13,7 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toMap;
 
-public class Followage extends Command {
+public class FollowAge extends Command {
     @Override
     public String getName() {
         return "followage";

@@ -12,6 +12,7 @@ import java.net.URLConnection;
 public class GetJsonData {
 
     private String clientID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
+    private static String youtubeID = "AIzaSyBcZNuPkJyns4kHpeNELRM1HF6FdZpq5uE";
 
     private JsonParser json = new JsonParser();
 
@@ -24,6 +25,10 @@ public class GetJsonData {
         return json.parse(retrieveJson(url));
     }
 
+    public JsonElement getJsonFromYT(String url) {
+        return json.parse(retrieveYoutubeJson(url));
+    }
+
     private String retrieveJson(String link) {
         try {
 
@@ -31,6 +36,47 @@ public class GetJsonData {
             URLConnection conn = url.openConnection();
 
             conn.setRequestProperty("Client-ID", clientID);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String str = "";
+            String temp = "";
+
+            while ((temp = br.readLine()) != null) {
+                str += temp;
+            }
+
+            return str;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public String getLastVideoTitle(String username) {
+        return MiscUtils.strip(getInstance().getJsonFromYT("activities?part=snippet&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("title").toString());
+    }
+
+    public Long daysSinceLastUpload(String username) {
+        return MiscUtils.numberOfDaysBetweenDateAndNow(MiscUtils.strip(getInstance().getJsonFromYT("activities?part=snippet&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("publishedAt").toString()));
+    }
+
+    public String getLastVideoLink(String username) {
+        return "https://www.youtube.com/watch?v=" + MiscUtils.strip(getInstance().getJsonFromYT("activities?part=contentDetails&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("contentDetails").getAsJsonObject().get("upload").getAsJsonObject().get("videoId").toString());
+    }
+
+    public String getIDFromYoutube(String username) {
+        JsonElement element = getInstance().getJsonFromYT("channels?part=contentDetails&forUsername=" + username + "&key=" + youtubeID);
+        String id = element.getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("id").toString();
+        return MiscUtils.strip(id);
+    }
+
+    private String retrieveYoutubeJson(String link) {
+        try {
+            String temp_link = "https://www.googleapis.com/youtube/v3/" + link;
+//            String temp_link = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forUsername=recanem&key="+youtubeID;
+            URL url = new URL(temp_link);
+            URLConnection conn = url.openConnection();
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 

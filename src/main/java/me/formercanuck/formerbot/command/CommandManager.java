@@ -16,8 +16,8 @@ public class CommandManager {
         commandList.add(new TopClips());
         commandList.add(new Uptime());
         commandList.add(new ServerAge());
-
-        commandList.add(new Followage());
+        commandList.add(new Youtube());
+        commandList.add(new FollowAge());
         commandList.add(new Help());
     }
 
