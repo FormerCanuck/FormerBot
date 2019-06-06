@@ -20,7 +20,7 @@ public class ReadTwitchIRC implements Runnable {
 
         try {
             while ((line = twitchConnection.getFromTwitch().readLine()) != null) {
-                Main.getInstance().getConsole().println(line, Color.GREEN);
+                Main.getInstance().getConsole().info(line);
 
                 if (line.equalsIgnoreCase("PING :tmi.twitch.tv")) {
                     Main.getInstance().getBot().sendRawMessage("PONG :tmi.twitch.tv");

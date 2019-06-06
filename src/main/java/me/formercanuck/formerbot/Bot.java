@@ -2,6 +2,7 @@ package me.formercanuck.formerbot;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import me.fc.console.Console;
 import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
 import me.formercanuck.formerbot.connection.TwitchConnection;
@@ -22,21 +23,21 @@ public class Bot {
     private ArrayList<String> mods = new ArrayList<>();
 
     private HashMap<String, String> followers = new HashMap<>();
-    private HashMap<String, String> subscribers = new HashMap<>();
 
     private String channel;
 
     private ConfigFile botFile;
 
-    private final String CLIENT_ID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
+    private Console console;
 
-    public Bot() {
+    Bot() {
         twitchConnection = new TwitchConnection();
         readTwitchIRC = new ReadTwitchIRC(twitchConnection);
         commandManager = new CommandManager();
+        console = Main.getInstance().getConsole();
     }
 
-    public void connect() {
+    void connect() {
         sendRawMessage("CAP REQ :twitch.tv/tags");
         sendRawMessage("CAP REQ :twitch.tv/commands");
         sendRawMessage("PASS oauth:3tphuo7t7zhoz0os9we3vpwcpfhxur");
@@ -45,7 +46,7 @@ public class Bot {
         new Thread(readTwitchIRC).start();
     }
 
-    public void joinChannel(String channel) {
+    void joinChannel(String channel) {
         this.channel = channel;
         sendRawMessage("JOIN " + channel);
 
@@ -56,10 +57,6 @@ public class Bot {
 
     public ConfigFile getBotFile() {
         return botFile;
-    }
-
-    public TwitchConnection getTwitchConnection() {
-        return twitchConnection;
     }
 
     public CommandManager getCommandManager() {
@@ -74,24 +71,16 @@ public class Bot {
         mods.add(user);
     }
 
-    public ArrayList<String> getMods() {
-        return mods;
-    }
-
     public boolean isMod(String user) {
         return mods.contains(user.toLowerCase());
     }
 
-    public void addFollower(String user, String followDate) {
+    private void addFollower(String user, String followDate) {
         followers.put(user.toLowerCase(), followDate);
     }
 
     public String getFollowDate(String user) {
         return followers.get(user.toLowerCase());
-    }
-
-    public HashMap<String, String> getFollowers() {
-        return followers;
     }
 
     public boolean isFollowing(String user) {
@@ -111,7 +100,7 @@ public class Bot {
 
             JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100");
 
-            Main.getInstance().getConsole().println("[Bot]: loading followers...");
+            console.info("[Bot]: loading followers...");
 
             while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
                 JsonElement follows = temp.getAsJsonObject().get("data");
@@ -130,7 +119,7 @@ public class Bot {
                     e.printStackTrace();
                 }
             }
-            Main.getInstance().getConsole().println("[Bot]: finished loading followers...");
+            console.info("[Bot]: finished loading followers...");
         }
     }
 
@@ -138,15 +127,13 @@ public class Bot {
         return channel;
     }
 
-    public boolean sendRawMessage(String message) {
+    public void sendRawMessage(String message) {
         try {
-            Main.getInstance().getConsole().println("> " + message);
+            console.info("> " + message);
             twitchConnection.getToTwitch().write(String.format("%s %s", message, "\r\n"));
             twitchConnection.getToTwitch().flush();
-            return true;
         } catch (Exception e) {
-            System.out.println(e);
-            return false;
+            console.error(e.toString());
         }
     }
 }
