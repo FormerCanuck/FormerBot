@@ -2,8 +2,6 @@ package me.formercanuck.formerbot;
 
 import me.fc.console.Console;
 
-import java.util.Scanner;
-
 public class Main {
 
     private Console console;
@@ -19,7 +17,7 @@ public class Main {
         bot = new Bot();
         bot.connect();
 
-        bot.joinChannel(new Scanner(System.in).next());
+        bot.joinChannel("#formercanuck");
     }
 
     public Console getConsole() {

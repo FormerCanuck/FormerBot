@@ -18,6 +18,8 @@ public class CommandManager {
         commandList.add(new ServerAge());
         commandList.add(new Youtube());
         commandList.add(new FollowAge());
+        commandList.add(new Whitelist());
+        commandList.add(new Link());
         commandList.add(new Help());
     }
 
