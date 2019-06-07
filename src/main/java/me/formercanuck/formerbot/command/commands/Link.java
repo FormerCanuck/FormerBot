@@ -18,4 +18,9 @@ public class Link extends Command {
             Main.getInstance().getBot().messageChannel("!allow " + sender);
         }
     }
+
+    @Override
+    public int getCooldown() {
+        return 5;
+    }
 }

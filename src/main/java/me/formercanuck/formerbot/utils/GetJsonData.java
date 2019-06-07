@@ -26,7 +26,7 @@ public class GetJsonData {
         return json.parse(retrieveJson(url));
     }
 
-    public JsonElement getJsonFromYT(String url) {
+    private JsonElement getJsonFromYT(String url) {
         return json.parse(retrieveYoutubeJson(url));
     }
 
@@ -40,14 +40,17 @@ public class GetJsonData {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            String str = "";
-            String temp = "";
+            StringBuilder str = new StringBuilder();
+            String temp;
 
             while ((temp = br.readLine()) != null) {
-                str += temp;
+                str.append(temp);
             }
 
-            return str;
+            br.close();
+            conn.getInputStream().close();
+
+            return str.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return "";
@@ -86,14 +89,18 @@ public class GetJsonData {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            String str = "";
-            String temp = "";
+            StringBuilder str = new StringBuilder();
+            String temp;
 
             while ((temp = br.readLine()) != null) {
-                str += temp;
+                str.append(temp);
             }
 
-            return str;
+            br.close();
+            conn.getInputStream().close();
+            conn.getOutputStream().close();
+
+            return str.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return "";

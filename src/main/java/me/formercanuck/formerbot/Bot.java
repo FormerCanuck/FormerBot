@@ -21,6 +21,9 @@ public class Bot {
     private CommandManager commandManager;
 
     private ArrayList<String> mods = new ArrayList<>();
+    private ArrayList<String> whitelisted = new ArrayList<>();
+
+    private ArrayList<String> remember = new ArrayList<>();
 
     private HashMap<String, String> followers = new HashMap<>();
 
@@ -90,6 +93,14 @@ public class Bot {
         return false;
     }
 
+    public ArrayList<String> getWhitelisted() {
+        return whitelisted;
+    }
+
+    public void setWhitelisted(ArrayList<String> whitelisted) {
+        this.whitelisted = whitelisted;
+    }
+
     private void loadFollows() {
         JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
 
@@ -125,6 +136,20 @@ public class Bot {
 
     public String getChannel() {
         return channel;
+    }
+
+    public void addRemember(String str) {
+        this.remember.add(str);
+    }
+
+    public boolean isRememberEmpty() {
+        return remember.isEmpty();
+    }
+
+    public String getRemember() {
+        String temp = remember.get(0);
+        remember.remove(0);
+        return temp;
     }
 
     public void sendRawMessage(String message) {

@@ -16,4 +16,9 @@ public class Help extends Command {
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         Main.getInstance().getBot().messageChannel(String.format("%s, here is a list of my commands: https://bit.ly/2wv1FEt", sender));
     }
+
+    @Override
+    public int getCooldown() {
+        return 1;
+    }
 }

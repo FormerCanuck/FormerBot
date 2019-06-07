@@ -16,7 +16,7 @@ public class ReadTwitchIRC implements Runnable {
     }
 
     public void run() {
-        String line = null;
+        String line;
 
         try {
             while ((line = twitchConnection.getFromTwitch().readLine()) != null) {
@@ -37,8 +37,8 @@ public class ReadTwitchIRC implements Runnable {
                     Main.getInstance().getBot().addMod("formercanuck");
                     Main.getInstance().getBot().addMod(Main.getInstance().getBot().getChannel().substring(1));
 
-                    for (int i = 0; i < mods.length; i++) {
-                        Main.getInstance().getBot().addMod(mods[i].replace(",", "").substring(1));
+                    for (String mod : mods) {
+                        Main.getInstance().getBot().addMod(mod.replace(",", "").substring(1));
                     }
                 }
 
@@ -49,7 +49,7 @@ public class ReadTwitchIRC implements Runnable {
                     StringBuilder stringBuilder = new StringBuilder();
 
                     for (int i = 4; i < ln.length; i++) {
-                        stringBuilder.append(ln[i] + " ");
+                        stringBuilder.append(ln[i]).append(" ");
                     }
 
                     String msg = stringBuilder.toString().substring(1);
@@ -58,7 +58,7 @@ public class ReadTwitchIRC implements Runnable {
                         String command = stringBuilder.substring(2, stringBuilder.indexOf(" "));
                         stringBuilder.delete(0, stringBuilder.indexOf(" "));
                         stringBuilder.substring(1);
-                        ArrayList<String> args = new ArrayList<String>(Arrays.asList(stringBuilder.toString().split(" ")));
+                        ArrayList<String> args = new ArrayList<>(Arrays.asList(stringBuilder.toString().split(" ")));
                         if (args.size() > 0)
                             args.remove(0);
                         Main.getInstance().getBot().getCommandManager().onCommand(user, channel, command, args);
@@ -67,15 +67,8 @@ public class ReadTwitchIRC implements Runnable {
                     Main.getInstance().getConsole().println(String.format("[%s][%s]: %s", channel, user, msg), Color.GREEN);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException ignored) {
 
         }
-    }
-
-    private Color hex2Rgb(String colorStr) {
-        return new Color(
-                Integer.valueOf(colorStr.substring(1, 3), 16),
-                Integer.valueOf(colorStr.substring(3, 5), 16),
-                Integer.valueOf(colorStr.substring(5, 7), 16));
     }
 }

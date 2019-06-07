@@ -28,7 +28,7 @@ public class Uptime extends Command {
         if (temp.isJsonObject()) {
             JsonObject obj = temp.getAsJsonObject();
 
-            JsonElement element = null;
+            JsonElement element;
 
             try {
                 element = obj.get("stream").getAsJsonObject();
@@ -50,6 +50,7 @@ public class Uptime extends Command {
                 e.printStackTrace();
             }
 
+            assert parse != null;
             long diff = System.currentTimeMillis() - parse.getTime();
 
 //            int hours = (int) (diff / 3600000);
@@ -74,5 +75,10 @@ public class Uptime extends Command {
                 Main.getInstance().getBot().messageChannel(String.format("%s, %s has been live for: %s seconds.", sender, channel, seconds % 60));
             }
         }
+    }
+
+    @Override
+    public int getCooldown() {
+        return 1;
     }
 }

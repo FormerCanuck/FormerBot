@@ -21,4 +21,9 @@ public class Youtube extends Command {
         }
         Main.getInstance().getBot().messageChannel(String.format("%s, check out %s at https://www.youtube.com/channel/%s their last upload was %s which was posted %s days ago and you can find it here: %s", sender, channel, GetJsonData.getInstance().getIDFromYoutube(channel), GetJsonData.getInstance().getLastVideoTitle(channel), GetJsonData.getInstance().daysSinceLastUpload(channel), GetJsonData.getInstance().getLastVideoLink(channel)));
     }
+
+    @Override
+    public int getCooldown() {
+        return 1;
+    }
 }

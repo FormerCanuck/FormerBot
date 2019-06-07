@@ -24,10 +24,11 @@ public class FollowAge extends Command {
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         bot = Main.getInstance().getBot();
+        cooldown();
         if (args.size() == 0) {
             getFollowage(sender, channel);
         } else if (args.size() == 1) {
-            if (!args.get(0).equalsIgnoreCase("top") && bot.isMod(sender)) {
+            if (!args.get(0).equalsIgnoreCase("top") && bot.isMod(sender) || Main.getInstance().getBot().getWhitelisted().contains(sender.toLowerCase())) {
                 getFollowage(args.get(0), channel);
                 return;
             }
@@ -35,7 +36,7 @@ public class FollowAge extends Command {
             JsonObject chatters = getViewerList().getAsJsonObject().get("chatters").getAsJsonObject();
 
             List<String> viewers = new ArrayList<>();
-            HashMap<String, Long> followers = new HashMap<String, Long>();
+            HashMap<String, Long> followers = new HashMap<>();
 
             JsonArray vip = chatters.get("vips").getAsJsonArray();
             JsonArray moderators = chatters.get("moderators").getAsJsonArray();
@@ -88,9 +89,14 @@ public class FollowAge extends Command {
         }
     }
 
+    @Override
+    public int getCooldown() {
+        return 1;
+    }
+
     private HashMap<String, Long> putFirstEntries(int max, HashMap<String, Long> source) {
         int count = 0;
-        HashMap<String, Long> target = new HashMap<String, Long>();
+        HashMap<String, Long> target = new HashMap<>();
         for (Map.Entry<String, Long> entry : source.entrySet()) {
             if (count >= max) break;
 
@@ -98,21 +104,20 @@ public class FollowAge extends Command {
             count++;
         }
 
-        HashMap<String, Long> sortedFollowers = target
+        return target
                 .entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(
                         toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
                                 LinkedHashMap::new));
-        return sortedFollowers;
     }
 
-    public JsonElement getViewerList() {
+    private JsonElement getViewerList() {
         return GetJsonData.getInstance().getJson(String.format("https://tmi.twitch.tv/group/user/%s/chatters", bot.getChannel().substring(1)));
     }
 
-    public void getFollowage(String user, String channel) {
+    private void getFollowage(String user, String channel) {
         if (bot.isFollowing(user.toLowerCase())) {
             bot.messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getFollowDate(user))));
         } else {

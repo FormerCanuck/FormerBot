@@ -7,7 +7,8 @@ import java.util.List;
 
 public class CommandManager {
 
-    public List<Command> commandList;
+    public List<String> cooldown = new ArrayList<>();
+    private List<Command> commandList;
 
 //    public ConfigFile commandFile;
 
@@ -20,14 +21,22 @@ public class CommandManager {
         commandList.add(new FollowAge());
         commandList.add(new Whitelist());
         commandList.add(new Link());
+        commandList.add(new Calculate());
+        commandList.add(new Remember());
         commandList.add(new Help());
+    }
+
+    void addCooldown(String commandName) {
+        cooldown.add(commandName);
     }
 
     public void onCommand(String sender, String channel, String command, ArrayList<String> args) {
         for (Command cmd : commandList) {
-            if (cmd.getName().equalsIgnoreCase(command)) {
-                cmd.onCommand(sender, channel, args);
-            }
+            if (!cooldown.contains(cmd.getName()))
+                if (cmd.getName().equalsIgnoreCase(command)) {
+                    cmd.onCommand(sender, channel, args);
+                    cmd.cooldown();
+                }
         }
     }
 }

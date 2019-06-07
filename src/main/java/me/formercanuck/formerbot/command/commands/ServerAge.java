@@ -26,7 +26,7 @@ public class ServerAge extends Command {
         String game_id = MiscUtils.strip(streams.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject().get("game_id").toString());
         String game = "serverage." + MiscUtils.strip(GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/games?id=" + game_id).getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject().get("name").toString());
 
-        if (!bot.isMod(sender) || args.size() < 1) {
+        if (!bot.isMod(sender) || !Main.getInstance().getBot().getWhitelisted().contains(sender.toLowerCase()) || args.size() < 1) {
             if (botFile.contains(game)) {
                 bot.messageChannel(String.format("%s, the server has been live since: %s, which is %s days", sender, botFile.getString(game), MiscUtils.numberOfDaysBetweenDateAndNow(botFile.getString(game))));
                 return;
@@ -46,5 +46,10 @@ public class ServerAge extends Command {
             botFile.remove(game);
             bot.messageChannel(String.format("%s successfully cleared the start date of the server.", sender));
         }
+    }
+
+    @Override
+    public int getCooldown() {
+        return 1;
     }
 }
