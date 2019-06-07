@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -67,6 +68,10 @@ public class ConfigFile {
     public void addDefaults() {
         config = defaults;
         save();
+    }
+
+    public List<String> getWhitelist() {
+        return (List<String>) config.get("whitelist");
     }
 
     public void addDefault(String key, Object value) {
