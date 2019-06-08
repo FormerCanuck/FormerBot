@@ -25,27 +25,23 @@ public class Whitelist extends Command {
 
         if (Main.getInstance().getBot().isMod(sender) || bot.getWhitelisted().contains(sender.toLowerCase())) {
             if (args.size() > 0) {
-                if (args.get(0).equalsIgnoreCase("add")) {
-                    if (!bot.getWhitelisted().contains(args.get(1))) {
-                        bot.getWhitelisted().add(args.get(1).toLowerCase());
-                        config.set("whitelist", bot.getWhitelisted());
-                        Main.getInstance().getBot().messageChannel(String.format("%s, successfully added %s to the whitelist", sender, args.get(1)));
-                        return;
-                    } else {
-                        Main.getInstance().getBot().messageChannel(String.format("%s, %s is already whtelisted.", sender, args.get(1)));
-                        return;
-                    }
-                } else if (args.get(0).equalsIgnoreCase("remove")) {
-                    if (bot.getWhitelisted().contains(args.get(1).toLowerCase())) {
-                        bot.getWhitelisted().remove(args.get(1).toLowerCase());
-                        config.set("whitelist", bot.getWhitelisted());
-                        Main.getInstance().getBot().messageChannel(String.format("%s, successfully removed %s from the whitelist", sender, args.get(1)));
-                        return;
-                    } else {
-                        Main.getInstance().getBot().messageChannel(String.format("%s, %s isn't on the whtelisted.", sender, args.get(1)));
-                        return;
-                    }
+
+
+                if (!bot.getWhitelisted().contains(args.get(0))) {
+                    bot.getWhitelisted().add(args.get(0).toLowerCase());
+                    config.set("whitelist", bot.getWhitelisted());
+                    Main.getInstance().getBot().messageChannel(String.format("%s, successfully added %s to the whitelist", sender, args.get(0)));
+                    return;
                 }
+
+                if (bot.getWhitelisted().contains(args.get(0).toLowerCase())) {
+                    bot.getWhitelisted().remove(args.get(0).toLowerCase());
+                    config.set("whitelist", bot.getWhitelisted());
+                    Main.getInstance().getBot().messageChannel(String.format("%s, successfully removed %s from the whitelist", sender, args.get(0)));
+                    return;
+                }
+            } else {
+                bot.messageChannel("Usage: !whitelist <add | remove> <username>");
             }
         }
     }

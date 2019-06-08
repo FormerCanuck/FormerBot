@@ -19,7 +19,6 @@ public class TopClips extends Command {
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         channel = channel.substring(1);
         JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel);
-//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/recanem");
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject();
@@ -29,6 +28,11 @@ public class TopClips extends Command {
             JsonElement temp = GetJsonData.getInstance().getJson(String.format("https://api.twitch.tv/helix/clips?broadcaster_id=%s&first=5", id));
 
             JsonArray jsonArray = temp.getAsJsonObject().get("data").getAsJsonArray();
+
+            if (args.size() == 0 && Main.getInstance().getBot().isMod(sender)) {
+                Main.getInstance().getBot().messageChannel("Usage: !topclips <1-5>");
+                return;
+            }
 
             if (args.size() == 0 && Main.getInstance().getBot().isMod(sender) || Main.getInstance().getBot().getWhitelisted().contains(sender.toLowerCase())) {
                 Main.getInstance().getBot().messageChannel("Here are the top 5 clips:");

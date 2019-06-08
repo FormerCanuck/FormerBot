@@ -111,7 +111,7 @@ public class Bot {
 
             JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100");
 
-            console.info("[Bot]: loading followers...");
+            console.println("[Bot]: loading followers...");
 
             while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
                 JsonElement follows = temp.getAsJsonObject().get("data");
@@ -130,7 +130,7 @@ public class Bot {
                     e.printStackTrace();
                 }
             }
-            console.info("[Bot]: finished loading followers...");
+            console.println("[Bot]: finished loading followers...");
         }
     }
 
@@ -154,7 +154,7 @@ public class Bot {
 
     public void sendRawMessage(String message) {
         try {
-            console.info("> " + message);
+            console.println("> " + message);
             twitchConnection.getToTwitch().write(String.format("%s %s", message, "\r\n"));
             twitchConnection.getToTwitch().flush();
         } catch (Exception e) {

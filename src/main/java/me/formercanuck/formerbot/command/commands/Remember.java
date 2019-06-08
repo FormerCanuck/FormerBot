@@ -19,7 +19,14 @@ public class Remember extends Command {
         Bot bot = Main.getInstance().getBot();
         if (bot.isMod(sender) || bot.getWhitelisted().contains(sender.toLowerCase())) {
             if (args.size() != 0) {
-                int delay = Integer.parseInt(args.get(0));
+                int delay = 0;
+                try {
+                    delay = Integer.parseInt(args.get(0));
+                } catch (Exception e) {
+                    bot.messageChannel(String.format("%s, you entered an invalid delay time."));
+                    return;
+                }
+
                 args.remove(0);
                 StringBuilder output = new StringBuilder();
 
@@ -32,6 +39,8 @@ public class Remember extends Command {
 
                 Timer timer = new Timer();
                 timer.schedule(new RememberTask(), (1000 * 60) * delay);
+            } else {
+                bot.messageChannel("Usage: !remember <delay> <Message to remember>");
             }
         }
     }
