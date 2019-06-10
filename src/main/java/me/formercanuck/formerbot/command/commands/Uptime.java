@@ -23,23 +23,12 @@ public class Uptime extends Command {
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         channel = channel.substring(1);
 
-        JsonElement temp = jsonData.getJson("https://api.twitch.tv/kraken/streams/" + channel);
+        JsonElement temp = jsonData.getJson("https://api.twitch.tv/helix/streams?user_login=" + channel);
 
         if (temp.isJsonObject()) {
-            JsonObject obj = temp.getAsJsonObject();
+            JsonObject obj = temp.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
 
-            JsonElement element;
-
-            try {
-                element = obj.get("stream").getAsJsonObject();
-            } catch (Exception e) {
-                temp = jsonData.getJson("https://api.twitch.tv/kraken/channels/formercanuck");
-//                System.out.println(temp.toString());
-                Main.getInstance().getBot().messageChannel(String.format("%s, %s is not currently live!", sender, temp.getAsJsonObject().get("display_name").toString().replace("\"", "")));
-                return;
-            }
-
-            String uptime = element.getAsJsonObject().get("created_at").getAsString().replace("\"", "");
+            String uptime = obj.get("started_at").getAsString().replace("\"", "");
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             format.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -52,12 +41,6 @@ public class Uptime extends Command {
 
             assert parse != null;
             long diff = System.currentTimeMillis() - parse.getTime();
-
-//            int hours = (int) (diff / 3600000);
-//            int remainder = (int) (diff - hours * 3600000);
-//            int mins = (remainder / 60000);
-//            remainder = (remainder - mins * 60000);
-//            int secs = remainder / 1000;
 
             long seconds = diff / 1000;
             long minutes = seconds / 60;

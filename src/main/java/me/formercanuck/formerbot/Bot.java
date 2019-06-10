@@ -101,13 +101,13 @@ public class Bot {
         this.whitelisted = whitelisted;
     }
 
-    private void loadFollows() {
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel.substring(1));
+    public void loadFollows() {
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
 
         if (jsonElement.isJsonObject()) {
-            JsonObject obj = jsonElement.getAsJsonObject();
+            JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
 
-            String id = obj.get("_id").getAsString();
+            String id = obj.get("id").getAsString();
 
             JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100");
 

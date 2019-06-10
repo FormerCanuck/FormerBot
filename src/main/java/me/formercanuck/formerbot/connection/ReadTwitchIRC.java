@@ -6,10 +6,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ReadTwitchIRC implements Runnable {
 
     private TwitchConnection twitchConnection;
+
+    private Timer timer = new Timer();
 
     public ReadTwitchIRC(TwitchConnection twitchConnection) {
         this.twitchConnection = twitchConnection;
@@ -43,6 +47,14 @@ public class ReadTwitchIRC implements Runnable {
                 }
 
                 if (line.contains("PRIVMSG")) {
+                    cancelClear();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Main.getInstance().getBot().messageChannel("/clear");
+                        }
+                    }, (1000 * 60) * 10);
+
                     String[] ln = line.split(" ");
                     String user = line.substring(line.indexOf("name=") + 5, line.indexOf(";emotes"));
                     String channel = ln[3];
@@ -70,5 +82,9 @@ public class ReadTwitchIRC implements Runnable {
         } catch (IOException ignored) {
 
         }
+    }
+
+    private void cancelClear() {
+        timer.cancel();
     }
 }
