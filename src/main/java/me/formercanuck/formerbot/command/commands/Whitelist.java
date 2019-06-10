@@ -26,16 +26,17 @@ public class Whitelist extends Command {
         if (Main.getInstance().getBot().isMod(sender) || bot.getWhitelisted().contains(sender.toLowerCase())) {
             if (args.size() > 0) {
 
+                String user = args.get(0).replace("@", " ").toLowerCase().trim();
 
-                if (!bot.getWhitelisted().contains(args.get(0))) {
-                    bot.getWhitelisted().add(args.get(0).toLowerCase());
+                if (!bot.getWhitelisted().contains(user)) {
+                    bot.getWhitelisted().add(user);
                     config.set("whitelist", bot.getWhitelisted());
                     Main.getInstance().getBot().messageChannel(String.format("%s, successfully added %s to the whitelist", sender, args.get(0)));
                     return;
                 }
 
-                if (bot.getWhitelisted().contains(args.get(0).toLowerCase())) {
-                    bot.getWhitelisted().remove(args.get(0).toLowerCase());
+                if (bot.getWhitelisted().contains(user)) {
+                    bot.getWhitelisted().remove(user);
                     config.set("whitelist", bot.getWhitelisted());
                     Main.getInstance().getBot().messageChannel(String.format("%s, successfully removed %s from the whitelist", sender, args.get(0)));
                     return;

@@ -19,7 +19,14 @@ public class Youtube extends Command {
             Main.getInstance().getBot().messageChannel(sender + ", " + channel + " does not currently have a youtube.");
             return;
         }
-        Main.getInstance().getBot().messageChannel(String.format("%s, check out %s at https://www.youtube.com/channel/%s their last upload was %s which was posted %s days ago and you can find it here: %s", sender, channel, GetJsonData.getInstance().getIDFromYoutube(channel), GetJsonData.getInstance().getLastVideoTitle(channel), GetJsonData.getInstance().daysSinceLastUpload(channel), GetJsonData.getInstance().getLastVideoLink(channel)));
+
+        Long days = GetJsonData.getInstance().daysSinceLastUpload(channel);
+
+        if (days > 365) {
+            days = days / 365;
+            Main.getInstance().getBot().messageChannel(String.format("%s, check out %s at https://www.youtube.com/channel/%s their last upload was %s which was posted %s years ago and you can find it here: %s", sender, channel, GetJsonData.getInstance().getIDFromYoutube(channel), GetJsonData.getInstance().getLastVideoTitle(channel), days, GetJsonData.getInstance().getLastVideoLink(channel)));
+        } else
+            Main.getInstance().getBot().messageChannel(String.format("%s, check out %s at https://www.youtube.com/channel/%s their last upload was %s which was posted %s days ago and you can find it here: %s", sender, channel, GetJsonData.getInstance().getIDFromYoutube(channel), GetJsonData.getInstance().getLastVideoTitle(channel), days, GetJsonData.getInstance().getLastVideoLink(channel)));
     }
 
     @Override

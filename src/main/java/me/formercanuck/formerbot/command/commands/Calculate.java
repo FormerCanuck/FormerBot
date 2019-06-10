@@ -3,6 +3,7 @@ package me.formercanuck.formerbot.command.commands;
 import me.formercanuck.formerbot.Bot;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
+import me.formercanuck.formerbot.utils.MiscUtils;
 
 import java.util.ArrayList;
 
@@ -16,17 +17,12 @@ public class Calculate extends Command {
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         Bot bot = Main.getInstance().getBot();
         if (bot.isMod(sender.toLowerCase())) {
-            if (args.size() < 3) {
+            if (args.size() < 1) {
                 bot.messageChannel(String.format("%s to use !calc you must have a number then an operator followed by another number. ex:1+2", sender));
                 return;
             }
 
-            double num1 = Double.parseDouble(args.get(0));
-            String operator = args.get(1);
-            double num2 = Double.parseDouble(args.get(2));
-
-
-            bot.messageChannel(String.format("%s, %s %s %s = %s", sender, num1, operator, num2, calculate(num1, operator, num2)));
+            bot.messageChannel(String.format("%s, here is your answer: %s", sender, MiscUtils.calC(args.get(0))));
         }
     }
 
