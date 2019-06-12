@@ -9,35 +9,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MiscUtils {
-
-    // Pattern for recognizing a URL, based off RFC 3986
-    private static final Pattern urlPattern = Pattern.compile(
-            "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
-                    + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
-                    + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)",
-            Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 
     public static String strip(String string) {
         return string.replace("\"", " ").trim();
     }
 
-    public static int containsLink(String text) {
-        Matcher matcher = urlPattern.matcher(text);
-        while (matcher.find()) {
-            int matchStart = matcher.start(1);
-            int matchEnd = matcher.end();
-            System.out.println(matchStart + " : " + matchEnd);
-            return matchEnd;
-        }
-        return 0;
+    private static boolean isDigit(char check) {
+        return Character.isDigit(check);
     }
 
-    static boolean isDigit(char check) {
-        return Character.isDigit(check);
+    public static boolean isArray(Object obj) {
+        return obj != null && obj.getClass().isArray();
     }
 
     public static int calC(String input) {

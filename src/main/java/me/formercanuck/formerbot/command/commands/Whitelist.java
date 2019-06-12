@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class Whitelist extends Command {
 
-    private ConfigFile config;
-
     @Override
     public String getName() {
         return "whitelist";
@@ -18,7 +16,7 @@ public class Whitelist extends Command {
 
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
-        config = Main.getInstance().getBot().getBotFile();
+        ConfigFile config = Main.getInstance().getBot().getBotFile();
         Bot bot = Main.getInstance().getBot();
         if (config.getWhitelist() != null)
             Main.getInstance().getBot().setWhitelisted((ArrayList<String>) config.getWhitelist());
@@ -39,7 +37,6 @@ public class Whitelist extends Command {
                     bot.getWhitelisted().remove(user);
                     config.set("whitelist", bot.getWhitelisted());
                     Main.getInstance().getBot().messageChannel(String.format("%s, successfully removed %s from the whitelist", sender, args.get(0)));
-                    return;
                 }
             } else {
                 bot.messageChannel("Usage: !whitelist <add | remove> <username>");

@@ -24,11 +24,7 @@ public class TwitchConnection {
         }
     }
 
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public BufferedReader getFromTwitch() {
+    BufferedReader getFromTwitch() {
         return fromTwitch;
     }
 

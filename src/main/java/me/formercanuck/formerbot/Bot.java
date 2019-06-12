@@ -110,7 +110,7 @@ public class Bot {
         this.whitelisted = whitelisted;
     }
 
-    public void loadFollows() {
+    private void loadFollows() {
         JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
 
         if (jsonElement.isJsonObject()) {

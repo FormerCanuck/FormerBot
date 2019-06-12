@@ -46,7 +46,6 @@ public class Uptime extends Command {
             long minutes = seconds / 60;
             long hours = minutes / 60;
             long days = hours / 24;
-            String time = days + ":" + hours % 24 + ":" + minutes % 60 + ":" + seconds % 60;
 
             if (days > 0) {
                 Main.getInstance().getBot().messageChannel(String.format("%s, %s has been live for: %s day(s) %s hour(s) %s minute(s) and %s seconds.", sender, channel, days, hours % 24, minutes % 60, seconds % 60));

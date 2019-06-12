@@ -21,7 +21,6 @@ public class CommandManager {
         commandList.add(new FollowAge());
         commandList.add(new Whitelist());
         commandList.add(new Link());
-        commandList.add(new Calculate());
         commandList.add(new Remember());
         commandList.add(new Help());
         commandList.add(new AutoClear());

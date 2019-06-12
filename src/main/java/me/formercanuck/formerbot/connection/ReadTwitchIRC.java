@@ -14,8 +14,8 @@ public class ReadTwitchIRC implements Runnable {
 
     private TwitchConnection twitchConnection;
 
-    public int mins;
-    public int secs;
+    private int mins;
+    private int secs;
     private Timer clearTimer;
     private boolean aboutToClear = false;
     private Bot bot;
@@ -123,7 +123,7 @@ public class ReadTwitchIRC implements Runnable {
             return String.format("%s seconds", secs);
     }
 
-    public void cancelClear() {
+    private void cancelClear() {
         if (aboutToClear) {
             try {
                 clearTimer.cancel();

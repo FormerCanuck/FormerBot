@@ -82,7 +82,7 @@ public class FollowAge extends Command {
 
             int i = 1;
 
-            for (String viewer : putFirstEntries(5, followers).keySet()) {
+            for (String viewer : putFirstEntries(followers).keySet()) {
                 builder.append(String.format("%s: %s (%s) ", i++, viewer, followers.get(viewer)));
             }
             bot.messageChannel(builder.toString());
@@ -94,11 +94,11 @@ public class FollowAge extends Command {
         return 1;
     }
 
-    private HashMap<String, Long> putFirstEntries(int max, HashMap<String, Long> source) {
+    private HashMap<String, Long> putFirstEntries(HashMap<String, Long> source) {
         int count = 0;
         HashMap<String, Long> target = new HashMap<>();
         for (Map.Entry<String, Long> entry : source.entrySet()) {
-            if (count >= max) break;
+            if (count >= 5) break;
 
             target.put(entry.getKey(), entry.getValue());
             count++;

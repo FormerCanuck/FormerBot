@@ -12,7 +12,6 @@ import java.net.URLConnection;
 
 public class GetJsonData {
 
-    private String clientID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
     private static String youtubeID = "AIzaSyBcZNuPkJyns4kHpeNELRM1HF6FdZpq5uE";
 
     private JsonParser json = new JsonParser();
@@ -36,6 +35,7 @@ public class GetJsonData {
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
 
+            String clientID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
             conn.setRequestProperty("Client-ID", clientID);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));

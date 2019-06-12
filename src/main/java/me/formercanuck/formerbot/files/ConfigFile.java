@@ -6,26 +6,20 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class ConfigFile {
 
-    private String dataFolder = System.getProperty("user.home") + "\\Local Settings\\";
-
     private Yaml yaml;
-    private File parentFolderFile = new File(dataFolder + "FormerB0t");
     private File file;
 
     private LinkedHashMap<String, Object> config;
-    private LinkedHashMap<String, Object> defaults;
-
-    private boolean exists = false;
 
     private Logger logger = Logger.getLogger("Config File");
 
     public ConfigFile(String fileName) {
-        defaults = new LinkedHashMap<>();
+        String dataFolder = System.getProperty("user.home") + "\\Local Settings\\";
+        File parentFolderFile = new File(dataFolder + "FormerB0t");
         if (!parentFolderFile.exists()) {
             if (parentFolderFile.mkdir()) {
                 logger.info("[ConfigFile]: Created the main dir.");
@@ -45,7 +39,7 @@ public class ConfigFile {
             } catch (IOException e) {
                 logger.severe(e.getMessage());
             }
-        } else exists = true;
+        }
 
         yaml = new Yaml();
 
@@ -57,32 +51,19 @@ public class ConfigFile {
         }
 
         if (config == null) {
-            config = new LinkedHashMap<String, Object>();
+            config = new LinkedHashMap<>();
         }
-    }
-
-    public boolean exists() {
-        return exists;
-    }
-
-    public void addDefaults() {
-        config = defaults;
-        save();
     }
 
     public List<String> getWhitelist() {
         return (List<String>) config.get("whitelist");
     }
 
-    public void addDefault(String key, Object value) {
-        defaults.put(key, value);
-    }
-
     public Integer getInt(String key) {
         return (Integer) config.get(key);
     }
 
-    public void save() {
+    private void save() {
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.FLOW);
         dumperOptions.setPrettyFlow(true);
@@ -94,10 +75,6 @@ public class ConfigFile {
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }
-    }
-
-    public Map<String, Object> getConfig() {
-        return config;
     }
 
     public boolean contains(String key) {
