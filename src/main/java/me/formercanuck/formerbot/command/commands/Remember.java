@@ -3,7 +3,7 @@ package me.formercanuck.formerbot.command.commands;
 import me.formercanuck.formerbot.Bot;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
-import me.formercanuck.formerbot.utils.RememberTask;
+import me.formercanuck.formerbot.timertasks.RememberTask;
 
 import java.util.ArrayList;
 import java.util.Timer;

@@ -1,7 +1,7 @@
 package me.formercanuck.formerbot.command;
 
 import me.formercanuck.formerbot.Main;
-import me.formercanuck.formerbot.utils.CommandCooldown;
+import me.formercanuck.formerbot.timertasks.CommandCooldown;
 
 import java.util.ArrayList;
 import java.util.Timer;

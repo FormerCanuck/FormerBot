@@ -18,12 +18,12 @@ public class TopClips extends Command {
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         channel = channel.substring(1);
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/kraken/channels/" + channel);
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
 
         if (jsonElement.isJsonObject()) {
-            JsonObject obj = jsonElement.getAsJsonObject();
+            JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
 
-            String id = obj.get("_id").getAsString();
+            String id = obj.get("id").getAsString();
 
             JsonElement temp = GetJsonData.getInstance().getJson(String.format("https://api.twitch.tv/helix/clips?broadcaster_id=%s&first=5", id));
 

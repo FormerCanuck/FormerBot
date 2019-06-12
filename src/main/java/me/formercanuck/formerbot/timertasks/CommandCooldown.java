@@ -1,4 +1,4 @@
-package me.formercanuck.formerbot.utils;
+package me.formercanuck.formerbot.timertasks;
 
 import me.formercanuck.formerbot.Main;
 
