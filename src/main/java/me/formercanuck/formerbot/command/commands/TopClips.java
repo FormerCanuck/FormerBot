@@ -34,7 +34,7 @@ public class TopClips extends Command {
                 return;
             }
 
-            if (args.size() == 0 && Main.getInstance().getBot().isMod(sender) || Main.getInstance().getBot().getWhitelisted().contains(sender.toLowerCase())) {
+            if (args.size() == 0 && Main.getInstance().getBot().isMod(sender) || Main.getInstance().getBot().isWhiteListed(sender)) {
                 Main.getInstance().getBot().messageChannel("Here are the top 5 clips:");
 
                 for (int i = 0; i < 5; i++) { // Integer.parseInt(args[1]) - 1

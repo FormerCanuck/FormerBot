@@ -21,12 +21,12 @@ public class Whitelist extends Command {
         if (config.getWhitelist() != null)
             Main.getInstance().getBot().setWhitelisted((ArrayList<String>) config.getWhitelist());
 
-        if (Main.getInstance().getBot().isMod(sender) || bot.getWhitelisted().contains(sender.toLowerCase())) {
+        if (Main.getInstance().getBot().isMod(sender) || bot.isWhiteListed(sender)) {
             if (args.size() > 0) {
 
                 String user = args.get(0).replace("@", " ").toLowerCase().trim();
 
-                if (!bot.getWhitelisted().contains(user)) {
+                if (!bot.isWhiteListed(user)) {
                     bot.getWhitelisted().add(user);
                     config.set("whitelist", bot.getWhitelisted());
                     Main.getInstance().getBot().messageChannel(String.format("%s, successfully added %s to the whitelist", sender, args.get(0)));

@@ -28,7 +28,7 @@ public class FollowAge extends Command {
         if (args.size() == 0) {
             getFollowage(sender, channel);
         } else if (args.size() == 1) {
-            if (!args.get(0).equalsIgnoreCase("top") && bot.isMod(sender) || Main.getInstance().getBot().getWhitelisted().contains(sender.toLowerCase())) {
+            if (!args.get(0).equalsIgnoreCase("top") && bot.isMod(sender) || Main.getInstance().getBot().isWhiteListed(sender)) {
                 getFollowage(args.get(0), channel);
                 return;
             }

@@ -91,12 +91,10 @@ public class ReadTwitchIRC implements Runnable {
                                     mins = ((remaining % 86400) % 3600) / 60;
                                     secs = ((remaining) % 3600) % 60;
 
-                                    if (remaining == 60) {
-                                        bot.messageChannel("Clearing chat in 1 minute type anything to cancel.");
+                                    if (remaining == (60 * 5)) {
+                                        bot.messageChannel("Clearing chat in 5 minutes type anything to cancel.");
                                         aboutToClear = true;
                                     }
-
-                                    System.out.println(remaining);
 
                                     if (remaining == 1) {
                                         bot.messageChannel("/clear");
@@ -123,13 +121,14 @@ public class ReadTwitchIRC implements Runnable {
             return String.format("%s seconds", secs);
     }
 
-    private void cancelClear() {
-        if (aboutToClear) {
-            try {
+    public void cancelClear() {
+        try {
+            if (clearTimer != null)
                 clearTimer.cancel();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (aboutToClear) {
             bot.messageChannel("Clear has been cancelled.");
             aboutToClear = false;
         }

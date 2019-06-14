@@ -31,6 +31,7 @@ public class AutoClear extends Command {
                     try {
                         int time = Integer.parseInt(command);
                         bot.getBotFile().set("autoClearTime", time);
+                        bot.getReadTwitchIRC().cancelClear();
                         bot.messageChannel(String.format("%s has set the auto clear time to %s minutes", sender, time));
                     } catch (Exception e) {
                         System.out.println(e.getCause());

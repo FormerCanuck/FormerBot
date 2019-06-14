@@ -48,7 +48,6 @@ public class GetJsonData {
             }
 
             br.close();
-            conn.getInputStream().close();
 
             return str.toString();
         } catch (IOException e) {

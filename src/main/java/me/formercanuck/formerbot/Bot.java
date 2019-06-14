@@ -6,6 +6,7 @@ import me.fc.console.Console;
 import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
 import me.formercanuck.formerbot.connection.TwitchConnection;
+import me.formercanuck.formerbot.files.CommandFile;
 import me.formercanuck.formerbot.files.ConfigFile;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
@@ -30,6 +31,7 @@ public class Bot {
     private String channel;
 
     private ConfigFile botFile;
+    private CommandFile commandFile;
 
     private Console console;
 
@@ -54,6 +56,7 @@ public class Bot {
         sendRawMessage("JOIN " + channel);
 
         botFile = new ConfigFile(channel.substring(1));
+        commandFile = new CommandFile(channel.substring(1));
 
         if (!botFile.contains("autoClear")) {
             botFile.set("autoClear", false);
@@ -155,6 +158,10 @@ public class Bot {
         return remember.isEmpty();
     }
 
+    public CommandFile getCommandFile() {
+        return commandFile;
+    }
+
     public String getRemember() {
         String temp = remember.get(0);
         remember.remove(0);
@@ -169,5 +176,9 @@ public class Bot {
         } catch (Exception e) {
             console.error(e.toString());
         }
+    }
+
+    public boolean isWhiteListed(String sender) {
+        return getWhitelisted().contains(sender.toLowerCase());
     }
 }

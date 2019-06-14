@@ -17,7 +17,7 @@ public class Remember extends Command {
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         Bot bot = Main.getInstance().getBot();
-        if (bot.isMod(sender) || bot.getWhitelisted().contains(sender.toLowerCase())) {
+        if (bot.isMod(sender) || bot.isWhiteListed(sender)) {
             if (args.size() != 0) {
                 int delay;
                 try {
