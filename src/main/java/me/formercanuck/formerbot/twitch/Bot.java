@@ -1,17 +1,18 @@
-package me.formercanuck.formerbot;
+package me.formercanuck.formerbot.twitch;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.fc.console.Console;
+import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
 import me.formercanuck.formerbot.connection.TwitchConnection;
-import me.formercanuck.formerbot.files.CommandFile;
 import me.formercanuck.formerbot.files.ConfigFile;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Bot {
 
@@ -31,18 +32,18 @@ public class Bot {
     private String channel;
 
     private ConfigFile botFile;
-    private CommandFile commandFile;
 
     private Console console;
+    private ArrayList<String> watchlist;
 
-    Bot() {
+    public Bot() {
         twitchConnection = new TwitchConnection();
         readTwitchIRC = new ReadTwitchIRC(twitchConnection);
         commandManager = new CommandManager();
         console = Main.getInstance().getConsole();
     }
 
-    void connect() {
+    public void connect() {
         sendRawMessage("CAP REQ :twitch.tv/tags");
         sendRawMessage("CAP REQ :twitch.tv/commands");
         sendRawMessage("PASS oauth:3tphuo7t7zhoz0os9we3vpwcpfhxur");
@@ -51,12 +52,11 @@ public class Bot {
         new Thread(readTwitchIRC).start();
     }
 
-    void joinChannel(String channel) {
+    public void joinChannel(String channel) {
         this.channel = channel;
         sendRawMessage("JOIN " + channel);
 
         botFile = new ConfigFile(channel.substring(1));
-        commandFile = new CommandFile(channel.substring(1));
 
         if (!botFile.contains("autoClear")) {
             botFile.set("autoClear", false);
@@ -109,8 +109,8 @@ public class Bot {
         return whitelisted;
     }
 
-    public void setWhitelisted(ArrayList<String> whitelisted) {
-        this.whitelisted = whitelisted;
+    public void setWhitelisted(ArrayList<String> watchlisted) {
+        this.whitelisted = watchlisted;
     }
 
     private void loadFollows() {
@@ -158,10 +158,6 @@ public class Bot {
         return remember.isEmpty();
     }
 
-    public CommandFile getCommandFile() {
-        return commandFile;
-    }
-
     public String getRemember() {
         String temp = remember.get(0);
         remember.remove(0);
@@ -180,5 +176,17 @@ public class Bot {
 
     public boolean isWhiteListed(String sender) {
         return getWhitelisted().contains(sender.toLowerCase());
+    }
+
+    public boolean onWatchlist(String sender) {
+        return watchlist.contains(sender.toLowerCase());
+    }
+
+    public List<String> getWatchList() {
+        return watchlist;
+    }
+
+    public void setWatchList(ArrayList<String> watchlist) {
+        this.watchlist = watchlist;
     }
 }

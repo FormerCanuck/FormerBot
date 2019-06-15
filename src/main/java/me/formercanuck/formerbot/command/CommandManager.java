@@ -1,6 +1,5 @@
 package me.formercanuck.formerbot.command;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.commands.*;
 
 import java.util.ArrayList;
@@ -20,31 +19,12 @@ public class CommandManager {
         commandList.add(new Youtube());
         commandList.add(new FollowAge());
         commandList.add(new Whitelist());
+        commandList.add(new Watchlist());
         commandList.add(new Link());
         commandList.add(new TODO());
         commandList.add(new Remember());
         commandList.add(new Help());
         commandList.add(new AutoClear());
-        commandList.add(new Com());
-    }
-
-    public void addCustomCommand(CustomCommand customCommand) {
-        for (Command command : commandList) {
-            if (!command.getName().equalsIgnoreCase(customCommand.getName())) {
-                this.commandList.add(customCommand);
-                Main.getInstance().getBot().getCommandFile().saveCustomCommand(customCommand);
-                break;
-            }
-        }
-    }
-
-    public Command getCustomCommand(String name) {
-        for (Command command : commandList) {
-            if (command.getName().equalsIgnoreCase(name)) {
-                return command;
-            }
-        }
-        return null;
     }
 
     void addCooldown(String commandName) {
@@ -59,13 +39,6 @@ public class CommandManager {
                     cmd.cooldown();
                     break;
                 }
-        }
-    }
-
-    public void removeCustomCommand(String s) {
-        if (commandList.contains(getCustomCommand(s))) {
-            Main.getInstance().getBot().getCommandFile().removeCustomCommand((CustomCommand) getCustomCommand(s));
-            commandList.remove(getCustomCommand(s));
         }
     }
 }

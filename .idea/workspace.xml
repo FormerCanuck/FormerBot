@@ -7,31 +7,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89c7e1f2-1129-4416-8c84-caec06693995" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/CustomCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/TodoFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Watchlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/FormerBot_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/FCConsole.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/FCConsole.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/twitch/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/AutoClear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/AutoClear.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/CustomCommand.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Link.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Remember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Remember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TopClips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TopClips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/ServerAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/ServerAge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/connection/ReadTwitchIRC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/connection/ReadTwitchIRC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/GetJsonData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/GetJsonData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/Bot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/Bot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/CommandManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/CommandManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/RememberTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/RememberTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/Bot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/Command.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/CommandManager.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/FollowAge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/FollowAge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Help.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Help.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/ServerAge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/ServerAge.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/TopClips.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/TopClips.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Uptime.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Uptime.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Youtube.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Youtube.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/connection/ReadTwitchIRC.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/connection/ReadTwitchIRC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/connection/TwitchConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/connection/TwitchConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/files/ConfigFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/files/ConfigFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/utils/GetJsonData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/utils/GetJsonData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/files/ConfigFile.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/utils/MiscUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/utils/MiscUtils.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -45,89 +52,50 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="876591327">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="406" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="406" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="204">
+              <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
               <folding>
+                <element signature="e#1543#1544#0" expanded="true" />
                 <element signature="e#1584#1585#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
-              <folding>
-                <element signature="e#1879#1880#0" expanded="true" />
-                <element signature="e#1915#1916#0" expanded="true" />
-                <element signature="e#2834#2835#0" expanded="true" />
-                <element signature="e#2868#2869#0" expanded="true" />
-                <element signature="e#5150#5151#0" expanded="true" />
-                <element signature="e#5184#5185#0" expanded="true" />
-                <element signature="e#5478#5479#0" expanded="true" />
-                <element signature="e#5548#5549#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/CustomCommand.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#220#221#0" expanded="true" />
-                <element signature="e#247#248#0" expanded="true" />
-                <element signature="e#398#399#0" expanded="true" />
-                <element signature="e#422#423#0" expanded="true" />
-                <element signature="e#819#820#0" expanded="true" />
-                <element signature="e#850#851#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/GetJsonData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="31" column="78" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#210#211#0" expanded="true" />
-                <element signature="e#237#238#0" expanded="true" />
-                <element signature="e#2053#2054#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+            <state relative-caret-position="143">
+              <caret line="30" column="118" selection-start-line="30" selection-start-column="105" selection-end-line="30" selection-end-column="118" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,10 +106,60 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-765">
-              <caret line="21" column="67" lean-forward="true" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
+            <state relative-caret-position="-272">
+              <caret line="62" column="51" selection-start-line="62" selection-start-column="51" selection-end-line="62" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1856#1857#0" expanded="true" />
+                <element signature="e#1917#1918#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Watchlist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="21" column="94" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="94" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/twitch/Bot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="111" column="30" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="30" />
+              <folding>
+                <element signature="e#5676#5677#0" expanded="true" />
+                <element signature="e#5708#5709#0" expanded="true" />
+                <element signature="e#5808#5809#0" expanded="true" />
+                <element signature="e#5850#5851#0" expanded="true" />
+                <element signature="e#5936#5937#0" expanded="true" />
+                <element signature="e#5968#5969#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="21" column="54" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+              <folding>
+                <element signature="e#539#540#0" expanded="true" />
+                <element signature="e#565#566#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -168,7 +186,15 @@
       <find>kraken</find>
       <find>getWhite</find>
       <find>getWhitelisted</find>
+      <find>Whitelist</find>
+      <find>watchlist</find>
+      <find>iswa</find>
+      <find>set</find>
     </findStrings>
+    <replaceStrings>
+      <replace>watchlist</replace>
+      <replace>whitelist</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
@@ -198,24 +224,26 @@
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/ClearTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/ClearTimer.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/MiscUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/connection/TwitchConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Uptime.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/AutoClear.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Link.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/TodoFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/connection/ReadTwitchIRC.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TopClips.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Remember.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/GetJsonData.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/CustomCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/twitch/Bot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Watchlist.java" />
       </list>
     </option>
   </component>
@@ -232,97 +260,10 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
-              <item name="command" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
-              <item name="command" type="462c0819:PsiDirectoryNode" />
-              <item name="commands" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
-              <item name="connection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
-              <item name="files" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -443,12 +384,91 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
+              <item name="command" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
+              <item name="command" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
+              <item name="files" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FormerBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="formerbot" type="462c0819:PsiDirectoryNode" />
+              <item name="twitch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FormerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="Misc&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/utils/MiscUtils.java&#10;Mai&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/Main.java&#10;Test&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/command/commands/Test.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560119570656" />
+    <property name="SearchEverywhereHistoryKey" value="Config&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java&#10;Misc&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/utils/MiscUtils.java&#10;Mai&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/Main.java&#10;Test&#9;FILE&#9;file://C:/Users/Cottrell's/Documents/Robert/Projects/FormerBot/src/main/java/me/formercanuck/formerbot/command/commands/Test.java" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560560958642" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../FormerConsole/out/artifacts/FCConsole_jar/FCConsole.jar!/" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -460,10 +480,146 @@
       <recent name="me.formercanuck.formerbot.timertasks" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="me.formercanuck.formerbot.command.commands" />
       <recent name="me.formercanuck.formerbot.files" />
       <recent name="me.formercanuck.formerbot.timertasks" />
       <recent name="me.formercanuck.formerbot.utils" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/AutoClear.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Link.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Remember.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TopClips.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/connection/ReadTwitchIRC.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/GetJsonData.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/Bot.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/CommandManager.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/FollowAge.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/TopClips.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/command/commands/Uptime.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/connection/ReadTwitchIRC.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/connection/TwitchConnection.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/files/ConfigFile.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/utils/GetJsonData.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/target/classes/me/formercanuck/formerbot/utils/MiscUtils.class</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/CustomCommand.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/TodoFile.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -504,6 +660,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.ReadTwitchIRC" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -575,9 +735,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49798387" visible="true" weight="0.18910742" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49798387" visible="true" weight="0.21208054" />
       <window_info id="Structure" order="1" sideWeight="0.5020161" side_tool="true" weight="0.19865772" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -586,7 +746,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.29581994" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.29503545" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3971061" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -594,7 +754,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5015129" side_tool="true" weight="0.29581994" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32907802" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49932885" weight="0.32475883" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49932885" weight="0.32340425" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -632,24 +792,6 @@
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java</url>
-          <line>35</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java</url>
-          <line>34</line>
-          <properties />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FormerBot$Main.ic" NAME="Main Coverage Results" MODIFIED="1559901779492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>me.formercanuck.formerbot.*</FILTER>
@@ -672,13 +814,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/UpdateFollowers.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/ClearTimer.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/ClearTask.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/CommandCooldown.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -688,8 +823,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/timertasks/RememberTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="68">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -734,8 +869,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Youtube.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        <state relative-caret-position="272">
+          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -746,9 +881,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -766,29 +898,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#566#567#0" expanded="true" />
-            <element signature="e#590#591#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Calculate.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/AutoClear.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state relative-caret-position="374">
+          <caret line="28" column="99" selection-start-line="28" selection-start-column="99" selection-end-line="28" selection-end-column="99" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -816,46 +933,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/connection/ReadTwitchIRC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="21" column="61" lean-forward="true" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#239#240#0" expanded="true" />
-            <element signature="e#390#391#0" expanded="true" />
-            <element signature="e#414#415#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TopClips.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
+        <state relative-caret-position="204">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="30" column="55" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Remember.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
+        <state relative-caret-position="476">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -864,8 +960,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/utils/GetJsonData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+        <state relative-caret-position="918">
+          <caret line="65" column="15" selection-start-line="65" selection-start-column="15" selection-end-line="65" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -888,10 +984,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/TODO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-765">
-          <caret line="21" column="67" lean-forward="true" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
+        <state relative-caret-position="268">
+          <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -900,51 +1007,86 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Com.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="31" column="78" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
+        <state relative-caret-position="177">
+          <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#210#211#0" expanded="true" />
-            <element signature="e#237#238#0" expanded="true" />
+            <element signature="e#2029#2030#0" expanded="true" />
             <element signature="e#2053#2054#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/ConfigFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-272">
+          <caret line="62" column="51" selection-start-line="62" selection-start-column="51" selection-end-line="62" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1856#1857#0" expanded="true" />
+            <element signature="e#1917#1918#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+          <folding>
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/FollowAge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="30" column="118" selection-start-line="30" selection-start-column="105" selection-end-line="30" selection-end-column="118" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Whitelist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="21" column="54" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/twitch/Bot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="111" column="30" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="30" />
+          <folding>
+            <element signature="e#5676#5677#0" expanded="true" />
+            <element signature="e#5708#5709#0" expanded="true" />
+            <element signature="e#5808#5809#0" expanded="true" />
+            <element signature="e#5850#5851#0" expanded="true" />
+            <element signature="e#5936#5937#0" expanded="true" />
+            <element signature="e#5968#5969#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/CommandManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="204">
+          <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding>
+            <element signature="e#1543#1544#0" expanded="true" />
             <element signature="e#1584#1585#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/files/CommandFile.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/command/commands/Watchlist.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/formercanuck/formerbot/Bot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
-          <folding>
-            <element signature="e#1879#1880#0" expanded="true" />
-            <element signature="e#1915#1916#0" expanded="true" />
-            <element signature="e#2834#2835#0" expanded="true" />
-            <element signature="e#2868#2869#0" expanded="true" />
-            <element signature="e#5150#5151#0" expanded="true" />
-            <element signature="e#5184#5185#0" expanded="true" />
-            <element signature="e#5478#5479#0" expanded="true" />
-            <element signature="e#5548#5549#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="21" column="94" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="94" />
         </state>
       </provider>
     </entry>

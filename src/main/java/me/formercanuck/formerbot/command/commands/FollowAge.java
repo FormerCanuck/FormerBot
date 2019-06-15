@@ -3,9 +3,9 @@ package me.formercanuck.formerbot.command.commands;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import me.formercanuck.formerbot.Bot;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
+import me.formercanuck.formerbot.twitch.Bot;
 import me.formercanuck.formerbot.utils.GetJsonData;
 import me.formercanuck.formerbot.utils.MiscUtils;
 

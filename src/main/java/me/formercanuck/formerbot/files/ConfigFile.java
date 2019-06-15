@@ -59,6 +59,10 @@ public class ConfigFile {
         return (List<String>) config.get("whitelist");
     }
 
+    public List<String> getWatchList() {
+        return (List<String>) config.get("watchlist");
+    }
+
     public Integer getInt(String key) {
         return (Integer) config.get(key);
     }

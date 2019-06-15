@@ -7,11 +7,11 @@ import me.formercanuck.formerbot.twitch.Bot;
 
 import java.util.ArrayList;
 
-public class Whitelist extends Command {
+public class Watchlist extends Command {
 
     @Override
     public String getName() {
-        return "whitelist";
+        return "watchlist";
     }
 
     @Override
@@ -19,27 +19,30 @@ public class Whitelist extends Command {
         ConfigFile config = Main.getInstance().getBot().getBotFile();
         Bot bot = Main.getInstance().getBot();
         if (config.getWhitelist() != null)
-            Main.getInstance().getBot().setWhitelisted((ArrayList<String>) config.getWhitelist());
+            Main.getInstance().getBot().setWatchList((ArrayList<String>) config.getWatchList());
 
-        if (Main.getInstance().getBot().isMod(sender) || bot.isWhiteListed(sender)) {
+        if (Main.getInstance().getBot().isMod(sender) || bot.onWatchlist(sender)) {
             if (args.size() > 0) {
 
                 String user = args.get(0).replace("@", " ").toLowerCase().trim();
 
-                if (!bot.isWhiteListed(user)) {
+                if (!bot.onWatchlist(user)) {
                     bot.getWhitelisted().add(user);
-                    config.set("whitelist", bot.getWhitelisted());
-                    Main.getInstance().getBot().messageChannel(String.format("%s, successfully added %s to the whitelist", sender, args.get(0)));
+                    config.set("watchlist", bot.getWhitelisted());
+                    Main.getInstance().getBot().messageChannel(String.format("%s, successfully added %s to the watch list", sender, args.get(0)));
                     return;
                 }
 
                 if (bot.getWhitelisted().contains(user)) {
                     bot.getWhitelisted().remove(user);
-                    config.set("whitelist", bot.getWhitelisted());
-                    Main.getInstance().getBot().messageChannel(String.format("%s, successfully removed %s from the whitelist", sender, args.get(0)));
+                    config.set("watchlist", bot.getWhitelisted());
+                    Main.getInstance().getBot().messageChannel(String.format("%s, successfully removed %s from the watch list", sender, args.get(0)));
                 }
             } else {
-                bot.messageChannel("Usage: !whitelist <add | remove> <username>");
+                StringBuilder str = new StringBuilder();
+
+                for (String s : bot.getWatchList()) str.append(s).append(", ");
+                bot.messageChannel("Here is the list of users to watch: " + str.toString().trim());
             }
         }
     }

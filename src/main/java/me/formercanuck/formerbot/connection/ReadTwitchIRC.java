@@ -1,7 +1,7 @@
 package me.formercanuck.formerbot.connection;
 
-import me.formercanuck.formerbot.Bot;
 import me.formercanuck.formerbot.Main;
+import me.formercanuck.formerbot.twitch.Bot;
 
 import java.awt.*;
 import java.io.IOException;

@@ -1,6 +1,7 @@
 package me.formercanuck.formerbot;
 
 import me.fc.console.Console;
+import me.formercanuck.formerbot.twitch.Bot;
 
 import java.util.Scanner;
 
