@@ -40,7 +40,6 @@ public class Bot {
     public Bot() {
         twitchConnection = new TwitchConnection();
         readTwitchIRC = new ReadTwitchIRC(twitchConnection);
-        commandManager = new CommandManager();
         console = Main.getInstance().getConsole();
     }
 
@@ -57,8 +56,7 @@ public class Bot {
         this.channel = channel;
         sendRawMessage("JOIN " + channel);
 
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=recanem");
-//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
 
         if (jsonElement.isJsonObject()) {
             JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
@@ -74,6 +72,7 @@ public class Bot {
             botFile.set("autoClear", false);
             botFile.set("autoClearTime", 10);
         }
+        commandManager = new CommandManager();
 
         loadFollows();
     }
@@ -141,7 +140,7 @@ public class Bot {
 
             temp =
                     GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + getChannelID() + "&first=100&after=" + temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").getAsString().replace("\"", " ").trim());
-            console.error("Loaded a set of follows");
+            console.error(followers.size() + " followers loaded");
             try {
                 Thread.sleep(60 * 1000);
             } catch (InterruptedException e) {
