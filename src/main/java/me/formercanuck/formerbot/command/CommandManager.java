@@ -25,6 +25,7 @@ public class CommandManager {
         commandList.add(new Remember());
         commandList.add(new Help());
         commandList.add(new AutoClear());
+        commandList.add(new Leave());
     }
 
     void addCooldown(String commandName) {
