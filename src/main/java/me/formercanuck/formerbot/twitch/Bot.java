@@ -30,6 +30,7 @@ public class Bot {
     private HashMap<String, String> followers = new HashMap<>();
 
     private String channel;
+    private String channelID;
 
     private ConfigFile botFile;
 
@@ -55,6 +56,17 @@ public class Bot {
     public void joinChannel(String channel) {
         this.channel = channel;
         sendRawMessage("JOIN " + channel);
+
+        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=recanem");
+//        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
+
+        if (jsonElement.isJsonObject()) {
+            JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+
+            System.out.println(jsonElement.getAsJsonObject().get("data"));
+
+            channelID = obj.get("id").getAsString();
+        }
 
         botFile = new ConfigFile(channel.substring(1));
 
@@ -114,36 +126,29 @@ public class Bot {
     }
 
     private void loadFollows() {
-        JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + channel.substring(1));
+        JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + getChannelID() + "&first=100");
 
-        if (jsonElement.isJsonObject()) {
-            JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+        console.println("[Bot]: loading followers...");
 
-            String id = obj.get("id").getAsString();
+        while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
+            JsonElement follows = temp.getAsJsonObject().get("data");
 
-            JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100");
-
-            console.println("[Bot]: loading followers...");
-
-            while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
-                JsonElement follows = temp.getAsJsonObject().get("data");
-
-                for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
-                    String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString().replace("\"", " ").trim();
-                    String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString().replace("\"", " ").trim();
-                    addFollower(user, followDate.substring(0, 10));
-                }
-
-                temp =
-                        GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + id + "&first=100&after=" + temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").getAsString().replace("\"", " ").trim());
-                try {
-                    Thread.sleep(2 * 1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
+                String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString().replace("\"", " ").trim();
+                String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString().replace("\"", " ").trim();
+                addFollower(user, followDate.substring(0, 10));
             }
-            console.println("[Bot]: finished loading followers...");
+
+            temp =
+                    GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + getChannelID() + "&first=100&after=" + temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").getAsString().replace("\"", " ").trim());
+            console.error("Loaded a set of follows");
+            try {
+                Thread.sleep(60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        console.println("[Bot]: finished loading followers...");
     }
 
     public String getChannel() {
@@ -188,5 +193,9 @@ public class Bot {
 
     public void setWatchList(ArrayList<String> watchlist) {
         this.watchlist = watchlist;
+    }
+
+    public String getChannelID() {
+        return channelID;
     }
 }
