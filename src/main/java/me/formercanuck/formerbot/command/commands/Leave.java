@@ -13,7 +13,7 @@ public class Leave extends Command {
 
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
-        Main.getInstance().getBot().messageChannel("Okay @" + sender + " o/");
+        Main.getInstance().getBot().getChannel().messageChannel("Okay @" + sender + " o/");
         System.exit(0);
     }
 

@@ -16,7 +16,7 @@ public class MultiStream extends Command {
         StringBuilder str = new StringBuilder();
         for (String s : args)
             str.append("/").append(s.replace("@", " ").trim());
-        Main.getInstance().getBot().messageChannel(String.format("https://multistre.am/recanem%s/layout4/", str.toString().trim()));
+        Main.getInstance().getBot().getChannel().messageChannel(String.format("https://multistre.am/%s%s/layout4/", Main.getInstance().getBot().getChannel().getChannelName(), str.toString().trim()));
     }
 
     @Override

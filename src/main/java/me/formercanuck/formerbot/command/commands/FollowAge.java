@@ -28,7 +28,7 @@ public class FollowAge extends Command {
         if (args.size() == 0) {
             getFollowage(sender, channel);
         } else if (args.size() == 1) {
-            if (!args.get(0).equalsIgnoreCase("top") && bot.isMod(sender) || Main.getInstance().getBot().isWhiteListed(sender)) {
+            if (!args.get(0).equalsIgnoreCase("top") && bot.getChannel().isMod(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender)) {
                 getFollowage(args.get(0), channel);
                 return;
             }
@@ -70,8 +70,8 @@ public class FollowAge extends Command {
             }
 
             for (String viewer : viewers) {
-                if (bot.isFollowing(viewer)) {
-                    followers.put(viewer, MiscUtils.numberOfDaysBetweenDateAndNow(bot.getFollowDate(viewer)));
+                if (bot.getChannel().isFollowing(viewer)) {
+                    followers.put(viewer, MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel().getFollowDate(viewer)));
                 }
             }
 
@@ -85,7 +85,7 @@ public class FollowAge extends Command {
             for (String viewer : putFirstEntries(followers).keySet()) {
                 builder.append(String.format("%s: %s (%s) ", i++, viewer, followers.get(viewer)));
             }
-            bot.messageChannel(builder.toString());
+            bot.getChannel().messageChannel(builder.toString());
         }
     }
 
@@ -114,14 +114,14 @@ public class FollowAge extends Command {
     }
 
     private JsonElement getViewerList() {
-        return GetJsonData.getInstance().getJson(String.format("https://tmi.twitch.tv/group/user/%s/chatters", bot.getChannel().substring(1)));
+        return GetJsonData.getInstance().getJson(String.format("https://tmi.twitch.tv/group/user/%s/chatters", bot.getChannel().getChannelName()));
     }
 
     private void getFollowage(String user, String channel) {
-        if (bot.isFollowing(user.toLowerCase())) {
-            bot.messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getFollowDate(user))));
+        if (bot.getChannel().isFollowing(user.toLowerCase())) {
+            bot.getChannel().messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getChannel().getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel().getFollowDate(user))));
         } else {
-            bot.messageChannel(String.format("%s, you are not following.", user));
+            bot.getChannel().messageChannel(String.format("%s, you are not following.", user));
         }
     }
 }

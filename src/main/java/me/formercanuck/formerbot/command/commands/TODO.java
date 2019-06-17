@@ -19,7 +19,7 @@ public class TODO extends Command {
         Bot bot = Main.getInstance().getBot();
         TodoFile todoFile = new TodoFile();
 
-        if (bot.isMod(sender) || bot.isWhiteListed(sender)) {
+        if (bot.getChannel().isMod(sender) || bot.getChannel().isWhiteListed(sender)) {
             StringBuilder str = new StringBuilder();
 
             for (String s : args) {
@@ -28,7 +28,7 @@ public class TODO extends Command {
 
             todoFile.addTODO(str.toString());
 
-            bot.messageChannel(String.format("%s has added: %s to the todo list.", sender, str.toString()));
+            bot.getChannel().messageChannel(String.format("%s has added: %s to the todo list.", sender, str.toString()));
         }
     }
 

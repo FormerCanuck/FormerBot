@@ -14,7 +14,7 @@ public class Link extends Command {
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         if (Main.getInstance().getBot().getBotFile().getWhitelist().contains(sender.toLowerCase())) {
-            Main.getInstance().getBot().messageChannel("!allow " + sender);
+            Main.getInstance().getBot().getChannel().messageChannel("!allow " + sender);
         }
     }
 

@@ -76,33 +76,6 @@ public class GetJsonData {
         return null;
     }
 
-    private String retrieveJson(String link) {
-        try {
-
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-
-            String clientID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
-            conn.setRequestProperty("Client-ID", clientID);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            StringBuilder str = new StringBuilder();
-            String temp;
-
-            while ((temp = br.readLine()) != null) {
-                str.append(temp);
-            }
-
-            br.close();
-
-            return str.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
     public String getLastVideoTitle(String username) {
         if (getIDFromYoutube(username) == null) return null;
         return MiscUtils.strip(getInstance().getJsonFromYT("activities?part=snippet&channelId=" + getIDFromYoutube(username) + "&key=" + youtubeID).getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("title").toString());

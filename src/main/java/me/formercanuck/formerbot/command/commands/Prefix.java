@@ -15,12 +15,12 @@ public class Prefix extends Command {
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         Bot bot = Main.getInstance().getBot();
-        if (bot.isMod(sender)) {
+        if (bot.getChannel().isMod(sender)) {
             if (args.size() == 0)
-                bot.messageChannel(sender + " Usage: " + bot.getBotFile().getString("prefix") + "prefix <new prefix>");
+                bot.getChannel().messageChannel(sender + " Usage: " + bot.getBotFile().getString("prefix") + "prefix <new prefix>");
             if (args.size() == 1) {
                 bot.getBotFile().set("prefix", args.get(0));
-                bot.messageChannel(String.format("%s has changed the prefix to %s", sender, args.get(0)));
+                bot.getChannel().messageChannel(String.format("%s has changed the prefix to %s", sender, args.get(0)));
             }
         }
     }

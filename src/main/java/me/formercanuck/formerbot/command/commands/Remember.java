@@ -17,13 +17,13 @@ public class Remember extends Command {
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
         Bot bot = Main.getInstance().getBot();
-        if (bot.isMod(sender) || bot.isWhiteListed(sender)) {
+        if (bot.getChannel().isMod(sender) || bot.getChannel().isWhiteListed(sender)) {
             if (args.size() != 0) {
                 int delay;
                 try {
                     delay = Integer.parseInt(args.get(0));
                 } catch (Exception e) {
-                    bot.messageChannel(String.format("%s, you entered an invalid delay time.", sender));
+                    bot.getChannel().messageChannel(String.format("%s, you entered an invalid delay time.", sender));
                     return;
                 }
 
@@ -35,12 +35,12 @@ public class Remember extends Command {
                 }
 
                 bot.addRemember(output.toString());
-                bot.messageChannel(String.format("Okay %s, I'll remember that for you.", sender));
+                bot.getChannel().messageChannel(String.format("Okay %s, I'll remember that for you.", sender));
 
                 Timer timer = new Timer();
                 timer.schedule(new RememberTask(), (1000 * 60) * delay);
             } else {
-                bot.messageChannel("Usage: !remember <delay> <Message to remember>");
+                bot.getChannel().messageChannel("Usage: !remember <delay> <Message to remember>");
             }
         }
     }

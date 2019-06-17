@@ -14,7 +14,7 @@ public class Help extends Command {
 
     @Override
     public void onCommand(String sender, String channel, ArrayList<String> args) {
-        Main.getInstance().getBot().messageChannel(String.format("%s, here is a list of my commands: https://bit.ly/2wv1FEt", sender));
+        Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, here is a list of my commands: https://bit.ly/2wv1FEt", sender));
     }
 
     @Override

@@ -48,13 +48,13 @@ public class Uptime extends Command {
             long days = hours / 24;
 
             if (days > 0) {
-                Main.getInstance().getBot().messageChannel(String.format("%s, %s has been live for: %s day(s) %s hour(s) %s minute(s) and %s seconds.", sender, channel, days, hours % 24, minutes % 60, seconds % 60));
+                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s day(s) %s hour(s) %s minute(s) and %s seconds.", sender, channel, days, hours % 24, minutes % 60, seconds % 60));
             } else if (hours > 0) {
-                Main.getInstance().getBot().messageChannel(String.format("%s, %s has been live for: %s hour(s) %s minute(s) and %s seconds.", sender, channel, hours % 24, minutes % 60, seconds % 60));
+                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s hour(s) %s minute(s) and %s seconds.", sender, channel, hours % 24, minutes % 60, seconds % 60));
             } else if (minutes > 0) {
-                Main.getInstance().getBot().messageChannel(String.format("%s, %s has been live for: %s minute(s) and %s seconds.", sender, channel, minutes % 60, seconds % 60));
+                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s minute(s) and %s seconds.", sender, channel, minutes % 60, seconds % 60));
             } else if (seconds > 0) {
-                Main.getInstance().getBot().messageChannel(String.format("%s, %s has been live for: %s seconds.", sender, channel, seconds % 60));
+                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s seconds.", sender, channel, seconds % 60));
             }
         }
     }

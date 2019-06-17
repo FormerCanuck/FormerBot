@@ -35,18 +35,18 @@ public class ReadTwitchIRC implements Runnable {
                 }
 
                 if (line.contains("End of /NAMES list")) {
-                    bot.messageChannel("/mods");
+                    bot.sendRawMessage(String.format("PRIVMSG %s :%s", bot.getChannel().getChannel(), "/mods"));
                 }
 
                 if (line.contains("The moderators of this channel are:")) {
                     String[] ln = line.split(":");
                     String[] mods = ln[3].split(",");
 
-                    bot.addMod("formercanuck");
-                    bot.addMod(bot.getChannel().substring(1));
+                    bot.getChannel().addMod("formercanuck");
+                    bot.getChannel().addMod(bot.getChannel().getChannelName());
 
                     for (String mod : mods) {
-                        bot.addMod(mod.replace(",", "").substring(1));
+                        bot.getChannel().addMod(mod.replace(",", "").substring(1));
                     }
                 }
 
@@ -90,12 +90,12 @@ public class ReadTwitchIRC implements Runnable {
                                     secs = ((remaining) % 3600) % 60;
 
                                     if (remaining == (60 * 5)) {
-                                        bot.messageChannel("Clearing chat in 5 minutes type anything to cancel.");
+                                        bot.getChannel().messageChannel("Clearing chat in 5 minutes type anything to cancel.");
                                         aboutToClear = true;
                                     }
 
                                     if (remaining == 1) {
-                                        bot.messageChannel("/clear");
+                                        bot.sendRawMessage(String.format("PRIVMSG %s :%s", bot.getChannel().getChannel(), "/clear"));
                                     }
                                 }
                             };
@@ -127,7 +127,7 @@ public class ReadTwitchIRC implements Runnable {
             e.printStackTrace();
         }
         if (aboutToClear) {
-            bot.messageChannel("Clear has been cancelled.");
+            bot.getChannel().messageChannel("Clear has been cancelled.");
             aboutToClear = false;
         }
     }

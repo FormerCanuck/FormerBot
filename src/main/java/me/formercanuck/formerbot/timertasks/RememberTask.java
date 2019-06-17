@@ -12,6 +12,6 @@ public class RememberTask extends TimerTask {
     @Override
     public void run() {
         if (!bot.isRememberEmpty())
-            bot.messageChannel("Don't forget, " + Main.getInstance().getBot().getRemember());
+            bot.getChannel().messageChannel("Don't forget, " + Main.getInstance().getBot().getRemember());
     }
 }
