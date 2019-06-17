@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 public class GetJsonData {
 
@@ -20,8 +21,23 @@ public class GetJsonData {
     private GetJsonData() {
     }
 
+    private int getRandomNumberInRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
 //    public JsonElement getJson(String url) {
-//        return json.parse(retrieveJson(url));
+//        setProxy("127.0.0.1", getRandomNumberInRange(1000, 7000));
+//        try {
+//            return json.parse(getString(url));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
 //    }
 
     private JsonElement getJsonFromYT(String url) {
@@ -36,6 +52,7 @@ public class GetJsonData {
         }
         return sb.toString();
     }
+
 
     public JsonElement getJson(String url) {
         InputStream is = null;

@@ -68,6 +68,8 @@ public class Bot {
 
         botFile = new ConfigFile(channel.substring(1));
 
+        if (!botFile.contains("prefix")) botFile.set("prefix", "!");
+
         if (!botFile.contains("autoClear")) {
             botFile.set("autoClear", false);
             botFile.set("autoClearTime", 10);

@@ -21,6 +21,7 @@ public class CommandManager {
 
         commandList.add(new TopClips());
         commandList.add(new Uptime());
+        commandList.add(new Prefix());
         commandList.add(new ServerAge());
         commandList.add(new Youtube());
         commandList.add(new FollowAge());
@@ -32,6 +33,7 @@ public class CommandManager {
         commandList.add(new Help());
         commandList.add(new AutoClear());
         commandList.add(new Leave());
+        commandList.add(new MultiStream());
         commandList.add(new Disable());
     }
 
@@ -60,6 +62,7 @@ public class CommandManager {
     public boolean disableCommand(String command) {
         if (getCommand(command) != null) {
             disableCommands.add(command);
+            Main.getInstance().getBot().getBotFile().set("disabledCommands", disableCommands);
             return true;
         } else return false;
     }

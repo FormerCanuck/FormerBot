@@ -30,8 +30,6 @@ public class ReadTwitchIRC implements Runnable {
 
         try {
             while ((line = twitchConnection.getFromTwitch().readLine()) != null) {
-                Main.getInstance().getConsole().println(line);
-
                 if (line.equalsIgnoreCase("PING :tmi.twitch.tv")) {
                     bot.sendRawMessage("PONG :tmi.twitch.tv");
                 }
@@ -64,7 +62,7 @@ public class ReadTwitchIRC implements Runnable {
 
                     String msg = stringBuilder.toString().substring(1);
 
-                    if (msg.startsWith("!")) {
+                    if (msg.startsWith(bot.getBotFile().getString("prefix"))) {
                         String command = stringBuilder.substring(2, stringBuilder.indexOf(" "));
                         stringBuilder.delete(0, stringBuilder.indexOf(" "));
                         stringBuilder.substring(1);
