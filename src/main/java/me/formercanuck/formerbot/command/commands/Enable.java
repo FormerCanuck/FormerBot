@@ -4,10 +4,10 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.twitch.Bot;
 
-public class Disable extends Command {
+public class Enable extends Command {
     @Override
     public String getName() {
-        return "disable";
+        return "enable";
     }
 
     @Override
@@ -15,9 +15,8 @@ public class Disable extends Command {
         Bot bot = Main.getInstance().getBot();
 
         if (bot.getChannel().isMod(sender)) {
-            if (bot.getCommandManager().disableCommand(args[0])) {
-                bot.getChannel().messageChannel(String.format("%s has disabled %s", sender, args[0]));
-            }
+            if (bot.getCommandManager().enableCommand(args[0]))
+                bot.getChannel().messageChannel(String.format("%s has enabled %s", sender, args[0]));
         }
     }
 

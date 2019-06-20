@@ -4,8 +4,6 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.twitch.Bot;
 
-import java.util.ArrayList;
-
 public class AutoClear extends Command {
     @Override
     public String getName() {
@@ -13,15 +11,15 @@ public class AutoClear extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         Bot bot = Main.getInstance().getBot();
         if (bot.getChannel().isMod(sender)) {
-            if (args.size() == 0) {
+            if (args.length == 0) {
                 bot.getBotFile().set("autoClear", !bot.getBotFile().getBoolean("autoClear"));
                 bot.getChannel().messageChannel(String.format("%s has toggled autoClear current state: " + bot.getBotFile().getBoolean("autoClear"), sender));
                 return;
             } else {
-                String command = args.get(0);
+                String command = args[0];
 
                 if (command.equalsIgnoreCase("help"))
                     bot.getChannel().messageChannel("Usage: !autoClear <cancel | integer> if no argument is specified it will simply toggle the autoClear function.");

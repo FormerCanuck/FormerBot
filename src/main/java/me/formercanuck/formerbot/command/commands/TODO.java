@@ -5,8 +5,6 @@ import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.files.TodoFile;
 import me.formercanuck.formerbot.twitch.Bot;
 
-import java.util.ArrayList;
-
 public class TODO extends Command {
 
     @Override
@@ -15,7 +13,7 @@ public class TODO extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         Bot bot = Main.getInstance().getBot();
         TodoFile todoFile = new TodoFile();
 

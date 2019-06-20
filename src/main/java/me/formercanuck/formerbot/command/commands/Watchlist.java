@@ -16,7 +16,7 @@ public class Watchlist extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         ConfigFile config = Main.getInstance().getBot().getBotFile();
         Bot bot = Main.getInstance().getBot();
         Channel chnl = bot.getChannel();
@@ -25,21 +25,21 @@ public class Watchlist extends Command {
             chnl.setWatchList((ArrayList<String>) config.getWatchList());
 
         if (chnl.isMod(sender) || chnl.onWatchlist(sender)) {
-            if (args.size() > 0) {
+            if (args.length > 0) {
 
-                String user = args.get(0).replace("@", " ").toLowerCase().trim();
+                String user = args[0].replace("@", " ").toLowerCase().trim();
 
                 if (!chnl.onWatchlist(user)) {
                     chnl.getWatchList().add(user);
                     config.set("watchlist", chnl.getWatchList());
-                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully added %s to the watch list", sender, args.get(0)));
+                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully added %s to the watch list", sender, args[0]));
                     return;
                 }
 
                 if (chnl.getWatchList().contains(user)) {
                     chnl.getWatchList().remove(user);
                     config.set("watchlist", chnl.getWatchList());
-                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully removed %s from the watch list", sender, args.get(0)));
+                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully removed %s from the watch list", sender, args[0]));
                 }
             } else {
                 StringBuilder str = new StringBuilder();

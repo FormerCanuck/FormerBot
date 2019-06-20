@@ -5,8 +5,6 @@ import me.formercanuck.formerbot.twitch.Bot;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -66,9 +64,7 @@ public class ReadTwitchIRC implements Runnable {
                         String command = stringBuilder.substring(2, stringBuilder.indexOf(" "));
                         stringBuilder.delete(0, stringBuilder.indexOf(" "));
                         stringBuilder.substring(1);
-                        ArrayList<String> args = new ArrayList<>(Arrays.asList(stringBuilder.toString().split(" ")));
-                        if (args.size() > 0)
-                            args.remove(0);
+                        String[] args = stringBuilder.toString().split(" ");
                         bot.getCommandManager().onCommand(user, channel, command, args);
                     } else if (msg.startsWith("/")) {
                     } else {

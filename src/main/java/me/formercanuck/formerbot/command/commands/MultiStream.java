@@ -3,8 +3,6 @@ package me.formercanuck.formerbot.command.commands;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 
-import java.util.ArrayList;
-
 public class MultiStream extends Command {
     @Override
     public String getName() {
@@ -12,7 +10,7 @@ public class MultiStream extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         StringBuilder str = new StringBuilder();
         for (String s : args)
             str.append("/").append(s.replace("@", " ").trim());

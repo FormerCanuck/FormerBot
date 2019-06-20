@@ -7,7 +7,6 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TopClips extends Command {
@@ -17,7 +16,7 @@ public class TopClips extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         String id = Main.getInstance().getBot().getChannel().getChannelID();
         sender = sender.toLowerCase();
 
@@ -25,21 +24,21 @@ public class TopClips extends Command {
 
         JsonArray jsonArray = temp.getAsJsonObject().get("data").getAsJsonArray();
 
-        if (args.size() == 0 && !Main.getInstance().getBot().getChannel().isMod(sender)) {
+        if (args.length == 0 && !Main.getInstance().getBot().getChannel().isMod(sender)) {
             Main.getInstance().getBot().getChannel().messageChannel("Usage: !topclips <1-5>");
             return;
         }
 
-        if (args.get(0).equalsIgnoreCase("top") && Main.getInstance().getBot().getChannel().isMod(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender)) {
+        if (args[0].equalsIgnoreCase("top") && Main.getInstance().getBot().getChannel().isMod(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender)) {
             Main.getInstance().getBot().getChannel().messageChannel("Here are the top 5 clips:");
 
             for (int i = 0; i < 5; i++) { // Integer.parseInt(args[1]) - 1
                 Main.getInstance().getBot().getChannel().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(i).getAsJsonObject().get("title").getAsString(), jsonArray.get(i).getAsJsonObject().get("url").getAsString()));
             }
             return;
-        } else if (args.size() > 0) {
+        } else if (args.length > 0) {
             try {
-                Main.getInstance().getBot().getChannel().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(Integer.parseInt(args.get(0))).getAsJsonObject().get("title").getAsString(), jsonArray.get(Integer.parseInt(args.get(0))).getAsJsonObject().get("url").getAsString()));
+                Main.getInstance().getBot().getChannel().messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(Integer.parseInt(args[0])).getAsJsonObject().get("title").getAsString(), jsonArray.get(Integer.parseInt(args[0])).getAsJsonObject().get("url").getAsString()));
             } catch (NumberFormatException er) {
                 if (!Main.getInstance().getBot().getChannel().isMod(sender)) return;
 
@@ -52,11 +51,11 @@ public class TopClips extends Command {
 
                 if (clips.containsKey(sender) && !clips.get(sender).isEmpty()) sendersClips = clips.get(sender);
 
-                if (clips.containsKey(args.get(0).toLowerCase())) {
-                    sendersClips = clips.get(args.get(0));
+                if (clips.containsKey(args[0].toLowerCase())) {
+                    sendersClips = clips.get(args[0]);
                     if (sendersClips == null) sendersClips = new HashMap<>();
                     System.out.println("HEY");
-                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s here are %s's favorite clips: ", sender, args.get(0)));
+                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s here are %s's favorite clips: ", sender, args[0]));
                     for (String s : sendersClips.keySet()) {
                         Main.getInstance().getBot().getChannel().messageChannel(String.format("%s", sendersClips.get(s)));
                     }

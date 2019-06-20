@@ -22,14 +22,14 @@ public class FollowAge extends Command {
     private Bot bot;
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         bot = Main.getInstance().getBot();
         cooldown();
-        if (args.size() == 0) {
+        if (args.length == 0) {
             getFollowage(sender, channel);
-        } else if (args.size() == 1) {
-            if (!args.get(0).equalsIgnoreCase("top") && bot.getChannel().isMod(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender)) {
-                getFollowage(args.get(0), channel);
+        } else if (args.length == 1) {
+            if (!args[0].equalsIgnoreCase("top") && bot.getChannel().isMod(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender)) {
+                getFollowage(args[0], channel);
                 return;
             }
 

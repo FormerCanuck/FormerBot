@@ -4,8 +4,6 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.twitch.Bot;
 
-import java.util.ArrayList;
-
 public class Prefix extends Command {
     @Override
     public String getName() {
@@ -13,14 +11,14 @@ public class Prefix extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, ArrayList<String> args) {
+    public void onCommand(String sender, String channel, String[] args) {
         Bot bot = Main.getInstance().getBot();
         if (bot.getChannel().isMod(sender)) {
-            if (args.size() == 0)
+            if (args.length == 0)
                 bot.getChannel().messageChannel(sender + " Usage: " + bot.getBotFile().getString("prefix") + "prefix <new prefix>");
-            if (args.size() == 1) {
-                bot.getBotFile().set("prefix", args.get(0));
-                bot.getChannel().messageChannel(String.format("%s has changed the prefix to %s", sender, args.get(0)));
+            if (args.length == 1) {
+                bot.getBotFile().set("prefix", args[0]);
+                bot.getChannel().messageChannel(String.format("%s has changed the prefix to %s", sender, args[0]));
             }
         }
     }
