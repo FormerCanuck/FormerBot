@@ -24,19 +24,19 @@ public class Watchlist extends Command {
         if (config.getWhitelist() != null)
             chnl.setWatchList((ArrayList<String>) config.getWatchList());
 
-        if (chnl.isMod(sender) || chnl.onWatchlist(sender)) {
+        if (chnl.isMod(sender)) {
             if (args.length > 0) {
 
                 String user = args[0].replace("@", " ").toLowerCase().trim();
 
-                if (!chnl.onWatchlist(user)) {
+                if (!chnl.onWatchlist(user) && !user.equalsIgnoreCase("formercanuck") && !user.equalsIgnoreCase(bot.getChannel().getChannelName())) {
                     chnl.getWatchList().add(user);
                     config.set("watchlist", chnl.getWatchList());
                     Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully added %s to the watch list", sender, args[0]));
                     return;
                 }
 
-                if (chnl.getWatchList().contains(user)) {
+                if (chnl.getWatchList().contains(user) && !user.equalsIgnoreCase("Fortressamerca1776")) {
                     chnl.getWatchList().remove(user);
                     config.set("watchlist", chnl.getWatchList());
                     Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully removed %s from the watch list", sender, args[0]));

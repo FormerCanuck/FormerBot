@@ -32,7 +32,9 @@ public class CustomCommand extends Command {
             case "mod":
                 return Main.getInstance().getBot().getChannel().isMod(sender);
             case "whitelist":
-                return Main.getInstance().getBot().getChannel().isWhiteListed(sender);
+                return Main.getInstance().getBot().getChannel().isWhiteListed(sender) || Main.getInstance().getBot().getChannel().isMod(sender);
+            case "follow":
+                return Main.getInstance().getBot().getChannel().isFollowing(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender) || Main.getInstance().getBot().getChannel().isMod(sender);
             default:
                 return true;
         }

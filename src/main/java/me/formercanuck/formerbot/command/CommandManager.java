@@ -59,6 +59,7 @@ public class CommandManager {
         temp.add(String.valueOf(cooldown));
         temp.add(response);
         customCommands.put(name, temp);
+        commandList.add(new CustomCommand(name, userLevel, cooldown, response));
         Main.getInstance().getBot().getBotFile().set("commands", customCommands);
     }
 
@@ -109,5 +110,9 @@ public class CommandManager {
             Main.getInstance().getBot().getBotFile().set("disabledCommands", disableCommands);
             return true;
         } else return false;
+    }
+
+    public List<Command> getCommands() {
+        return commandList;
     }
 }
