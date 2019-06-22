@@ -45,6 +45,11 @@ public class Whitelist extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Mod Only > !whitelist <user> will add a user to the whitelist.";
+    }
+
+    @Override
     public int getCooldown() {
         return 0;
     }

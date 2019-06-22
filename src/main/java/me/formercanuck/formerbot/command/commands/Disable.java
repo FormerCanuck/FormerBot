@@ -22,6 +22,11 @@ public class Disable extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: !disable <command name> will disable given command until !enable <command> is run.";
+    }
+
+    @Override
     public int getCooldown() {
         return 0;
     }

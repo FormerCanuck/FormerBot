@@ -24,6 +24,11 @@ public class Prefix extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Mod > !prefix <new prefix> will change what the bot listens for to distinguish if a command is trying to be used.";
+    }
+
+    @Override
     public int getCooldown() {
         return 0;
     }

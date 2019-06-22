@@ -17,6 +17,11 @@ public class Link extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Whitelisted-User > !link will grant you permission to post a link.";
+    }
+
+    @Override
     public int getCooldown() {
         return 5;
     }

@@ -21,6 +21,11 @@ public class Enable extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: !enable <command name> will enable a disabled command.";
+    }
+
+    @Override
     public int getCooldown() {
         return 0;
     }

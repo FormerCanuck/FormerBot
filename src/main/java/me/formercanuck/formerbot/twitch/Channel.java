@@ -3,11 +3,13 @@ package me.formercanuck.formerbot.twitch;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.formercanuck.formerbot.Main;
+import me.formercanuck.formerbot.timertasks.CheckForNewFollows;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
 
 public class Channel {
 
@@ -17,11 +19,16 @@ public class Channel {
 
     private Bot bot;
 
+    private boolean shouldListen = true;
+    private boolean hasCheckedFirstFollow = false;
+
     private ArrayList<String> mods = new ArrayList<>();
     private ArrayList<String> whitelisted = new ArrayList<>();
     private ArrayList<String> watchlist;
 
     private HashMap<String, String> followers = new HashMap<>();
+
+    private String lastFollow = "";
 
     public Channel(String channel) {
         this.channel = String.format("#%s", channel);
@@ -34,6 +41,24 @@ public class Channel {
             channelID = obj.get("id").getAsString();
         }
         join();
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new CheckForNewFollows(), 0, 1000 * 60);
+    }
+
+    public void setHasCheckedFirstFollow() {
+        hasCheckedFirstFollow = true;
+    }
+
+    public boolean isHasCheckedFirstFollow() {
+        return hasCheckedFirstFollow;
+    }
+
+    public String getLastFollow() {
+        return lastFollow;
+    }
+
+    public void setLastFollow(String lastFollow) {
+        this.lastFollow = lastFollow;
     }
 
     private void join() {
@@ -127,5 +152,13 @@ public class Channel {
             }
         }
         Main.getInstance().getConsole().println("[Bot]: finished loading followers...");
+    }
+
+    public void toggleListen(boolean b) {
+        shouldListen = b;
+    }
+
+    public boolean getShouldListen() {
+        return shouldListen;
     }
 }

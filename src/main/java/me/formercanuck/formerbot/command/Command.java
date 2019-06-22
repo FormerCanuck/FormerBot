@@ -9,6 +9,8 @@ public abstract class Command {
 
     public abstract String getName();
 
+    public abstract String getUsage();
+
     public abstract void onCommand(String sender, String channel, String... args);
 
     public abstract int getCooldown();

@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FormerBot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FormerBot_jar</output-path>
+    <root id="archive" name="FormerBot.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="FormerBot" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../FormerConsole/out/artifacts/FCConsole_jar/FCConsole.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:17.0.0" />
+      <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+      <element id="library" level="project" name="FCConsole" />
+    </root>
+  </artifact>
+</component>

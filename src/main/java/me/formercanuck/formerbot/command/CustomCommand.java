@@ -41,6 +41,11 @@ public class CustomCommand extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: !" + name;
+    }
+
+    @Override
     public int getCooldown() {
         return cooldown;
     }

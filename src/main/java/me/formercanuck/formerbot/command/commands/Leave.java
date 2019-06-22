@@ -12,7 +12,12 @@ public class Leave extends Command {
     @Override
     public void onCommand(String sender, String channel, String[] args) {
         Main.getInstance().getBot().getChannel().messageChannel("Okay @" + sender + " o/");
-        System.exit(0);
+        Main.getInstance().getBot().getChannel().toggleListen(false);
+    }
+
+    @Override
+    public String getUsage() {
+        return "Usage: !leave will make the bot leave the channel. (Currently unless Former is around no way to get the bot back in the channel)";
     }
 
     @Override

@@ -51,6 +51,11 @@ public class Watchlist extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "NOT YET IMPLEMENTED TO LAZY ATM.";
+    }
+
+    @Override
     public int getCooldown() {
         return 0;
     }

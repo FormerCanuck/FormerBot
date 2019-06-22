@@ -31,6 +31,11 @@ public class TODO extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Whitelist+ > !todo <todo task> Gives Former more work.";
+    }
+
+    @Override
     public int getCooldown() {
         return 1;
     }

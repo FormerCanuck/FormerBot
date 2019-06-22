@@ -59,6 +59,11 @@ public class Uptime extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: !uptime, displays how long the stream has been live.";
+    }
+
+    @Override
     public int getCooldown() {
         return 1;
     }

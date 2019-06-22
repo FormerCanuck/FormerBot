@@ -90,6 +90,11 @@ public class FollowAge extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Non-Mod > !followage, (optional) Mod > !followage <user>";
+    }
+
+    @Override
     public int getCooldown() {
         return 1;
     }

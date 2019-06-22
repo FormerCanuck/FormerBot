@@ -30,16 +30,6 @@ public class GetJsonData {
         return r.nextInt((max - min) + 1) + min;
     }
 
-//    public JsonElement getJson(String url) {
-//        setProxy("127.0.0.1", getRandomNumberInRange(1000, 7000));
-//        try {
-//            return json.parse(getString(url));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
     private JsonElement getJsonFromYT(String url) {
         return json.parse(retrieveYoutubeJson(url));
     }
@@ -52,7 +42,6 @@ public class GetJsonData {
         }
         return sb.toString();
     }
-
 
     public JsonElement getJson(String url) {
         InputStream is = null;

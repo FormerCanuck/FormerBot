@@ -35,12 +35,12 @@ public class CustCommand extends Command {
                             break;
                     }
                 } else {
-                    String name = args[1];
-                    if (args.length == 3) {
+                    String name = args[0];
+                    if (args.length == 2) {
                         switch (name.toLowerCase()) {
                             case "remove":
-                                if (bot.getCommandManager().removeCustomCommand(args[2]))
-                                    bot.getChannel().messageChannel(String.format("%s has removed the command %s.", sender, args[2]));
+                                if (bot.getCommandManager().removeCustomCommand(args[1]))
+                                    bot.getChannel().messageChannel(String.format("%s has removed the command %s.", sender, args[1]));
                                 break;
                             case "add":
                                 addUsageMessage();
@@ -54,22 +54,27 @@ public class CustCommand extends Command {
                         }
                     } else {
                         if (name.equalsIgnoreCase("add") && args.length > 3) {
-                            if (args[2].contains("-ul=")) {
-                                StringBuilder response = new StringBuilder();
-                                for (int i = 4; i < args.length; i++) response.append(args[i]).append(" ");
-                                bot.getCommandManager().addCommand(args[3], args[2].substring(4), 0, response.toString().trim());
-                                bot.getChannel().messageChannel(String.format("%s has added the command %s%s with the response %s", sender, bot.getBotFile().get("prefix"), args[3], response.toString().trim()));
-                            } else {
+                            if (args[1].contains("-ul=")) {
                                 StringBuilder response = new StringBuilder();
                                 for (int i = 3; i < args.length; i++) response.append(args[i]).append(" ");
-                                bot.getCommandManager().addCommand(args[2], "none", 0, response.toString().trim());
+                                bot.getCommandManager().addCommand(args[2], args[1].substring(4), 0, response.toString().trim());
                                 bot.getChannel().messageChannel(String.format("%s has added the command %s%s with the response %s", sender, bot.getBotFile().get("prefix"), args[2], response.toString().trim()));
+                            } else {
+                                StringBuilder response = new StringBuilder();
+                                for (int i = 2; i < args.length; i++) response.append(args[i]).append(" ");
+                                bot.getCommandManager().addCommand(args[1], "none", 0, response.toString().trim());
+                                bot.getChannel().messageChannel(String.format("%s has added the command %s%s with the response %s", sender, bot.getBotFile().get("prefix"), args[1], response.toString().trim()));
                             }
                         } else addUsageMessage();
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public String getUsage() {
+        return String.format("Usage: %scom add | remove | edit.", Main.getInstance().getBot().getBotFile().get(" prefix "));
     }
 
     private void addUsageMessage() {

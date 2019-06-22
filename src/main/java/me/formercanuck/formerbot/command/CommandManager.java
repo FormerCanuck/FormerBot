@@ -35,6 +35,7 @@ public class CommandManager {
         commandList.add(new Help());
         commandList.add(new AutoClear());
         commandList.add(new Leave());
+        commandList.add(new Join());
         commandList.add(new MultiStream());
         commandList.add(new Disable());
         commandList.add(new CustCommand());
@@ -65,8 +66,8 @@ public class CommandManager {
 
     public boolean removeCustomCommand(String name) {
         if (customCommands.containsKey(name)) {
-            customCommands.remove(customCommands.get(name));
             commandList.remove(getCommand(name));
+            customCommands.remove(name);
             System.out.println(customCommands);
             Main.getInstance().getBot().getBotFile().set("commands", customCommands);
             return true;
@@ -80,12 +81,16 @@ public class CommandManager {
 
     public void onCommand(String sender, String channel, String command, String[] args) {
         for (Command cmd : commandList) {
-            if (!cooldown.contains(cmd.getName()) && !disableCommands.contains(cmd.getName()))
+            if (!cooldown.contains(cmd.getName()) && !disableCommands.contains(cmd.getName()) && Main.getInstance().getBot().getChannel().getShouldListen()) {
                 if (cmd.getName().equalsIgnoreCase(command)) {
                     cmd.onCommand(sender, channel, args);
                     cmd.cooldown();
                     break;
                 }
+            } else if (cmd.getName().equalsIgnoreCase("join")) {
+                cmd.onCommand(sender, channel, args);
+                break;
+            }
         }
     }
 

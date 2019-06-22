@@ -47,6 +47,11 @@ public class ServerAge extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Mod > !serverage <server start date> to set start date of current server, Everyone > !server will display when the server started.";
+    }
+
+    @Override
     public int getCooldown() {
         return 1;
     }

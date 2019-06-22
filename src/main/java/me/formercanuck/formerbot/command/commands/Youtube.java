@@ -37,6 +37,11 @@ public class Youtube extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: !youtube, Displays the last upload for the current channel and provides a link.";
+    }
+
+    @Override
     public int getCooldown() {
         return 1;
     }

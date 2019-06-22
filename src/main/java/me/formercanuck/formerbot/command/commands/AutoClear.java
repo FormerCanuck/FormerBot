@@ -21,9 +21,7 @@ public class AutoClear extends Command {
             } else {
                 String command = args[0];
 
-                if (command.equalsIgnoreCase("help"))
-                    bot.getChannel().messageChannel("Usage: !autoClear <cancel | integer> if no argument is specified it will simply toggle the autoClear function.");
-                else if (command.equalsIgnoreCase("time"))
+                if (command.equalsIgnoreCase("time"))
                     bot.getChannel().messageChannel("There is " + bot.getReadTwitchIRC().getTimeRemaining() + " until clearing chat.");
                 else
                     try {
@@ -37,6 +35,11 @@ public class AutoClear extends Command {
                     }
             }
         }
+    }
+
+    @Override
+    public String getUsage() {
+        return "Usage: !autoClear <cancel | integer> if no argument is specified it will simply toggle the autoClear function.";
     }
 
     @Override

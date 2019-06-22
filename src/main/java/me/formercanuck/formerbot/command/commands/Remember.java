@@ -44,6 +44,11 @@ public class Remember extends Command {
     }
 
     @Override
+    public String getUsage() {
+        return "Usage: Whitelisted+ > !remember <delay> <message> will store a message to broadcast in the specified time (in minutes).";
+    }
+
+    @Override
     public int getCooldown() {
         return 0;
     }

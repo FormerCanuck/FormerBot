@@ -17,6 +17,7 @@ public class ReadTwitchIRC implements Runnable {
     private Timer clearTimer;
     private boolean aboutToClear = false;
     private Bot bot;
+    private boolean newLineSinceClear;
 
     public ReadTwitchIRC(TwitchConnection twitchConnection) {
         this.twitchConnection = twitchConnection;
@@ -58,17 +59,19 @@ public class ReadTwitchIRC implements Runnable {
                         stringBuilder.append(ln[i]).append(" ");
                     }
 
+                    newLineSinceClear = true;
                     String msg = stringBuilder.toString().substring(1);
 
                     if (msg.startsWith(bot.getBotFile().getString("prefix"))) {
                         String command = stringBuilder.substring(2, stringBuilder.indexOf(" "));
                         stringBuilder.delete(0, stringBuilder.indexOf(" "));
-                        stringBuilder.substring(1);
-                        String[] args = stringBuilder.toString().split(" ");
+                        String[] args = new String[0];
+                        if (!stringBuilder.substring(1).trim().isEmpty())
+                            args = stringBuilder.substring(1).trim().split(" ");
                         bot.getCommandManager().onCommand(user, channel, command, args);
                     } else if (msg.startsWith("/")) {
                     } else {
-                        if (bot.getBotFile().getBoolean("autoClear")) {
+                        if (bot.getBotFile().getBoolean("autoClear") && newLineSinceClear) {
                             cancelClear();
                             clearTimer = new Timer();
 
@@ -92,6 +95,7 @@ public class ReadTwitchIRC implements Runnable {
 
                                     if (remaining == 1) {
                                         bot.sendRawMessage(String.format("PRIVMSG %s :%s", bot.getChannel().getChannel(), "/clear"));
+                                        newLineSinceClear = false;
                                     }
                                 }
                             };
