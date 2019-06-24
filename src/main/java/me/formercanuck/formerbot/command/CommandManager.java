@@ -23,10 +23,12 @@ public class CommandManager {
 
         commandList.add(new TopClips());
         commandList.add(new Uptime());
+        commandList.add(new Pals());
         commandList.add(new Prefix());
         commandList.add(new ServerAge());
         commandList.add(new Youtube());
         commandList.add(new FollowAge());
+//        commandList.add(new Listen());
         commandList.add(new Whitelist());
         commandList.add(new Watchlist());
         commandList.add(new Link());
@@ -68,7 +70,6 @@ public class CommandManager {
         if (customCommands.containsKey(name)) {
             commandList.remove(getCommand(name));
             customCommands.remove(name);
-            System.out.println(customCommands);
             Main.getInstance().getBot().getBotFile().set("commands", customCommands);
             return true;
         }

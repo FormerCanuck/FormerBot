@@ -20,6 +20,7 @@ public class Channel {
     private Bot bot;
 
     private boolean shouldListen = true;
+    private boolean isLive;
     private boolean hasCheckedFirstFollow = false;
 
     private ArrayList<String> mods = new ArrayList<>();
@@ -27,6 +28,9 @@ public class Channel {
     private ArrayList<String> watchlist;
 
     private HashMap<String, String> followers = new HashMap<>();
+    private HashMap<String, ListenBot> listenBotHashMap = new HashMap<>();
+
+    private List<String> hasChatted;
 
     private String lastFollow = "";
 
@@ -42,7 +46,43 @@ public class Channel {
         }
         join();
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new CheckForNewFollows(), 0, 1000 * 60);
+        timer.scheduleAtFixedRate(new CheckForNewFollows(), 0, (1000 * 60) * 30);
+
+        hasChatted = new ArrayList<>();
+    }
+
+    public List<String> getHasChatted() {
+        return hasChatted;
+    }
+
+    public boolean toggleListen(String channel) {
+        if (!listenBotHashMap.containsKey(channel)) {
+            listenBotHashMap.put(channel, new ListenBot(channel));
+            return true;
+        } else if (listenBotHashMap.containsKey(channel)) {
+            listenBotHashMap.get(channel).stop();
+            listenBotHashMap.remove(channel);
+            return false;
+        }
+
+        return false;
+    }
+
+    public void addChatted(String user) {
+        hasChatted.add(user);
+    }
+
+    public void goLive() {
+        hasChatted = new ArrayList<>();
+    }
+
+    public boolean isLive() {
+        return isLive;
+    }
+
+    public void setLive(boolean isLive) {
+        if (isLive) goLive();
+        this.isLive = isLive;
     }
 
     public void setHasCheckedFirstFollow() {

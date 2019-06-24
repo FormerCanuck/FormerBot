@@ -4,6 +4,7 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -65,6 +66,29 @@ public class ConfigFile {
 
     public Integer getInt(String key) {
         return (Integer) config.get(key);
+    }
+
+    public List<String> getPals() {
+        if (contains("pals")) return (List<String>) get("pals");
+        else return new ArrayList<>();
+    }
+
+    public boolean addPal(String pal) {
+        List<String> temp = getPals();
+        if (!temp.contains(pal)) {
+            temp.add(pal);
+            set("pals", temp);
+            return true;
+        } else return false;
+    }
+
+    public boolean removePal(String pal) {
+        List<String> temp = getPals();
+        if (temp.contains(pal)) {
+            temp.remove(pal);
+            set("pals", temp);
+            return true;
+        } else return false;
     }
 
     private void save() {

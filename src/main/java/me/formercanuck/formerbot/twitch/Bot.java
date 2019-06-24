@@ -95,4 +95,8 @@ public class Bot {
             console.error(e.toString());
         }
     }
+
+    public TwitchConnection getTwitchConnection() {
+        return twitchConnection;
+    }
 }

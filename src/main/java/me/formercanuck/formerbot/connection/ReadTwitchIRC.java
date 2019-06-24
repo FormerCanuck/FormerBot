@@ -2,6 +2,7 @@ package me.formercanuck.formerbot.connection;
 
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.utils.MiscUtils;
 
 import java.awt.*;
 import java.io.IOException;
@@ -59,6 +60,19 @@ public class ReadTwitchIRC implements Runnable {
                         stringBuilder.append(ln[i]).append(" ");
                     }
 
+                    if (!bot.getChannel().getHasChatted().contains(user) && bot.getChannel().isFollowing(user)) {
+                        int noOfDays = Math.toIntExact(MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel().getFollowDate(user)));
+                        int month = noOfDays / 30;
+                        int week = month % 30;
+                        int days = week % 7;
+
+                        if (month > 0)
+                            bot.getChannel().messageChannel(String.format("o/ @%s, welcome back thanks for following for %s months.", user, month));
+                        else
+                            bot.getChannel().messageChannel(String.format("o/ @%s, welcome back thanks for following.", user, month));
+                        bot.getChannel().addChatted(user);
+                    }
+
                     newLineSinceClear = true;
                     String msg = stringBuilder.toString().substring(1);
 
@@ -71,7 +85,7 @@ public class ReadTwitchIRC implements Runnable {
                         bot.getCommandManager().onCommand(user, channel, command, args);
                     } else if (msg.startsWith("/")) {
                     } else {
-                        if (bot.getBotFile().getBoolean("autoClear") && newLineSinceClear) {
+                        if (bot.getBotFile().getBoolean("autoClear") && newLineSinceClear && bot.getChannel().isLive()) {
                             cancelClear();
                             clearTimer = new Timer();
 
