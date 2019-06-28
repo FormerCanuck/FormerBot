@@ -1,6 +1,8 @@
 package me.formercanuck.formerbot.utils;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.twitch.Channel;
 
@@ -10,16 +12,54 @@ public class Followers extends TimerTask {
 
     private Channel channel;
 
+    private int lastRan = 0;
+
     public Followers(Channel channel) {
         this.channel = channel;
     }
 
     @Override
     public void run() {
-        loadFollows(channel);
+        loadFollows();
+        checkPals();
     }
 
-    public void loadFollows(Channel channel) {
+    public void checkPals() {
+        JsonArray array = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/streams?user_login=" + channel.getChannelName()).getAsJsonObject().get("data").getAsJsonArray();
+
+        if (array.size() > 0) {
+            JsonObject obj = array.get(0).getAsJsonObject();
+            if (obj.get("type") != null) {
+                if (!channel.isLive())
+                    channel.setLive(true);
+            } else channel.setLive(false);
+
+            String id = obj.get("game_id").getAsString();
+
+            StringBuilder str = new StringBuilder();
+            int online = 0;
+            for (String s : channel.getChannelFile().getPals()) {
+                JsonObject temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/streams?user_login=" + s).getAsJsonObject();
+                JsonArray tempArray = temp.get("data").getAsJsonArray();
+
+                if (tempArray.size() > 0 && tempArray.get(0).getAsJsonObject().get("game_id").getAsString().equalsIgnoreCase(id)) {
+                    str.append("/").append(s.replace("@", " ").trim());
+                    online++;
+                }
+            }
+
+            if (online > 0) {
+                if (lastRan == 0) {
+                    channel.messageChannel(String.format("Check out everyone's perspective at: https://multistre.am/%s%s/layout4/", channel.getChannelName(), str.toString().trim()));
+                } else if (lastRan == 3) {
+                    lastRan = 0;
+                }
+                lastRan++;
+            }
+        }
+    }
+
+    public void loadFollows() {
         JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + channel.getChannelID() + "&first=100");
 
         Main.getInstance().getConsole().println("[Bot]: loading followers...");

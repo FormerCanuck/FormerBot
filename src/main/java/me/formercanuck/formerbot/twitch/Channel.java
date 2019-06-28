@@ -90,24 +90,21 @@ public class Channel {
         return hasChatted;
     }
 
-    public boolean toggleListen(String channel) {
+    public void toggleListen(String channel) {
         if (!listenBotHashMap.containsKey(channel)) {
             listenBotHashMap.put(channel, new ListenBot(channel));
-            return true;
         } else if (listenBotHashMap.containsKey(channel)) {
             listenBotHashMap.get(channel).stop();
             listenBotHashMap.remove(channel);
-            return false;
         }
 
-        return false;
     }
 
     public void addChatted(String user) {
         hasChatted.add(user);
     }
 
-    public void goLive() {
+    private void goLive() {
         hasChatted = new ArrayList<>();
     }
 
@@ -173,7 +170,8 @@ public class Channel {
     }
 
     public boolean isFollowing(String user) {
-        HashMap<String, String> follows = (HashMap<String, String>) channelFile.get("follows");
+        HashMap<String, String> follows;
+        follows = (HashMap<String, String>) channelFile.get("follows");
 
         for (String key : follows.keySet()) {
             if (key.equalsIgnoreCase(user)) return true;
