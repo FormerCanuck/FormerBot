@@ -2,8 +2,13 @@ package me.formercanuck.formerbot.twitch;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import me.fc.console.Console;
 import me.formercanuck.formerbot.Main;
+import me.formercanuck.formerbot.command.CommandManager;
+import me.formercanuck.formerbot.connection.ReadTwitchIRC;
+import me.formercanuck.formerbot.files.ConfigFile;
 import me.formercanuck.formerbot.timertasks.CheckForNewFollows;
+import me.formercanuck.formerbot.utils.Followers;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.ArrayList;
@@ -17,7 +22,11 @@ public class Channel {
 
     private String channelID;
 
+    public HashMap<String, String> followers = new HashMap<>();
+
     private Bot bot;
+    private CommandManager commandManager;
+    private ReadTwitchIRC readTwitchIRC;
 
     private boolean shouldListen = true;
     private boolean isLive;
@@ -26,17 +35,28 @@ public class Channel {
     private ArrayList<String> mods = new ArrayList<>();
     private ArrayList<String> whitelisted = new ArrayList<>();
     private ArrayList<String> watchlist;
-
-    private HashMap<String, String> followers = new HashMap<>();
+    private ConfigFile channelFile;
     private HashMap<String, ListenBot> listenBotHashMap = new HashMap<>();
 
     private List<String> hasChatted;
 
     private String lastFollow = "";
+    private Console console;
 
     public Channel(String channel) {
         this.channel = String.format("#%s", channel);
         this.bot = Main.getInstance().getBot();
+
+        channelFile = new ConfigFile(getChannelName().toLowerCase());
+
+        if (!channelFile.contains("prefix")) channelFile.set("prefix", "!");
+
+        if (!channelFile.contains("autoClear")) {
+            channelFile.set("autoClear", false);
+            channelFile.set("autoClearTime", 10);
+        }
+
+        this.commandManager = new CommandManager(this);
 
         JsonElement jsonElement = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users?login=" + getChannelName());
 
@@ -44,11 +64,26 @@ public class Channel {
             JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
             channelID = obj.get("id").getAsString();
         }
-        join();
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new CheckForNewFollows(), 0, (1000 * 60) * 30);
+        timer.scheduleAtFixedRate(new CheckForNewFollows(this), 0, (1000 * 60) * 30);
 
         hasChatted = new ArrayList<>();
+
+        this.console = new Console(channel);
+        readTwitchIRC = new ReadTwitchIRC(bot.getTwitchConnection(), this);
+        new Thread(readTwitchIRC).start();
+
+        Followers fllwrs = new Followers(this);
+        Timer followerTimer = new Timer();
+        followerTimer.scheduleAtFixedRate(fllwrs, 0, (1000 * 60) * 10);
+    }
+
+    public Console getConsole() {
+        return console;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public List<String> getHasChatted() {
@@ -101,7 +136,7 @@ public class Channel {
         this.lastFollow = lastFollow;
     }
 
-    private void join() {
+    void join() {
         bot.sendRawMessage(String.format("JOIN %s", channel));
     }
 
@@ -129,7 +164,7 @@ public class Channel {
         return mods.contains(user.toLowerCase());
     }
 
-    private void addFollower(String user, String followDate) {
+    public void addFollower(String user, String followDate) {
         followers.put(user.toLowerCase(), followDate);
     }
 
@@ -138,7 +173,9 @@ public class Channel {
     }
 
     public boolean isFollowing(String user) {
-        for (String key : followers.keySet()) {
+        HashMap<String, String> follows = (HashMap<String, String>) channelFile.get("follows");
+
+        for (String key : follows.keySet()) {
             if (key.equalsIgnoreCase(user)) return true;
         }
         return false;
@@ -168,37 +205,19 @@ public class Channel {
         this.watchlist = watchlist;
     }
 
-    public void loadFollows() {
-        JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + getChannelID() + "&first=100");
-
-        Main.getInstance().getConsole().println("[Bot]: loading followers...");
-
-        while (temp.getAsJsonObject().get("pagination").getAsJsonObject().has("cursor")) {
-            JsonElement follows = temp.getAsJsonObject().get("data");
-
-            for (int i = 0; i < follows.getAsJsonArray().size(); i++) {
-                String user = follows.getAsJsonArray().get(i).getAsJsonObject().get("from_name").toString().replace("\"", " ").trim();
-                String followDate = follows.getAsJsonArray().get(i).getAsJsonObject().get("followed_at").toString().replace("\"", " ").trim();
-                addFollower(user, followDate.substring(0, 10));
-            }
-
-            temp =
-                    GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + getChannelID() + "&first=100&after=" + temp.getAsJsonObject().get("pagination").getAsJsonObject().get("cursor").getAsString().replace("\"", " ").trim());
-            Main.getInstance().getConsole().error(followers.size() + " followers loaded");
-            try {
-                Thread.sleep(60 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        Main.getInstance().getConsole().println("[Bot]: finished loading followers...");
-    }
-
     public void toggleListen(boolean b) {
         shouldListen = b;
     }
 
     public boolean getShouldListen() {
         return shouldListen;
+    }
+
+    public ConfigFile getChannelFile() {
+        return this.channelFile;
+    }
+
+    public ReadTwitchIRC getReadTwitchIRC() {
+        return readTwitchIRC;
     }
 }

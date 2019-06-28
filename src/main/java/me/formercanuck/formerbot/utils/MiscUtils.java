@@ -7,8 +7,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
+
+import static java.util.stream.Collectors.toMap;
 
 public class MiscUtils {
 
@@ -20,48 +21,40 @@ public class MiscUtils {
         return Character.isDigit(check);
     }
 
-    public static boolean isArray(Object obj) {
-        return obj != null && obj.getClass().isArray();
+    public static HashMap<String, Long> putFirstEntries(HashMap<String, Long> source) {
+        int count = 0;
+        HashMap<String, Long> target = new HashMap<>();
+        for (Map.Entry<String, Long> entry : source.entrySet()) {
+            if (count >= 5) break;
+
+            target.put(entry.getKey(), entry.getValue());
+            count++;
+        }
+
+        return target
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(
+                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                                LinkedHashMap::new));
     }
 
-    public static int calC(String input) {
+    public static String getDateString(int days) {
+        int year = (days / 365);
+        days = days % 365;
+        int week = days / 7;
+        days = days % 7;
 
-        int len = input.length();
-        ArrayList list1 = new ArrayList();
-        ArrayList list2 = new ArrayList();
+        StringBuilder str = new StringBuilder();
 
-        for (int i = 0; i < len; i++) {
-            if ((i + 1 <= len - 1)) {
-                if (isDigit(input.charAt(i)) && isDigit(input.charAt(i + 1))) {
-                    String temp = input.charAt(i) + "" + input.charAt(i + 1);
-                    int toInt = Integer.parseInt(temp);
-                    list1.add(toInt);
-                    i = i + 1;
-                } else if (isDigit(input.charAt(i))) {
-                    list1.add(input.charAt(i) - '0');
-                } else {
-                    list2.add(input.charAt(i));
-                }
+        if (year > 0) str.append(year).append(" years, ");
 
-            }
-        }
+        if (week > 0) str.append(week).append(" weeks, and ");
 
-        int result = 0;
-        result = result + (int) list1.get(0);
-        for (int t = 0; t < list2.size(); t++) {
-            char oper = (char) list2.get(t);
-            switch (oper) {
-                case '*':
-                    return result * (int) list1.get(t + 1);
-                case '/':
-                    return result / (int) list1.get(t + 1);
-                case '-':
-                    return result - (int) list1.get(t + 1);
-                case '+':
-                    return result + (int) list1.get(t + 1);
-            }
-        }
-        return 0;
+        if (days > 0) str.append(days).append(" days");
+
+        return str.toString().trim();
     }
 
     @NotNull

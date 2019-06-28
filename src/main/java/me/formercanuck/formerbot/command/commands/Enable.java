@@ -1,8 +1,7 @@
 package me.formercanuck.formerbot.command.commands;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
-import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.twitch.Channel;
 
 public class Enable extends Command {
     @Override
@@ -11,17 +10,15 @@ public class Enable extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
-        Bot bot = Main.getInstance().getBot();
-
-        if (bot.getChannel().isMod(sender)) {
-            if (bot.getCommandManager().enableCommand(args[0]))
-                bot.getChannel().messageChannel(String.format("%s has enabled %s", sender, args[0]));
+    public void onCommand(String sender, Channel channel, String[] args) {
+        if (channel.isMod(sender)) {
+            if (channel.getCommandManager().enableCommand(args[0], channel))
+                channel.messageChannel(String.format("%s has enabled %s", sender, args[0]));
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: !enable <command name> will enable a disabled command.";
     }
 

@@ -16,42 +16,41 @@ public class Watchlist extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
-        ConfigFile config = Main.getInstance().getBot().getBotFile();
+    public void onCommand(String sender, Channel channel, String[] args) {
+        ConfigFile config = channel.getChannelFile();
         Bot bot = Main.getInstance().getBot();
-        Channel chnl = bot.getChannel();
 
         if (config.getWhitelist() != null)
-            chnl.setWatchList((ArrayList<String>) config.getWatchList());
+            channel.setWatchList((ArrayList<String>) config.getWatchList());
 
-        if (chnl.isMod(sender)) {
+        if (channel.isMod(sender)) {
             if (args.length > 0) {
 
                 String user = args[0].replace("@", " ").toLowerCase().trim();
 
-                if (!chnl.onWatchlist(user) && !user.equalsIgnoreCase("formercanuck") && !user.equalsIgnoreCase(bot.getChannel().getChannelName())) {
-                    chnl.getWatchList().add(user);
-                    config.set("watchlist", chnl.getWatchList());
-                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully added %s to the watch list", sender, args[0]));
+                if (!channel.onWatchlist(user) && !user.equalsIgnoreCase("formercanuck") && !user.equalsIgnoreCase(channel.getChannelName())) {
+                    channel.getWatchList().add(user);
+                    config.set("watchlist", channel.getWatchList());
+                    channel.messageChannel(String.format("%s, successfully added %s to the watch list", sender, args[0]));
                     return;
                 }
 
-                if (chnl.getWatchList().contains(user) && !user.equalsIgnoreCase("Fortressamerca1776")) {
-                    chnl.getWatchList().remove(user);
-                    config.set("watchlist", chnl.getWatchList());
-                    Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, successfully removed %s from the watch list", sender, args[0]));
+                if (channel.getWatchList().contains(user) && !user.equalsIgnoreCase("Fortressamerca1776")) {
+                    channel.getWatchList().remove(user);
+                    config.set("watchlist", channel.getWatchList());
+                    channel.messageChannel(String.format("%s, successfully removed %s from the watch list", sender, args[0]));
                 }
             } else {
                 StringBuilder str = new StringBuilder();
 
-                for (String s : chnl.getWatchList()) str.append(s).append(", ");
-                bot.getChannel().messageChannel("Here is the list of users to watch: " + str.toString().trim());
+                for (String s : channel.getWatchList()) str.append(s).append(", ");
+                channel.messageChannel("Here is the list of users to watch: " + str.toString().trim());
             }
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "NOT YET IMPLEMENTED TO LAZY ATM.";
     }
 

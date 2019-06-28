@@ -4,6 +4,7 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.files.TodoFile;
 import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.twitch.Channel;
 
 public class TODO extends Command {
 
@@ -13,11 +14,11 @@ public class TODO extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
+    public void onCommand(String sender, Channel channel, String[] args) {
         Bot bot = Main.getInstance().getBot();
         TodoFile todoFile = new TodoFile();
 
-        if (bot.getChannel().isMod(sender) || bot.getChannel().isWhiteListed(sender)) {
+        if (channel.isMod(sender) || channel.isWhiteListed(sender)) {
             StringBuilder str = new StringBuilder();
 
             for (String s : args) {
@@ -26,12 +27,12 @@ public class TODO extends Command {
 
             todoFile.addTODO(str.toString());
 
-            bot.getChannel().messageChannel(String.format("%s has added: %s to the todo list.", sender, str.toString()));
+            channel.messageChannel(String.format("%s has added: %s to the todo list.", sender, str.toString()));
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: Whitelist+ > !todo <todo task> Gives Former more work.";
     }
 

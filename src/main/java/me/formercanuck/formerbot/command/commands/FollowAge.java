@@ -6,12 +6,13 @@ import com.google.gson.JsonObject;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.twitch.Channel;
 import me.formercanuck.formerbot.utils.GetJsonData;
 import me.formercanuck.formerbot.utils.MiscUtils;
 
-import java.util.*;
-
-import static java.util.stream.Collectors.toMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class FollowAge extends Command {
     @Override
@@ -22,18 +23,18 @@ public class FollowAge extends Command {
     private Bot bot;
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
+    public void onCommand(String sender, Channel channel, String[] args) {
         bot = Main.getInstance().getBot();
-        cooldown();
+        cooldown(channel);
         if (args.length == 0) {
-            getFollowage(sender, channel);
+            getFollowage(sender, channel.getChannelName());
         } else if (args.length == 1) {
-            if (!args[0].equalsIgnoreCase("top") && bot.getChannel().isMod(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender)) {
-                getFollowage(args[0], channel);
+            if (!args[0].equalsIgnoreCase("top") && channel.isMod(sender) || channel.isWhiteListed(sender)) {
+                getFollowage(args[0], channel.getChannelName());
                 return;
             }
 
-            JsonObject chatters = getViewerList().getAsJsonObject().get("chatters").getAsJsonObject();
+            JsonObject chatters = getViewerList(channel).getAsJsonObject().get("chatters").getAsJsonObject();
 
             List<String> viewers = new ArrayList<>();
             HashMap<String, Long> followers = new HashMap<>();
@@ -70,8 +71,8 @@ public class FollowAge extends Command {
             }
 
             for (String viewer : viewers) {
-                if (bot.getChannel().isFollowing(viewer)) {
-                    followers.put(viewer, MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel().getFollowDate(viewer)));
+                if (channel.isFollowing(viewer)) {
+                    followers.put(viewer, MiscUtils.numberOfDaysBetweenDateAndNow(channel.getFollowDate(viewer)));
                 }
             }
 
@@ -82,15 +83,15 @@ public class FollowAge extends Command {
 
             int i = 1;
 
-            for (String viewer : putFirstEntries(followers).keySet()) {
+            for (String viewer : MiscUtils.putFirstEntries(followers).keySet()) {
                 builder.append(String.format("%s: %s (%s) ", i++, viewer, followers.get(viewer)));
             }
-            bot.getChannel().messageChannel(builder.toString());
+            channel.messageChannel(builder.toString());
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: Non-Mod > !followage, (optional) Mod > !followage <user>";
     }
 
@@ -99,34 +100,15 @@ public class FollowAge extends Command {
         return 1;
     }
 
-    private HashMap<String, Long> putFirstEntries(HashMap<String, Long> source) {
-        int count = 0;
-        HashMap<String, Long> target = new HashMap<>();
-        for (Map.Entry<String, Long> entry : source.entrySet()) {
-            if (count >= 5) break;
-
-            target.put(entry.getKey(), entry.getValue());
-            count++;
-        }
-
-        return target
-                .entrySet()
-                .stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .collect(
-                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                                LinkedHashMap::new));
-    }
-
-    private JsonElement getViewerList() {
-        return GetJsonData.getInstance().getJson(String.format("https://tmi.twitch.tv/group/user/%s/chatters", bot.getChannel().getChannelName()));
+    private JsonElement getViewerList(Channel channel) {
+        return GetJsonData.getInstance().getJson(String.format("https://tmi.twitch.tv/group/user/%s/chatters", channel.getChannelName()));
     }
 
     private void getFollowage(String user, String channel) {
-        if (bot.getChannel().isFollowing(user.toLowerCase())) {
-            bot.getChannel().messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getChannel().getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel().getFollowDate(user))));
+        if (bot.getChannel(channel).isFollowing(user.toLowerCase())) {
+            bot.getChannel(channel).messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getChannel(channel).getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel(channel).getFollowDate(user))));
         } else {
-            bot.getChannel().messageChannel(String.format("%s, you are not following.", user));
+            bot.getChannel(channel).messageChannel(String.format("%s, you are not following.", user));
         }
     }
 }

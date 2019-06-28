@@ -13,8 +13,12 @@ public class ListenBot {
 
     public ListenBot(String channel) {
         twitchConnection = Main.getInstance().getBot().getTwitchConnection();
-        listenToIRC = new ListenToIRC(twitchConnection);
+        listenToIRC = new ListenToIRC();
 
+        sendRawMessage("CAP REQ :twitch.tv/tags");
+        sendRawMessage("CAP REQ :twitch.tv/commands");
+        sendRawMessage("PASS oauth:3tphuo7t7zhoz0os9we3vpwcpfhxur");
+        sendRawMessage("NICK FormerB0t");
         thread = new Thread(listenToIRC);
         thread.start();
 

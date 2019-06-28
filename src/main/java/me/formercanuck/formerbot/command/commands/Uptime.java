@@ -2,8 +2,8 @@ package me.formercanuck.formerbot.command.commands;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
+import me.formercanuck.formerbot.twitch.Channel;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.text.ParseException;
@@ -19,10 +19,8 @@ public class Uptime extends Command {
         return "uptime";
     }
 
-    public void onCommand(String sender, String channel, String[] args) {
-        channel = channel.substring(1);
-
-        JsonElement temp = jsonData.getJson("https://api.twitch.tv/helix/streams?user_login=" + channel);
+    public void onCommand(String sender, Channel channel, String[] args) {
+        JsonElement temp = jsonData.getJson("https://api.twitch.tv/helix/streams?user_login=" + channel.getChannelName());
 
         if (temp.isJsonObject()) {
             JsonObject obj = temp.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
@@ -47,19 +45,19 @@ public class Uptime extends Command {
             long days = hours / 24;
 
             if (days > 0) {
-                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s day(s) %s hour(s) %s minute(s) and %s seconds.", sender, channel, days, hours % 24, minutes % 60, seconds % 60));
+                channel.messageChannel(String.format("%s, %s has been live for: %s day(s) %s hour(s) %s minute(s) and %s seconds.", sender, channel, days, hours % 24, minutes % 60, seconds % 60));
             } else if (hours > 0) {
-                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s hour(s) %s minute(s) and %s seconds.", sender, channel, hours % 24, minutes % 60, seconds % 60));
+                channel.messageChannel(String.format("%s, %s has been live for: %s hour(s) %s minute(s) and %s seconds.", sender, channel, hours % 24, minutes % 60, seconds % 60));
             } else if (minutes > 0) {
-                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s minute(s) and %s seconds.", sender, channel, minutes % 60, seconds % 60));
+                channel.messageChannel(String.format("%s, %s has been live for: %s minute(s) and %s seconds.", sender, channel, minutes % 60, seconds % 60));
             } else if (seconds > 0) {
-                Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, %s has been live for: %s seconds.", sender, channel, seconds % 60));
+                channel.messageChannel(String.format("%s, %s has been live for: %s seconds.", sender, channel, seconds % 60));
             }
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: !uptime, displays how long the stream has been live.";
     }
 

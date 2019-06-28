@@ -1,7 +1,7 @@
 package me.formercanuck.formerbot.command.commands;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
+import me.formercanuck.formerbot.twitch.Channel;
 
 public class Join extends Command {
     @Override
@@ -10,14 +10,14 @@ public class Join extends Command {
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: !join - Makes the bot listen for commands.";
     }
 
     @Override
-    public void onCommand(String sender, String channel, String... args) {
-        Main.getInstance().getBot().getChannel().toggleListen(true);
-        Main.getInstance().getBot().getChannel().messageChannel("\\o/ Guess who's here!");
+    public void onCommand(String sender, Channel channel, String... args) {
+        channel.toggleListen(true);
+        channel.messageChannel("\\o/ Guess who's here!");
     }
 
     @Override

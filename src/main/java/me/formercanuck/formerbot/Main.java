@@ -3,11 +3,8 @@ package me.formercanuck.formerbot;
 import me.fc.console.Console;
 import me.formercanuck.formerbot.twitch.Bot;
 
-import java.util.Scanner;
-
 public class Main {
 
-    private Console console;
 
     private Bot bot;
 
@@ -15,16 +12,15 @@ public class Main {
 
     private Main() {
         instance = this;
-        console = new Console("FormerB0t");
 
         bot = new Bot();
         bot.connect();
-
-        bot.joinChannel(new Scanner(System.in).next());
+//
+//        bot.joinChannel(new Scanner(System.in).next());
     }
 
     public Console getConsole() {
-        return console;
+        return bot.getConsole();
     }
 
     public Bot getBot() {

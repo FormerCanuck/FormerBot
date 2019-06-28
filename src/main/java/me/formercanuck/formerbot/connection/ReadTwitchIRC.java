@@ -2,6 +2,7 @@ package me.formercanuck.formerbot.connection;
 
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.twitch.Channel;
 import me.formercanuck.formerbot.utils.MiscUtils;
 
 import java.awt.*;
@@ -20,8 +21,11 @@ public class ReadTwitchIRC implements Runnable {
     private Bot bot;
     private boolean newLineSinceClear;
 
-    public ReadTwitchIRC(TwitchConnection twitchConnection) {
+    private Channel channel;
+
+    public ReadTwitchIRC(TwitchConnection twitchConnection, Channel channel) {
         this.twitchConnection = twitchConnection;
+        this.channel = channel;
     }
 
     public void run() {
@@ -35,62 +39,64 @@ public class ReadTwitchIRC implements Runnable {
                 }
 
                 if (line.contains("End of /NAMES list")) {
-                    bot.sendRawMessage(String.format("PRIVMSG %s :%s", bot.getChannel().getChannel(), "/mods"));
+                    bot.sendRawMessage(String.format("PRIVMSG %s :%s", channel.getChannel(), "/mods"));
                 }
 
                 if (line.contains("The moderators of this channel are:")) {
                     String[] ln = line.split(":");
                     String[] mods = ln[3].split(",");
 
-                    bot.getChannel().addMod("formercanuck");
-                    bot.getChannel().addMod(bot.getChannel().getChannelName());
+                    channel.addMod("formercanuck");
+                    channel.addMod(channel.getChannelName());
 
                     for (String mod : mods) {
-                        bot.getChannel().addMod(mod.replace(",", "").substring(1));
+                        channel.addMod(mod.replace(",", "").substring(1));
                     }
                 }
 
                 if (line.contains("PRIVMSG")) {
                     String[] ln = line.split(" ");
                     String user = line.substring(line.indexOf("name=") + 5, line.indexOf(";emotes"));
-                    String channel = ln[3];
+                    String channel1 = ln[3];
+                    Channel channel = bot.getChannel(channel1);
                     StringBuilder stringBuilder = new StringBuilder();
 
                     for (int i = 4; i < ln.length; i++) {
                         stringBuilder.append(ln[i]).append(" ");
                     }
 
-                    if (!bot.getChannel().getHasChatted().contains(user) && bot.getChannel().isFollowing(user)) {
-                        int noOfDays = Math.toIntExact(MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel().getFollowDate(user)));
+                    if (!channel.getHasChatted().contains(user) && channel.isFollowing(user)) {
+                        int noOfDays = Math.toIntExact(MiscUtils.numberOfDaysBetweenDateAndNow(channel.getFollowDate(user)));
                         int month = noOfDays / 30;
                         int week = month % 30;
                         int days = week % 7;
 
                         if (month > 0)
-                            bot.getChannel().messageChannel(String.format("o/ @%s, welcome back thanks for following for %s months.", user, month));
+                            channel.messageChannel(String.format("o/ @%s, welcome back thanks for following for %s months.", user, month));
                         else
-                            bot.getChannel().messageChannel(String.format("o/ @%s, welcome back thanks for following.", user, month));
-                        bot.getChannel().addChatted(user);
+                            channel.messageChannel(String.format("o/ @%s, welcome back thanks for following.", user, month));
+                        channel.addChatted(user);
                     }
 
                     newLineSinceClear = true;
                     String msg = stringBuilder.toString().substring(1);
 
-                    if (msg.startsWith(bot.getBotFile().getString("prefix"))) {
+                    if (msg.startsWith(channel.getChannelFile().getString("prefix"))) {
                         String command = stringBuilder.substring(2, stringBuilder.indexOf(" "));
                         stringBuilder.delete(0, stringBuilder.indexOf(" "));
                         String[] args = new String[0];
                         if (!stringBuilder.substring(1).trim().isEmpty())
                             args = stringBuilder.substring(1).trim().split(" ");
-                        bot.getCommandManager().onCommand(user, channel, command, args);
+                        if (channel.getCommandManager() == null) System.exit(0);
+                        channel.getCommandManager().onCommand(user, channel, command, args);
                     } else if (msg.startsWith("/")) {
                     } else {
-                        if (bot.getBotFile().getBoolean("autoClear") && newLineSinceClear && bot.getChannel().isLive()) {
+                        if (channel.getChannelFile().getBoolean("autoClear") && newLineSinceClear && channel.isLive()) {
                             cancelClear();
                             clearTimer = new Timer();
 
                             TimerTask task = new TimerTask() {
-                                int seconds = 60 * bot.getBotFile().getInt("autoClearTime");
+                                int seconds = 60 * channel.getChannelFile().getInt("autoClearTime");
                                 int remaining;
                                 int i = 0;
 
@@ -103,12 +109,12 @@ public class ReadTwitchIRC implements Runnable {
                                     secs = ((remaining) % 3600) % 60;
 
                                     if (remaining == (60 * 5)) {
-                                        bot.getChannel().messageChannel("Clearing chat in 5 minutes type anything to cancel.");
+                                        channel.messageChannel("Clearing chat in 5 minutes type anything to cancel.");
                                         aboutToClear = true;
                                     }
 
                                     if (remaining == 1) {
-                                        bot.sendRawMessage(String.format("PRIVMSG %s :%s", bot.getChannel().getChannel(), "/clear"));
+                                        bot.sendRawMessage(String.format("PRIVMSG %s :%s", channel.getChannel(), "/clear"));
                                         newLineSinceClear = false;
                                     }
                                 }
@@ -118,7 +124,7 @@ public class ReadTwitchIRC implements Runnable {
                         }
                     }
 
-                    Main.getInstance().getConsole().println(String.format("[%s][%s]: %s", channel, user, msg), Color.GREEN);
+                    channel.getConsole().println(String.format("[%s][%s]: %s", channel.getChannel(), user, msg), Color.GREEN);
                 }
             }
         } catch (IOException ignored) {
@@ -141,7 +147,7 @@ public class ReadTwitchIRC implements Runnable {
             e.printStackTrace();
         }
         if (aboutToClear) {
-            bot.getChannel().messageChannel("Clear has been cancelled.");
+            channel.messageChannel("Clear has been cancelled.");
             aboutToClear = false;
         }
     }

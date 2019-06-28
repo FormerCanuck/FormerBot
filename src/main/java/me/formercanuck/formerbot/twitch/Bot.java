@@ -1,34 +1,26 @@
 package me.formercanuck.formerbot.twitch;
 
 import me.fc.console.Console;
-import me.formercanuck.formerbot.Main;
-import me.formercanuck.formerbot.command.CommandManager;
-import me.formercanuck.formerbot.connection.ReadTwitchIRC;
+import me.formercanuck.formerbot.FormerConsole;
 import me.formercanuck.formerbot.connection.TwitchConnection;
-import me.formercanuck.formerbot.files.ConfigFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Bot {
 
     private TwitchConnection twitchConnection;
 
-    private ReadTwitchIRC readTwitchIRC;
-
-    private CommandManager commandManager;
-
     private ArrayList<String> remember = new ArrayList<>();
 
-    private Channel channel;
-
-    private ConfigFile botFile;
+    private HashMap<String, Channel> channels;
 
     private Console console;
 
     public Bot() {
+        this.console = new FormerConsole("FormerB0t Console");
+        this.channels = new HashMap<>();
         twitchConnection = new TwitchConnection();
-        readTwitchIRC = new ReadTwitchIRC(twitchConnection);
-        console = Main.getInstance().getConsole();
     }
 
     public void connect() {
@@ -36,40 +28,22 @@ public class Bot {
         sendRawMessage("CAP REQ :twitch.tv/commands");
         sendRawMessage("PASS oauth:3tphuo7t7zhoz0os9we3vpwcpfhxur");
         sendRawMessage("NICK FormerB0t");
-
-        new Thread(readTwitchIRC).start();
     }
 
     public void joinChannel(String channel) {
-        this.channel = new Channel(channel);
-
-        botFile = new ConfigFile(this.channel.getChannelName());
-
-        if (!botFile.contains("prefix")) botFile.set("prefix", "!");
-
-        if (!botFile.contains("autoClear")) {
-            botFile.set("autoClear", false);
-            botFile.set("autoClearTime", 10);
-        }
-        commandManager = new CommandManager();
-
-        this.channel.loadFollows();
+        Channel temp = new Channel(channel);
+        temp.join();
+        this.channels.put(temp.getChannelName().toLowerCase(), temp);
     }
 
-    public ReadTwitchIRC getReadTwitchIRC() {
-        return readTwitchIRC;
-    }
-
-    public ConfigFile getBotFile() {
-        return botFile;
-    }
-
-    public CommandManager getCommandManager() {
-        return commandManager;
-    }
-
-    public Channel getChannel() {
-        return channel;
+    /**
+     * @param channel - The name of the channel you are trying to get ex: FormerCanuck.
+     * @return - Returns the Channel object with the name given.
+     */
+    public Channel getChannel(String channel) {
+        if (channel.startsWith("#")) {
+            return channels.get(channel.substring(1).toLowerCase());
+        } else return channels.get(channel.toLowerCase());
     }
 
     public void addRemember(String str) {
@@ -88,15 +62,20 @@ public class Bot {
 
     public void sendRawMessage(String message) {
         try {
+            System.out.println(message);
             console.println("> " + message);
             twitchConnection.getToTwitch().write(String.format("%s %s", message, "\r\n"));
             twitchConnection.getToTwitch().flush();
         } catch (Exception e) {
-            console.error(e.toString());
+            console.error(e.getLocalizedMessage());
         }
     }
 
     public TwitchConnection getTwitchConnection() {
         return twitchConnection;
+    }
+
+    public Console getConsole() {
+        return console;
     }
 }

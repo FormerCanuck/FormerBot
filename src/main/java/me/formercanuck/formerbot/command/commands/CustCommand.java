@@ -1,8 +1,7 @@
 package me.formercanuck.formerbot.command.commands;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
-import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.twitch.Channel;
 
 public class CustCommand extends Command {
 
@@ -12,26 +11,24 @@ public class CustCommand extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
-        Bot bot = Main.getInstance().getBot();
-
-        if (bot.getChannel().isMod(sender)) {
+    public void onCommand(String sender, Channel channel, String[] args) {
+        if (channel.isMod(sender)) {
             if (args.length == 0) {
-                bot.getChannel().messageChannel(String.format("Usage: %scom add | remove | edit.", bot.getBotFile().get("prefix")));
+                channel.messageChannel(String.format("Usage: %scom add | remove | edit.", channel.getChannelFile().get("prefix")));
             } else {
                 if (args.length == 1) {
                     switch (args[0]) {
                         case "add":
-                            addUsageMessage();
+                            addUsageMessage(channel);
                             break;
                         case "remove":
-                            removeUsageMessage();
+                            removeUsageMessage(channel);
                             break;
                         case "edit":
-                            editUsageMessage();
+                            editUsageMessage(channel);
                             break;
                         default:
-                            bot.getChannel().messageChannel(String.format("Usage: %scom add | remove | edit.", bot.getBotFile().get("prefix")));
+                            channel.messageChannel(String.format("Usage: %scom add | remove | edit.", channel.getChannelFile().get("prefix")));
                             break;
                     }
                 } else {
@@ -39,17 +36,17 @@ public class CustCommand extends Command {
                     if (args.length == 2) {
                         switch (name.toLowerCase()) {
                             case "remove":
-                                if (bot.getCommandManager().removeCustomCommand(args[1]))
-                                    bot.getChannel().messageChannel(String.format("%s has removed the command %s.", sender, args[1]));
+                                if (channel.getCommandManager().removeCustomCommand(args[1], channel.getChannelName()))
+                                    channel.messageChannel(String.format("%s has removed the command %s.", sender, args[1]));
                                 break;
                             case "add":
-                                addUsageMessage();
+                                addUsageMessage(channel);
                                 break;
                             case "edit":
-                                editUsageMessage();
+                                editUsageMessage(channel);
                                 break;
                             default:
-                                bot.getChannel().messageChannel(String.format("Usage: %scom add | remove | edit.", bot.getBotFile().get("prefix")));
+                                channel.messageChannel(String.format("Usage: %scom add | remove | edit.", channel.getChannelFile().get("prefix")));
                                 break;
                         }
                     } else {
@@ -57,15 +54,15 @@ public class CustCommand extends Command {
                             if (args[1].contains("-ul=")) {
                                 StringBuilder response = new StringBuilder();
                                 for (int i = 3; i < args.length; i++) response.append(args[i]).append(" ");
-                                bot.getCommandManager().addCommand(args[2], args[1].substring(4), 0, response.toString().trim());
-                                bot.getChannel().messageChannel(String.format("%s has added the command %s%s with the response %s", sender, bot.getBotFile().get("prefix"), args[2], response.toString().trim()));
+                                channel.getCommandManager().addCommand(args[2], args[1].substring(4), 0, response.toString().trim());
+                                channel.messageChannel(String.format("%s has added the command %s%s with the response %s", sender, channel.getChannelFile().get("prefix"), args[2], response.toString().trim()));
                             } else {
                                 StringBuilder response = new StringBuilder();
                                 for (int i = 2; i < args.length; i++) response.append(args[i]).append(" ");
-                                bot.getCommandManager().addCommand(args[1], "none", 0, response.toString().trim());
-                                bot.getChannel().messageChannel(String.format("%s has added the command %s%s with the response %s", sender, bot.getBotFile().get("prefix"), args[1], response.toString().trim()));
+                                channel.getCommandManager().addCommand(args[1], "none", 0, response.toString().trim());
+                                channel.messageChannel(String.format("%s has added the command %s%s with the response %s", sender, channel.getChannelFile().get("prefix"), args[1], response.toString().trim()));
                             }
-                        } else addUsageMessage();
+                        } else addUsageMessage(channel);
                     }
                 }
             }
@@ -73,20 +70,20 @@ public class CustCommand extends Command {
     }
 
     @Override
-    public String getUsage() {
-        return String.format("Usage: %scom add | remove | edit.", Main.getInstance().getBot().getBotFile().get(" prefix "));
+    public String getUsage(Channel channel) {
+        return String.format("Usage: %scom add | remove | edit.", channel.getChannelFile().get(" prefix "));
     }
 
-    private void addUsageMessage() {
-        Main.getInstance().getBot().getChannel().messageChannel(String.format("Usage: %scom add (-ul=user level) <name> <response>", Main.getInstance().getBot().getBotFile().get("prefix")));
+    private void addUsageMessage(Channel channel) {
+        channel.messageChannel(String.format("Usage: %scom add (-ul=user level) <name> <response>", channel.getChannelFile().get("prefix")));
     }
 
-    private void removeUsageMessage() {
-        Main.getInstance().getBot().getChannel().messageChannel(String.format("Usage: %scom remove <name>", Main.getInstance().getBot().getBotFile().get("prefix")));
+    private void removeUsageMessage(Channel channel) {
+        channel.messageChannel(String.format("Usage: %scom remove <name>", channel.getChannelFile().get("prefix")));
     }
 
-    private void editUsageMessage() {
-        Main.getInstance().getBot().getChannel().messageChannel(String.format("Usage: %scom edit (-ul=user level) <name> <response>", Main.getInstance().getBot().getBotFile().get("prefix")));
+    private void editUsageMessage(Channel channel) {
+        channel.messageChannel(String.format("Usage: %scom edit (-ul=user level) <name> <response>", channel.getChannelFile().get("prefix")));
     }
 
     @Override

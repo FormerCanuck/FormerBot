@@ -1,6 +1,6 @@
 package me.formercanuck.formerbot.command;
 
-import me.formercanuck.formerbot.Main;
+import me.formercanuck.formerbot.twitch.Channel;
 
 public class CustomCommand extends Command {
 
@@ -22,26 +22,26 @@ public class CustomCommand extends Command {
         return name;
     }
 
-    public void onCommand(String sender, String channel, String[] args) {
-        if (canUse(sender))
-            Main.getInstance().getBot().getChannel().messageChannel(response);
+    public void onCommand(String sender, Channel channel, String[] args) {
+        if (canUse(sender, channel))
+            channel.messageChannel(response);
     }
 
-    private boolean canUse(String sender) {
+    private boolean canUse(String sender, Channel channel) {
         switch (userLevel) {
             case "mod":
-                return Main.getInstance().getBot().getChannel().isMod(sender);
+                return channel.isMod(sender);
             case "whitelist":
-                return Main.getInstance().getBot().getChannel().isWhiteListed(sender) || Main.getInstance().getBot().getChannel().isMod(sender);
+                return channel.isWhiteListed(sender) || channel.isMod(sender);
             case "follow":
-                return Main.getInstance().getBot().getChannel().isFollowing(sender) || Main.getInstance().getBot().getChannel().isWhiteListed(sender) || Main.getInstance().getBot().getChannel().isMod(sender);
+                return channel.isFollowing(sender) || channel.isWhiteListed(sender) || channel.isMod(sender);
             default:
                 return true;
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: !" + name;
     }
 

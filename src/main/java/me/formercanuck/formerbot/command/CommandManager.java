@@ -2,6 +2,7 @@ package me.formercanuck.formerbot.command;
 
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.commands.*;
+import me.formercanuck.formerbot.twitch.Channel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,11 +16,16 @@ public class CommandManager {
 
     private HashMap<String, ArrayList<String>> customCommands = new HashMap<>();
 
-    public CommandManager() {
+    private Channel channel;
+
+    public CommandManager(Channel channel) {
+        this.channel = channel;
         commandList = new ArrayList<>();
 
-        if (Main.getInstance().getBot().getBotFile().contains("disabledCommands"))
-            disableCommands = (List<String>) Main.getInstance().getBot().getBotFile().get("disabledCommands");
+        if (channel.getChannelFile() == null) System.exit(0);
+
+        if (channel.getChannelFile().contains("disabledCommands"))
+            disableCommands = (List<String>) channel.getChannelFile().get("disabledCommands");
 
         commandList.add(new TopClips());
         commandList.add(new Uptime());
@@ -40,14 +46,15 @@ public class CommandManager {
         commandList.add(new Join());
         commandList.add(new MultiStream());
         commandList.add(new Disable());
+        commandList.add(new Enable());
         commandList.add(new CustCommand());
 
         loadCustomCommands();
     }
 
     private void loadCustomCommands() {
-        if (Main.getInstance().getBot().getBotFile().contains("commands")) {
-            customCommands = (HashMap<String, ArrayList<String>>) Main.getInstance().getBot().getBotFile().get("commands");
+        if (channel.getChannelFile().contains("commands")) {
+            customCommands = (HashMap<String, ArrayList<String>>) channel.getChannelFile().get("commands");
 
             for (String name : customCommands.keySet()) {
                 ArrayList<String> args = customCommands.get(name);
@@ -63,14 +70,14 @@ public class CommandManager {
         temp.add(response);
         customCommands.put(name, temp);
         commandList.add(new CustomCommand(name, userLevel, cooldown, response));
-        Main.getInstance().getBot().getBotFile().set("commands", customCommands);
+        channel.getChannelFile().set("commands", customCommands);
     }
 
-    public boolean removeCustomCommand(String name) {
+    public boolean removeCustomCommand(String name, String channel) {
         if (customCommands.containsKey(name)) {
             commandList.remove(getCommand(name));
             customCommands.remove(name);
-            Main.getInstance().getBot().getBotFile().set("commands", customCommands);
+            Main.getInstance().getBot().getChannel(channel).getChannelFile().set("commands", customCommands);
             return true;
         }
         return false;
@@ -80,12 +87,12 @@ public class CommandManager {
         cooldown.add(commandName);
     }
 
-    public void onCommand(String sender, String channel, String command, String[] args) {
+    public void onCommand(String sender, Channel channel, String command, String[] args) {
         for (Command cmd : commandList) {
-            if (!cooldown.contains(cmd.getName()) && !disableCommands.contains(cmd.getName()) && Main.getInstance().getBot().getChannel().getShouldListen()) {
+            if (!cooldown.contains(cmd.getName()) && !disableCommands.contains(cmd.getName()) && channel.getShouldListen()) {
                 if (cmd.getName().equalsIgnoreCase(command)) {
                     cmd.onCommand(sender, channel, args);
-                    cmd.cooldown();
+                    cmd.cooldown(channel);
                     break;
                 }
             } else if (cmd.getName().equalsIgnoreCase("join")) {
@@ -102,18 +109,18 @@ public class CommandManager {
         return null;
     }
 
-    public boolean disableCommand(String command) {
+    public boolean disableCommand(String command, Channel channel) {
         if (getCommand(command) != null) {
             disableCommands.add(command);
-            Main.getInstance().getBot().getBotFile().set("disabledCommands", disableCommands);
+            channel.getChannelFile().set("disabledCommands", disableCommands);
             return true;
         } else return false;
     }
 
-    public boolean enableCommand(String command) {
+    public boolean enableCommand(String command, Channel channel) {
         if (getCommand(command) != null) {
             disableCommands.remove(command);
-            Main.getInstance().getBot().getBotFile().set("disabledCommands", disableCommands);
+            channel.getChannelFile().set("disabledCommands", disableCommands);
             return true;
         } else return false;
     }

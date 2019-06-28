@@ -12,8 +12,8 @@ public class ListenToIRC implements Runnable {
 
     private Bot bot;
 
-    public ListenToIRC(TwitchConnection twitchConnection) {
-        this.twitchConnection = twitchConnection;
+    public ListenToIRC() {
+        this.twitchConnection = new TwitchConnection();
     }
 
     public void run() {
@@ -38,8 +38,8 @@ public class ListenToIRC implements Runnable {
 
                     String msg = stringBuilder.toString().substring(1);
 
-                    if (!channel.equalsIgnoreCase(bot.getChannel().getChannel()))
-                        Main.getInstance().getBot().getChannel().messageChannel(String.format("[%s][%s]: %s", channel, user, msg));
+                    if (!channel.equalsIgnoreCase(bot.getChannel(channel).getChannel()))
+                        Main.getInstance().getBot().getChannel(channel).messageChannel(String.format("[%s][%s]: %s", channel, user, msg));
 
                     Main.getInstance().getConsole().println(String.format("[%s][%s]: %s", channel, user, msg), Color.GREEN);
                 }

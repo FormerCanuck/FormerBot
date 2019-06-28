@@ -1,7 +1,7 @@
 package me.formercanuck.formerbot.command.commands;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
+import me.formercanuck.formerbot.twitch.Channel;
 
 public class Link extends Command {
     @Override
@@ -10,14 +10,14 @@ public class Link extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
-        if (Main.getInstance().getBot().getBotFile().getWhitelist().contains(sender.toLowerCase())) {
-            Main.getInstance().getBot().getChannel().messageChannel("!allow " + sender);
+    public void onCommand(String sender, Channel channel, String[] args) {
+        if (channel.getChannelFile().getWhitelist().contains(sender.toLowerCase())) {
+            channel.messageChannel("!allow " + sender);
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: Whitelisted-User > !link will grant you permission to post a link.";
     }
 

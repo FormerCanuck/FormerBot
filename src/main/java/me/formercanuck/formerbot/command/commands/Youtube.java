@@ -1,8 +1,9 @@
 package me.formercanuck.formerbot.command.commands;
 
-import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
+import me.formercanuck.formerbot.twitch.Channel;
 import me.formercanuck.formerbot.utils.GetJsonData;
+import me.formercanuck.formerbot.utils.MiscUtils;
 
 public class Youtube extends Command {
     @Override
@@ -11,33 +12,19 @@ public class Youtube extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {//https://www.youtube.com/channel/
-        channel = channel.substring(1);
-        if (GetJsonData.getInstance().getIDFromYoutube(channel) == null) {
-            Main.getInstance().getBot().getChannel().messageChannel(sender + ", " + channel + " does not currently have a youtube.");
+    public void onCommand(String sender, Channel channel, String[] args) {//https://www.youtube.com/channel/
+        if (GetJsonData.getInstance().getIDFromYoutube(channel.getChannelName()) == null) {
+            channel.messageChannel(sender + ", " + channel.getChannelName() + " does not currently have a youtube.");
             return;
         }
 
-        int days = Math.toIntExact(GetJsonData.getInstance().daysSinceLastUpload(channel));
+        int days = Math.toIntExact(GetJsonData.getInstance().daysSinceLastUpload(channel.getChannelName()));
 
-        int year = (days / 365);
-        days = days % 365;
-        int week = days / 7;
-        days = days % 7;
-
-        StringBuilder str = new StringBuilder();
-
-        if (year > 0) str.append(year).append(" years, ");
-
-        if (week > 0) str.append(week).append(" weeks, and ");
-
-        if (days > 0) str.append(days).append(" days");
-
-        Main.getInstance().getBot().getChannel().messageChannel(String.format("%s, check out %s at https://www.youtube.com/channel/%s their last upload was %s which was posted %s days ago and you can find it here: %s", sender, channel, GetJsonData.getInstance().getIDFromYoutube(channel), GetJsonData.getInstance().getLastVideoTitle(channel), str.toString().trim(), GetJsonData.getInstance().getLastVideoLink(channel)));
+        channel.messageChannel(String.format("%s, check out %s at https://www.youtube.com/channel/%s their last upload was %s which was posted %s days ago and you can find it here: %s", sender, channel, GetJsonData.getInstance().getIDFromYoutube(channel.getChannelName()), GetJsonData.getInstance().getLastVideoTitle(channel.getChannelName()), MiscUtils.getDateString(days), GetJsonData.getInstance().getLastVideoLink(channel.getChannelName())));
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: !youtube, Displays the last upload for the current channel and provides a link.";
     }
 

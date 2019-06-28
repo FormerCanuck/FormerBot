@@ -4,6 +4,7 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.timertasks.RememberTask;
 import me.formercanuck.formerbot.twitch.Bot;
+import me.formercanuck.formerbot.twitch.Channel;
 
 import java.util.Timer;
 
@@ -14,15 +15,15 @@ public class Remember extends Command {
     }
 
     @Override
-    public void onCommand(String sender, String channel, String[] args) {
+    public void onCommand(String sender, Channel channel, String[] args) {
         Bot bot = Main.getInstance().getBot();
-        if (bot.getChannel().isMod(sender) || bot.getChannel().isWhiteListed(sender)) {
+        if (channel.isMod(sender) || channel.isWhiteListed(sender)) {
             if (args.length != 0) {
                 int delay;
                 try {
                     delay = Integer.parseInt(args[0]);
                 } catch (Exception e) {
-                    bot.getChannel().messageChannel(String.format("%s, you entered an invalid delay time.", sender));
+                    channel.messageChannel(String.format("%s, you entered an invalid delay time.", sender));
                     return;
                 }
 
@@ -33,18 +34,18 @@ public class Remember extends Command {
                 }
 
                 bot.addRemember(output.toString().substring(args[0].length()));
-                bot.getChannel().messageChannel(String.format("Okay %s, I'll remember that for you.", sender));
+                channel.messageChannel(String.format("Okay %s, I'll remember that for you.", sender));
 
                 Timer timer = new Timer();
-                timer.schedule(new RememberTask(), (1000 * 60) * delay);
+                timer.schedule(new RememberTask(channel), (1000 * 60) * delay);
             } else {
-                bot.getChannel().messageChannel("Usage: !remember <delay> <Message to remember>");
+                channel.messageChannel("Usage: !remember <delay> <Message to remember>");
             }
         }
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage(Channel channel) {
         return "Usage: Whitelisted+ > !remember <delay> <message> will store a message to broadcast in the specified time (in minutes).";
     }
 
