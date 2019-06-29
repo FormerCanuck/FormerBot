@@ -14,13 +14,7 @@ public class SortArrayList {
         return this.arrayList;
     }
 
-    public ArrayList<String> sortAscending() {
+    public void sortAscending() {
         Collections.sort(this.arrayList);
-        return this.arrayList;
-    }
-
-    public ArrayList<String> sortDescending() {
-        Collections.sort(this.arrayList, Collections.reverseOrder());
-        return this.arrayList;
     }
 }

@@ -8,8 +8,8 @@ import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
 import me.formercanuck.formerbot.files.ConfigFile;
 import me.formercanuck.formerbot.timertasks.DuelTask;
+import me.formercanuck.formerbot.timertasks.Followers;
 import me.formercanuck.formerbot.timertasks.UpdateViewers;
-import me.formercanuck.formerbot.utils.Followers;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.awt.*;
@@ -31,19 +31,16 @@ public class Channel {
 
     private boolean shouldListen = true;
     private boolean isLive;
-    private boolean hasCheckedFirstFollow = false;
 
     private ArrayList<String> mods = new ArrayList<>();
     private ArrayList<String> whitelisted = new ArrayList<>();
     private ArrayList<String> watchlist;
     private ConfigFile channelFile;
-    private HashMap<String, ListenBot> listenBotHashMap = new HashMap<>();
     private HashMap<String, Integer> points;
 
     private List<String> hasChatted;
     private List<String> viewers;
 
-    private String lastFollow = "";
     private Console console;
 
     private List<DuelTask> duels = new ArrayList<>();
@@ -92,7 +89,6 @@ public class Channel {
     public DuelTask getDuel(String user) {
         for (DuelTask task : getDuels()) {
             if (task.getID().equalsIgnoreCase(user)) return task;
-            break;
         }
         return null;
     }
@@ -114,11 +110,11 @@ public class Channel {
         return this.points;
     }
 
-    public void savePoints() {
+    private void savePoints() {
         channelFile.set("points", points);
     }
 
-    public void setPoints(String user, int points) {
+    private void setPoints(String user, int points) {
         getPoints().put(user, points);
         savePoints();
     }
@@ -145,16 +141,6 @@ public class Channel {
         return hasChatted;
     }
 
-    public void toggleListen(String channel) {
-        if (!listenBotHashMap.containsKey(channel)) {
-            listenBotHashMap.put(channel, new ListenBot(channel));
-        } else if (listenBotHashMap.containsKey(channel)) {
-            listenBotHashMap.get(channel).stop();
-            listenBotHashMap.remove(channel);
-        }
-
-    }
-
     public void addChatted(String user) {
         hasChatted.add(user);
     }
@@ -170,25 +156,10 @@ public class Channel {
     public void setLive(boolean isLive) {
         if (isLive) {
             goLive();
+            this.isLive = true;
         } else {
-            this.isLive = isLive;
+            this.isLive = false;
         }
-    }
-
-    public void setHasCheckedFirstFollow() {
-        hasCheckedFirstFollow = true;
-    }
-
-    public boolean isHasCheckedFirstFollow() {
-        return hasCheckedFirstFollow;
-    }
-
-    public String getLastFollow() {
-        return lastFollow;
-    }
-
-    public void setLastFollow(String lastFollow) {
-        this.lastFollow = lastFollow;
     }
 
     void join() {
@@ -196,7 +167,7 @@ public class Channel {
     }
 
     public void messageChannel(String message) {
-        bot.sendRawMessage(String.format("PRIVMSG %s :/me %s", getChannel(), message));
+//        bot.sendRawMessage(String.format("PRIVMSG %s :/me %s", getChannel(), message));
         console.println(String.format("PRIVMSG %s :/me %s", getChannel(), message), Color.ORANGE);
     }
 
@@ -237,7 +208,9 @@ public class Channel {
 
     public boolean isFollowing(String user) {
         HashMap<String, String> follows;
-        follows = (HashMap<String, String>) channelFile.get("follows");
+        if (channelFile.contains("follows"))
+            follows = (HashMap<String, String>) channelFile.get("follows");
+        else return false;
 
         for (String key : follows.keySet()) {
             if (key.equalsIgnoreCase(user)) return true;

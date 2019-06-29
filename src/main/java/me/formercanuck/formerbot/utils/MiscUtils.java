@@ -17,10 +17,6 @@ public class MiscUtils {
         return string.replace("\"", " ").trim();
     }
 
-    private static boolean isDigit(char check) {
-        return Character.isDigit(check);
-    }
-
     public static HashMap<String, Long> putFirstEntries(HashMap<String, Long> source) {
         int count = 0;
         HashMap<String, Long> target = new HashMap<>();

@@ -70,7 +70,7 @@ public class Bot {
         }
     }
 
-    public TwitchConnection getTwitchConnection() {
+    TwitchConnection getTwitchConnection() {
         return twitchConnection;
     }
 

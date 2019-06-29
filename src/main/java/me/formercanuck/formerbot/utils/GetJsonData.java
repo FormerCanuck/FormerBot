@@ -8,7 +8,6 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.Random;
 
 public class GetJsonData {
 
@@ -17,18 +16,6 @@ public class GetJsonData {
     private JsonParser json = new JsonParser();
 
     private static GetJsonData instance = new GetJsonData();
-
-    private GetJsonData() {
-    }
-
-    private int getRandomNumberInRange(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
 
     private JsonElement getJsonFromYT(String url) {
         return json.parse(retrieveYoutubeJson(url));
@@ -44,7 +31,7 @@ public class GetJsonData {
     }
 
     public JsonElement getJson(String url) {
-        InputStream is = null;
+        InputStream is;
         try {
             URL u = new URL(url);
             String clientID = "pqi99elyam4p8ewyab8eyrxnb8urvw";
@@ -54,8 +41,7 @@ public class GetJsonData {
             try {
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
                 String jsonText = readAll(rd);
-                JsonElement j = json.parse(jsonText);
-                return j;
+                return json.parse(jsonText);
             } finally {
                 is.close();
             }

@@ -1,10 +1,11 @@
-package me.formercanuck.formerbot.utils;
+package me.formercanuck.formerbot.timertasks;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.twitch.Channel;
+import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.util.TimerTask;
 
@@ -14,17 +15,20 @@ public class Followers extends TimerTask {
 
     private int lastRan = 0;
 
+    private boolean hasRun = false;
+
     public Followers(Channel channel) {
         this.channel = channel;
     }
 
     @Override
     public void run() {
-        loadFollows();
+        if (!hasRun)
+            loadFollows();
         checkPals();
     }
 
-    public void checkPals() {
+    private void checkPals() {
         JsonArray array = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/streams?user_login=" + channel.getChannelName()).getAsJsonObject().get("data").getAsJsonArray();
 
         if (array.size() > 0) {
@@ -59,7 +63,7 @@ public class Followers extends TimerTask {
         }
     }
 
-    public void loadFollows() {
+    private void loadFollows() {
         JsonElement temp = GetJsonData.getInstance().getJson("https://api.twitch.tv/helix/users/follows?to_id=" + channel.getChannelID() + "&first=100");
 
         Main.getInstance().getConsole().println("[Bot]: loading followers...");

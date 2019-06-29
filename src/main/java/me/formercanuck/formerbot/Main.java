@@ -15,8 +15,6 @@ public class Main {
 
         bot = new Bot();
         bot.connect();
-//
-//        bot.joinChannel(new Scanner(System.in).next());
     }
 
     public Console getConsole() {
