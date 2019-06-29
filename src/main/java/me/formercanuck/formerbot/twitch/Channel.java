@@ -7,14 +7,15 @@ import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
 import me.formercanuck.formerbot.files.ConfigFile;
-import me.formercanuck.formerbot.timertasks.CheckForNewFollows;
+import me.formercanuck.formerbot.timertasks.DuelTask;
+import me.formercanuck.formerbot.timertasks.UpdateViewers;
 import me.formercanuck.formerbot.utils.Followers;
 import me.formercanuck.formerbot.utils.GetJsonData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Timer;
 
 public class Channel {
 
@@ -37,13 +38,18 @@ public class Channel {
     private ArrayList<String> watchlist;
     private ConfigFile channelFile;
     private HashMap<String, ListenBot> listenBotHashMap = new HashMap<>();
+    private HashMap<String, Integer> points;
 
     private List<String> hasChatted;
+    private List<String> viewers;
 
     private String lastFollow = "";
     private Console console;
 
+    private List<DuelTask> duels = new ArrayList<>();
+
     public Channel(String channel) {
+        this.viewers = new ArrayList<>();
         this.channel = String.format("#%s", channel);
         this.bot = Main.getInstance().getBot();
 
@@ -64,8 +70,6 @@ public class Channel {
             JsonObject obj = jsonElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
             channelID = obj.get("id").getAsString();
         }
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new CheckForNewFollows(this), 0, (1000 * 60) * 30);
 
         hasChatted = new ArrayList<>();
 
@@ -76,6 +80,57 @@ public class Channel {
         Followers fllwrs = new Followers(this);
         Timer followerTimer = new Timer();
         followerTimer.scheduleAtFixedRate(fllwrs, 0, (1000 * 60) * 10);
+
+        Timer updatePointsAndViewers = new Timer();
+        updatePointsAndViewers.scheduleAtFixedRate(new UpdateViewers(this), 0, (1000 * 60));
+    }
+
+    public List<DuelTask> getDuels() {
+        return duels;
+    }
+
+    public DuelTask getDuel(String user) {
+        for (DuelTask task : getDuels()) {
+            if (task.getID().equalsIgnoreCase(user)) return task;
+            break;
+        }
+        return null;
+    }
+
+    public void addDuel(DuelTask duelTask) {
+        getDuels().add(duelTask);
+    }
+
+    public List<String> getViewers() {
+        return viewers;
+    }
+
+    public void setViewers(List<String> viewers) {
+        this.viewers = viewers;
+    }
+
+    public HashMap<String, Integer> getPoints() {
+        this.points = (HashMap<String, Integer>) channelFile.get("points");
+        return this.points;
+    }
+
+    public void savePoints() {
+        channelFile.set("points", points);
+    }
+
+    public void setPoints(String user, int points) {
+        getPoints().put(user, points);
+        savePoints();
+    }
+
+    public void addPoints(String user, int points) {
+        user = user.toLowerCase();
+        setPoints(user, getPoints().get(user) + points);
+    }
+
+    public void removePoints(String user, int points) {
+        user = user.toLowerCase();
+        setPoints(user, getPoints().get(user) - points);
     }
 
     public Console getConsole() {
@@ -113,8 +168,11 @@ public class Channel {
     }
 
     public void setLive(boolean isLive) {
-        if (isLive) goLive();
-        this.isLive = isLive;
+        if (isLive) {
+            goLive();
+        } else {
+            this.isLive = isLive;
+        }
     }
 
     public void setHasCheckedFirstFollow() {
@@ -139,6 +197,7 @@ public class Channel {
 
     public void messageChannel(String message) {
         bot.sendRawMessage(String.format("PRIVMSG %s :/me %s", getChannel(), message));
+        console.println(String.format("PRIVMSG %s :/me %s", getChannel(), message), Color.ORANGE);
     }
 
     public String getChannel() {
@@ -166,7 +225,14 @@ public class Channel {
     }
 
     public String getFollowDate(String user) {
-        return followers.get(user.toLowerCase());
+        user = user.toLowerCase();
+        HashMap<String, String> follows = (HashMap<String, String>) channelFile.get("follows");
+        if (follows.containsKey(user)) {
+            return follows.get(user);
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            return sdf.format(new Date());
+        }
     }
 
     public boolean isFollowing(String user) {

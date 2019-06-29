@@ -62,7 +62,6 @@ public class Bot {
 
     public void sendRawMessage(String message) {
         try {
-            System.out.println(message);
             console.println("> " + message);
             twitchConnection.getToTwitch().write(String.format("%s %s", message, "\r\n"));
             twitchConnection.getToTwitch().flush();

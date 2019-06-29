@@ -65,7 +65,7 @@ public class ReadTwitchIRC implements Runnable {
                         stringBuilder.append(ln[i]).append(" ");
                     }
 
-                    if (!channel.getHasChatted().contains(user) && channel.isFollowing(user)) {
+                    if (!channel.getHasChatted().contains(user) && channel.isFollowing(user) && channel.getChannelFile().getBoolean("shouldWelcome")) {
                         int noOfDays = Math.toIntExact(MiscUtils.numberOfDaysBetweenDateAndNow(channel.getFollowDate(user)));
                         int month = noOfDays / 30;
                         int week = month % 30;

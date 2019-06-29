@@ -32,6 +32,9 @@ public class CommandManager {
         commandList.add(new Pals());
         commandList.add(new Prefix());
         commandList.add(new ServerAge());
+        commandList.add(new Points());
+        commandList.add(new Duel());
+        commandList.add(new Accept());
         commandList.add(new Youtube());
         commandList.add(new FollowAge());
 //        commandList.add(new Listen());

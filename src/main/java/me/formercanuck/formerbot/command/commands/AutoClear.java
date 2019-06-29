@@ -28,7 +28,6 @@ public class AutoClear extends Command {
                         channel.getReadTwitchIRC().cancelClear();
                         channel.messageChannel(String.format("%s has set the auto clear time to %s minutes", sender, time));
                     } catch (Exception e) {
-                        System.out.println(e.getCause());
                         e.printStackTrace();
                     }
             }
