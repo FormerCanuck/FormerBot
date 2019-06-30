@@ -119,14 +119,21 @@ public class Channel {
         savePoints();
     }
 
+    public int getPoints(String user) {
+        return getPoints().get(user);
+    }
+
     public void addPoints(String user, int points) {
         user = user.toLowerCase();
         setPoints(user, getPoints().get(user) + points);
     }
 
-    public void removePoints(String user, int points) {
+    public boolean removePoints(String user, int points) {
         user = user.toLowerCase();
-        setPoints(user, getPoints().get(user) - points);
+        if (getPoints(user) > points) {
+            setPoints(user, getPoints().get(user) - points);
+            return true;
+        } else return false;
     }
 
     public Console getConsole() {
@@ -167,7 +174,7 @@ public class Channel {
     }
 
     public void messageChannel(String message) {
-//        bot.sendRawMessage(String.format("PRIVMSG %s :/me %s", getChannel(), message));
+        bot.sendRawMessage(String.format("PRIVMSG %s :/me %s", getChannel(), message));
         console.println(String.format("PRIVMSG %s :/me %s", getChannel(), message), Color.ORANGE);
     }
 

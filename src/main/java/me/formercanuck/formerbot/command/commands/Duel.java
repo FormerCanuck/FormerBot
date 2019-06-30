@@ -23,12 +23,18 @@ public class Duel extends Command {
             channel.messageChannel(getUsage(channel));
         } else {
             int amt = Integer.parseInt(args[0]);
-            String user = args[1].toLowerCase();
-            channel.messageChannel(String.format("%s has challenged %s to a duel. To accept type !accept", sender, user));
-            DuelTask duelTask = new DuelTask(channel, sender, user, amt);
-            channel.addDuel(duelTask);
-            Timer timer = new Timer();
-            timer.schedule(duelTask, 60 * 1000);
+            if (channel.getPoints(sender) > amt) {
+                String user = args[1].toLowerCase();
+                if (channel.getPoints(user) > amt) {
+                    channel.messageChannel(String.format("%s has challenged %s to a duel. To accept type !accept", sender, user));
+                    DuelTask duelTask = new DuelTask(channel, sender, user, amt);
+                    channel.addDuel(duelTask);
+                    Timer timer = new Timer();
+                    timer.schedule(duelTask, 60 * 1000);
+                } else {
+                    channel.messageChannel(String.format("%s doesn't have enough points to duel.", user));
+                }
+            }
         }
     }
 

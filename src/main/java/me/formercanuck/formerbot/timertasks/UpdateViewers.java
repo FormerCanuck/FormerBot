@@ -65,8 +65,6 @@ public class UpdateViewers extends TimerTask {
             }
         }
 
-        System.out.println(newFollows.iterator().next());
-
         if (newFollows.size() > 0) {
             SortArrayList list = new SortArrayList(newFollows);
             list.sortAscending();
