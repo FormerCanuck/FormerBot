@@ -14,6 +14,7 @@ public class DuelTask extends TimerTask {
 
     private String id;
 
+
     public DuelTask(Channel channel, String user1, String user2, int amt) {
         this.channel = channel;
         this.user1 = user1;

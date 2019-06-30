@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Accept extends Command {
 
-    Random random = new Random();
+    private Random random = new Random();
 
     @Override
     public String getName() {
@@ -34,6 +34,7 @@ public class Accept extends Command {
                 channel.messageChannel(String.format("It was a great battle, but only one left standing.... %s has won %s points! %s current points: %s", duel.getChallenger(), duel.getAmt(), duel.getChallenger(), channel.getPoints().get(duel.getChallenger().toLowerCase())));
             }
 
+            duel.cancel();
             channel.getDuels().remove(duel);
         }
     }
