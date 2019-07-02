@@ -105,7 +105,7 @@ public class Channel {
         this.viewers = viewers;
     }
 
-    public HashMap<String, Integer> getPoints() {
+    public HashMap<String, Integer> getPointsMap() {
         this.points = (HashMap<String, Integer>) channelFile.get("points");
         return this.points;
     }
@@ -115,23 +115,23 @@ public class Channel {
     }
 
     private void setPoints(String user, int points) {
-        getPoints().put(user, points);
+        getPointsMap().put(user, points);
         savePoints();
     }
 
     public int getPoints(String user) {
-        return getPoints().get(user);
+        return getPointsMap().get(user.toLowerCase());
     }
 
     public void addPoints(String user, int points) {
         user = user.toLowerCase();
-        setPoints(user, getPoints().get(user) + points);
+        setPoints(user, getPointsMap().get(user) + points);
     }
 
     public boolean removePoints(String user, int points) {
         user = user.toLowerCase();
         if (getPoints(user) > points) {
-            setPoints(user, getPoints().get(user) - points);
+            setPoints(user, getPointsMap().get(user) - points);
             return true;
         } else return false;
     }

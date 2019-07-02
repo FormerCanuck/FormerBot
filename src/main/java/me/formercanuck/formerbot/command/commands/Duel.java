@@ -22,8 +22,16 @@ public class Duel extends Command {
         if (args.length < 2) {
             channel.messageChannel(getUsage(channel));
         } else {
-            int amt = Integer.parseInt(args[0]);
-            if (channel.getPoints(sender) > amt) {
+            int amt;
+
+            try {
+                amt = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                channel.messageChannel(String.format("@%s, %s is an invalid number or to large.", sender, args[0]));
+                return;
+            }
+
+            if (channel.getPoints(sender) >= amt) {
                 String user = args[1].toLowerCase();
                 if (channel.getPoints(user) > amt) {
                     channel.messageChannel(String.format("%s has challenged %s to a duel. To accept type !accept", sender, user));

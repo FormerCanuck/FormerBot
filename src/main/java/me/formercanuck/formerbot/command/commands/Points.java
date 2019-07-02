@@ -16,13 +16,21 @@ public class Points extends Command {
 
     @Override
     public void onCommand(String sender, Channel channel, String... args) {
-        if (args.length == 0 || !channel.isMod(sender) && channel.getPoints().containsKey(sender.toLowerCase())) {
-            channel.messageChannel(String.format("%s you have %s points.", sender, channel.getPoints().get(sender.toLowerCase())));
+        if (args.length == 0 || !channel.isMod(sender) && channel.getPointsMap().containsKey(sender.toLowerCase())) {
+            channel.messageChannel(String.format("%s you have %s points.", sender, channel.getPointsMap().get(sender.toLowerCase())));
         } else if (args.length < 3) {
             channel.messageChannel(getUsage(channel));
         } else {
             String cmd = args[0];
-            int amt = Integer.parseInt(args[1]);
+            int amt;
+
+            try {
+                amt = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                channel.messageChannel(String.format("@%s, %s is an invalid number or to large.", sender, args[1]));
+                return;
+            }
+
             String user = args[2].toLowerCase();
 
             if (cmd.equalsIgnoreCase("add")) {

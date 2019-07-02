@@ -27,11 +27,11 @@ public class Accept extends Command {
             if (random.nextBoolean()) {
                 channel.addPoints(sender, duel.getAmt());
                 channel.removePoints(duel.getChallenger(), duel.getAmt());
-                channel.messageChannel(String.format("It was a great battle, but only one left standing.... %s has won %s points! %s current points: %s", sender, duel.getAmt(), sender, channel.getPoints().get(sender.toLowerCase())));
+                channel.messageChannel(String.format("It was a great battle, but only one left standing.... %s has won %s points! %s current points: %s", sender, duel.getAmt(), sender, channel.getPointsMap().get(sender.toLowerCase())));
             } else {
                 channel.addPoints(duel.getChallenger(), duel.getAmt());
                 channel.removePoints(sender, duel.getAmt());
-                channel.messageChannel(String.format("It was a great battle, but only one left standing.... %s has won %s points! %s current points: %s", duel.getChallenger(), duel.getAmt(), duel.getChallenger(), channel.getPoints().get(duel.getChallenger().toLowerCase())));
+                channel.messageChannel(String.format("It was a great battle, but only one left standing.... %s has won %s points! %s current points: %s", duel.getChallenger(), duel.getAmt(), duel.getChallenger(), channel.getPointsMap().get(duel.getChallenger().toLowerCase())));
             }
 
             duel.cancel();

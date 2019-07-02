@@ -1,9 +1,11 @@
-A list of FormerB0t's commands:
+FormerBot is a twitch bot made in Java by FormerCanuck.
 
-Anything in <> is an optional argument, if there is a * in the <> this means mod only.
-
-  - !followage <username*> - Will show the date that you started following the channel.
-  - !topclips <clip number 1-5>(without args is mod only) - Will show you the top clip from 1-5 based on the argument you pass it.
-  - !uptime - Will show you how long the stream has been live.
-  - !serverage <set* | clear*> ex !serverage set: (2019-06-23) - This command allows the streamer / mods to set a start date for a server(different games will save different start dates) and allows users to do !serverage to see how long the server has been up.
-  - !youtube - Will show the last upload from streamers youtube channel, how long ago it was posted and also give you the link to said upload.
+Features:
+	- Ability to add custom commands.
+	- Youtube command > Will pull the last upload to the streams youtube channel(currentlty only looks for their twitch name on youtube). Will display the number of days since last upload the title and the link.
+	- Points system
+		- Currently followers gain 1 point/minute, it is configurable but only in the config as of now.
+		- Points can be given/taken via command !points <add | remove> <amount> <user>
+		- Dueling system to allow users to challange other users to duels for points.
+	- The bot will auto clear chat defaulted to 30 minutes, and is changeable by using !autoclear <minutes> (if argument is empty it will toggle the autoclear function.)
+	- Followers are able to type !followage and see when they followed and how long it has been since. !followage top 
