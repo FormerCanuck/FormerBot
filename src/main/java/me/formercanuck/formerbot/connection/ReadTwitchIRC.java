@@ -57,6 +57,7 @@ public class ReadTwitchIRC implements Runnable {
                 if (line.contains("PRIVMSG")) {
                     String[] ln = line.split(" ");
                     String user = line.substring(line.indexOf("name=") + 5, line.indexOf(";emotes"));
+                    Color color = Color.decode(line.substring(line.indexOf("color=") + 6, line.indexOf(";display")));
                     String channel1 = ln[3];
                     Channel channel = bot.getChannel(channel1);
                     StringBuilder stringBuilder = new StringBuilder();
@@ -123,9 +124,17 @@ public class ReadTwitchIRC implements Runnable {
                             clearTimer.schedule(task, 0, 1000);
                         }
                     }
+                    if (color != null)
+                        channel.getConsole().print(String.format("[%s][%s]: %s", channel.getChannel(), user, msg), user, Color.ORANGE, color);
+                    else
+                        channel.getConsole().println(String.format("[%s][%s]: %s", channel.getChannel(), user, msg), Color.ORANGE);
 
-                    channel.getConsole().println(String.format("[%s][%s]: %s", channel.getChannel(), user, msg), Color.GREEN);
+//                    if (color != null)
+//                        channel.getConsole().println(String.format("[%s][%s]: %s", channel.getChannel(), user, msg), color);
+//                    else
+//                        channel.getConsole().println(String.format("[%s][%s]: %s", channel.getChannel(), user, msg), Color.ORANGE);
                 }
+                Main.getInstance().getConsole().println("< " + line, Color.MAGENTA);
             }
         } catch (IOException ignored) {
 

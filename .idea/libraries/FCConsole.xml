@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/../FormerConsole/out/artifacts/FCConsole_jar/FCConsole.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../FormerConsole/src/main/java" />
+    </SOURCES>
   </library>
 </component>

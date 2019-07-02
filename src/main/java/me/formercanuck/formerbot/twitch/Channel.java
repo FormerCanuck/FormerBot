@@ -2,7 +2,7 @@ package me.formercanuck.formerbot.twitch;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import me.fc.console.Console;
+import me.formercanuck.formerbot.ChannelConsole;
 import me.formercanuck.formerbot.Main;
 import me.formercanuck.formerbot.command.CommandManager;
 import me.formercanuck.formerbot.connection.ReadTwitchIRC;
@@ -14,8 +14,8 @@ import me.formercanuck.formerbot.utils.GetJsonData;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class Channel {
 
@@ -41,7 +41,7 @@ public class Channel {
     private List<String> hasChatted;
     private List<String> viewers;
 
-    private Console console;
+    private ChannelConsole console;
 
     private List<DuelTask> duels = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class Channel {
 
         hasChatted = new ArrayList<>();
 
-        this.console = new Console(channel);
+        this.console = new ChannelConsole(channel, this);
         readTwitchIRC = new ReadTwitchIRC(bot.getTwitchConnection(), this);
         new Thread(readTwitchIRC).start();
 
@@ -80,6 +80,11 @@ public class Channel {
 
         Timer updatePointsAndViewers = new Timer();
         updatePointsAndViewers.scheduleAtFixedRate(new UpdateViewers(this), 0, (1000 * 60));
+    }
+
+    public void leaveChannel() {
+        // TODO: Implement saving of important things.
+        bot.sendRawMessage("PART " + getChannel());
     }
 
     public List<DuelTask> getDuels() {
@@ -136,7 +141,7 @@ public class Channel {
         } else return false;
     }
 
-    public Console getConsole() {
+    public ChannelConsole getConsole() {
         return console;
     }
 

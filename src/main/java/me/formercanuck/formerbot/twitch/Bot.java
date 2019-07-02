@@ -4,6 +4,7 @@ import me.fc.console.Console;
 import me.formercanuck.formerbot.FormerConsole;
 import me.formercanuck.formerbot.connection.TwitchConnection;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,7 +63,7 @@ public class Bot {
 
     public void sendRawMessage(String message) {
         try {
-            console.println("> " + message);
+            console.println("> " + message, Color.YELLOW);
             twitchConnection.getToTwitch().write(String.format("%s %s", message, "\r\n"));
             twitchConnection.getToTwitch().flush();
         } catch (Exception e) {
