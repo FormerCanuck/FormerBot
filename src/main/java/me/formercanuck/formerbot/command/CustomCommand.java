@@ -24,7 +24,7 @@ public class CustomCommand extends Command {
 
     public void onCommand(String sender, Channel channel, String[] args) {
         if (canUse(sender, channel))
-            channel.messageChannel(response);
+            channel.messageChannel(response.replaceAll("%user%", "@" + args[0]));
     }
 
     private boolean canUse(String sender, Channel channel) {
