@@ -31,12 +31,12 @@ public class Help extends Command {
             for (String s : list.getArrayList()) {
                 str.append(", ").append(s);
             }
-            channel.messageChannel(String.format("%s, here is a list of my commands (%s): %s", sender, channel.getCommandManager().getCommands().size(), str.toString().substring(2)));
+            channel.whisper(sender, String.format("%s, here is a list of my commands (%s): %s", sender, channel.getCommandManager().getCommands().size(), str.toString().substring(2)));
         } else if (args.length == 1) {
             String command = args[0];
             for (Command cmd : channel.getCommandManager().getCommands()) {
                 if (cmd.getName().equalsIgnoreCase(command)) {
-                    channel.messageChannel(cmd.getUsage(channel));
+                    channel.whisper(sender, cmd.getUsage(channel));
                 }
             }
         }

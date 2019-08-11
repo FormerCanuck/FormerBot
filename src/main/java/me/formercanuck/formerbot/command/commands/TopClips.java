@@ -38,7 +38,7 @@ public class TopClips extends Command {
             return;
         } else if (args.length > 0) {
             try {
-                channel.messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(Integer.parseInt(args[0])).getAsJsonObject().get("title").getAsString(), jsonArray.get(Integer.parseInt(args[0])).getAsJsonObject().get("url").getAsString()));
+                channel.messageChannel(String.format("Clip name: %s and the link: %s", jsonArray.get(Integer.parseInt(args[0]) - 1).getAsJsonObject().get("title").getAsString(), jsonArray.get(Integer.parseInt(args[0])).getAsJsonObject().get("url").getAsString()));
             } catch (NumberFormatException er) {
                 if (!channel.isMod(sender)) return;
 

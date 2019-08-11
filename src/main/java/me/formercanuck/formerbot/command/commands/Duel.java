@@ -32,9 +32,9 @@ public class Duel extends Command {
             }
 
             if (channel.getPoints(sender) >= amt) {
-                String user = args[1].toLowerCase();
+                String user = args[1].toLowerCase().replace("@", " ").trim();
                 if (channel.getPoints(user) > amt) {
-                    channel.messageChannel(String.format("%s has challenged %s to a duel. To accept type !accept", sender, user));
+                    channel.messageChannel(String.format("%s has challenged %s to a duel. To accept type %saccept", sender, user, channel.getChannelFile().get("prefix")));
                     DuelTask duelTask = new DuelTask(channel, sender, user, amt);
                     channel.addDuel(duelTask);
                     Timer timer = new Timer();

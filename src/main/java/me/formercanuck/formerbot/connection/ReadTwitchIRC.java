@@ -54,6 +54,20 @@ public class ReadTwitchIRC implements Runnable {
                     }
                 }
 
+                // :otherusername!otherusername@otherusername.tmi.twitch.tv WHISPER yourusername :HeyGuys
+                if (line.contains("WHISPER")) {
+                    String[] ln = line.split(" ");
+                    String user = line.substring(line.indexOf(":") + 1, line.indexOf("!") - 1);
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    for (int i = 4; i < ln.length; i++) {
+                        stringBuilder.append(ln[i]).append(" ");
+                    }
+                    String msg = stringBuilder.toString().substring(1);
+
+
+                }
+
                 if (line.contains("PRIVMSG")) {
                     String[] ln = line.split(" ");
                     String user = line.substring(line.indexOf("name=") + 5, line.indexOf(";emotes"));

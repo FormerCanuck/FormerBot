@@ -106,7 +106,7 @@ public class FollowAge extends Command {
 
     private void getFollowage(String user, String channel) {
         if (bot.getChannel(channel).isFollowing(user.toLowerCase())) {
-            bot.getChannel(channel).messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel.substring(1), bot.getChannel(channel).getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel(channel).getFollowDate(user))));
+            bot.getChannel(channel).messageChannel(String.format("%s has been following @%s since %s, which is %s days", user, channel, bot.getChannel(channel).getFollowDate(user), MiscUtils.numberOfDaysBetweenDateAndNow(bot.getChannel(channel).getFollowDate(user))));
         } else {
             bot.getChannel(channel).messageChannel(String.format("%s, you are not following.", user));
         }

@@ -73,6 +73,10 @@ public class ConfigFile {
         else return new ArrayList<>();
     }
 
+    public void addDefault(String key, Object value) {
+        if (!config.containsKey(key)) set(key, value);
+    }
+
     public boolean addPal(String pal) {
         List<String> temp = getPals();
         if (!temp.contains(pal)) {

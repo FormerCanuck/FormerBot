@@ -17,7 +17,7 @@ public class Points extends Command {
     @Override
     public void onCommand(String sender, Channel channel, String... args) {
         if (args.length == 0 || !channel.isMod(sender) && channel.getPointsMap().containsKey(sender.toLowerCase())) {
-            channel.messageChannel(String.format("%s you have %s points.", sender, channel.getPointsMap().get(sender.toLowerCase())));
+            channel.whisper(sender, String.format("You have %s points.", channel.getPointsMap().get(sender.toLowerCase())));
         } else if (args.length < 3) {
             channel.messageChannel(getUsage(channel));
         } else {
@@ -31,7 +31,7 @@ public class Points extends Command {
                 return;
             }
 
-            String user = args[2].toLowerCase();
+            String user = args[2].toLowerCase().replace("@", " ").trim();
 
             if (cmd.equalsIgnoreCase("add")) {
                 channel.addPoints(user, amt);
@@ -41,7 +41,6 @@ public class Points extends Command {
                 channel.messageChannel(String.format("%s has removed %s point(s) to %s", sender, amt, user));
             }
         }
-
     }
 
     @Override
