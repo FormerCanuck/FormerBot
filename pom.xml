@@ -20,6 +20,14 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
@@ -38,5 +46,13 @@
             <artifactId>annotations</artifactId>
             <version>17.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.swisstech</groupId>
+            <artifactId>bitly-api-client</artifactId>
+            <version>0.8.0</version>
+            <type>pom</type>
+        </dependency>
+
     </dependencies>
 </project>

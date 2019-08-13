@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -62,6 +63,14 @@ public class ConfigFile {
 
     public List<String> getWatchList() {
         return (List<String>) config.get("watchlist");
+    }
+
+    public HashMap<String, Integer> getPointsMap() {
+        return (HashMap<String, Integer>) config.get("points");
+    }
+
+    public HashMap<String, String> getHashMap(String key) {
+        return (HashMap<String, String>) config.get(key);
     }
 
     public Integer getInt(String key) {

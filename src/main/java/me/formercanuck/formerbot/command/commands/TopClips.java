@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import me.formercanuck.formerbot.command.Command;
 import me.formercanuck.formerbot.twitch.Channel;
 import me.formercanuck.formerbot.utils.GetJsonData;
+import me.formercanuck.formerbot.utils.URLShortener;
 
 import java.util.HashMap;
 
@@ -51,13 +52,17 @@ public class TopClips extends Command {
 
                 if (clips.containsKey(sender) && !clips.get(sender).isEmpty()) sendersClips = clips.get(sender);
 
-                if (clips.containsKey(args[0].toLowerCase())) {
+                if (clips.containsKey(args[0].toLowerCase().replace("@", " ").trim())) {
                     sendersClips = clips.get(args[0]);
                     if (sendersClips == null) sendersClips = new HashMap<>();
-                    channel.messageChannel(String.format("%s here are %s's favorite clips: ", sender, args[0]));
+
+                    StringBuilder test = new StringBuilder();
+
                     for (String s : sendersClips.keySet()) {
-                        channel.messageChannel(String.format("%s", sendersClips.get(s)));
+//                        channel.messageChannel(String.format("%s: %s", s, MiscUtils.shorten(sendersClips.get(s))));
+                        test.append(String.format("%s: %s", s, URLShortener.shorten(sendersClips.get(s))));
                     }
+                    channel.messageChannel(String.format("%s here are %s's favorite clips: %s", sender, args[0], test.toString().trim()));
                 } else {
                     sendersClips = clips.get(sender);
                     if (sendersClips == null) sendersClips = new HashMap<>();

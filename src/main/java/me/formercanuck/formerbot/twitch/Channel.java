@@ -25,7 +25,7 @@ public class Channel {
 
     private String channelID;
 
-    public HashMap<String, String> followers = new HashMap<>();
+    private HashMap<String, String> followers = new HashMap<>();
 
     private Bot bot;
     private CommandManager commandManager;
@@ -74,16 +74,16 @@ public class Channel {
         getDuels().add(duelTask);
     }
 
-    public List<String> getViewers() {
+    private List<String> getViewers() {
         return viewers;
     }
 
-    public void setViewers(List<String> viewers) {
+    private void setViewers(List<String> viewers) {
         this.viewers = viewers;
     }
 
     public HashMap<String, Integer> getPointsMap() {
-        this.points = (HashMap<String, Integer>) channelFile.get("points");
+        this.points = channelFile.getPointsMap();
         return this.points;
     }
 
@@ -105,12 +105,11 @@ public class Channel {
         setPoints(user, getPointsMap().get(user) + points);
     }
 
-    public boolean removePoints(String user, int points) {
+    public void removePoints(String user, int points) {
         user = user.toLowerCase();
         if (getPoints(user) > points) {
             setPoints(user, getPointsMap().get(user) - points);
-            return true;
-        } else return false;
+        }
     }
 
     public ChannelConsole getConsole() {
@@ -137,7 +136,7 @@ public class Channel {
         return isLive;
     }
 
-    public void setLive(boolean isLive) {
+    private void setLive(boolean isLive) {
         if (isLive) {
             goLive();
             this.isLive = true;
@@ -177,13 +176,13 @@ public class Channel {
         return mods.contains(user.toLowerCase());
     }
 
-    public void addFollower(String user, String followDate) {
+    private void addFollower(String user, String followDate) {
         followers.put(user.toLowerCase(), followDate);
     }
 
     public String getFollowDate(String user) {
         user = user.toLowerCase();
-        HashMap<String, String> follows = (HashMap<String, String>) channelFile.get("follows");
+        HashMap<String, String> follows = channelFile.getHashMap("follows");
         if (follows.containsKey(user)) {
             return follows.get(user);
         } else {
@@ -195,7 +194,7 @@ public class Channel {
     public boolean isFollowing(String user) {
         HashMap<String, String> follows;
         if (channelFile.contains("follows"))
-            follows = (HashMap<String, String>) channelFile.get("follows");
+            follows = channelFile.getHashMap("follows");
         else return false;
 
         for (String key : follows.keySet()) {
@@ -408,7 +407,7 @@ public class Channel {
             addFollower(user, followDate.substring(0, 10));
         }
 
-        HashMap<String, String> followFile = (HashMap<String, String>) getChannelFile().get("follows");
+        HashMap<String, String> followFile = getChannelFile().getHashMap("follows");
 
         ArrayList<String> newFollows = new ArrayList<>();
 
@@ -470,7 +469,7 @@ public class Channel {
         }
         setViewers(viewers);
 
-        if (channelFile.contains("points")) points = (HashMap<String, Integer>) channelFile.get("points");
+        if (channelFile.contains("points")) points = channelFile.getPointsMap();
         else points = new HashMap<>();
 
         for (String s : getViewers()) {
